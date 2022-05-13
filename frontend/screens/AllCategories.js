@@ -1,10 +1,10 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
-export default function Categories() {
+export default function AllCategories() {
     return (
       <View style={styles.container}>
-        <Text>Categories.js</Text>
+        <Text>AllCategories.js</Text>
       </View>
     );
   }

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, ScrollView, Image, Text } from 'react-native';
+import { StyleSheet, View, ScrollView, Image, Text, TouchableWithoutFeedback } from 'react-native';
 
 // Import de SafeAreaView pour ne pas etre gené par la barre haute par defaut du telephone
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -19,23 +19,23 @@ export default function Home(props) {
   };
 
   var fakeCategories = [
-    { image: require('../assets/categories/haircut.png'), name: 'Coiffeur' },
-    { image: require('../assets/categories/massage-des-pieds.png'), name: 'Pédicure' },
-    { image: require('../assets/categories/massage.png'), name: 'Massage' },
-    { image: require('../assets/categories/mother.png'), name: 'Baby-Sitting' },
-    { image: require('../assets/categories/peinture.png'), name: 'Peinture' },
-    { image: require('../assets/categories/relooking.png'), name: 'Maquillage' },
-    { image: require('../assets/categories/trou-de-serrure.png'), name: 'Serrurier' },
+    { image: require('../assets/categories/haircut.png'), color: '#7241DB', name: 'Coiffeur' },
+    { image: require('../assets/categories/massage-des-pieds.png'), color: '#3DA787', name: 'Pédicure' },
+    { image: require('../assets/categories/massage.png'), color: '#7241DB', name: 'Massage' },
+    { image: require('../assets/categories/mother.png'), color: '#3DA787', name: 'Baby-Sitting' },
+    { image: require('../assets/categories/peinture.png'), color: '#7241DB', name: 'Peinture' },
+    { image: require('../assets/categories/relooking.png'), color: '#3DA787', name: 'Maquillage' },
+    { image: require('../assets/categories/trou-de-serrure.png'), color: '#7241DB', name: 'Serrurier' },
   ]
 
   var fakeTableau = [
-    { image: require('../assets/miniatest1.jpg'), name: 'Prestataire 1', city: 'Paris 17e', adress: "1515 boulevard Montagne", note: 4.5 },
-    { image: require('../assets/miniatest2.jpg'), name: 'Prestataire 2', city: 'Paris 15e', adress: "14 avenue des Champs Elysees", note: 4.5 },
-    { image: require('../assets/miniatest1.jpg'), name: 'Prestataire 3', city: 'Paris 14e', adress: "5 rue de Paris", note: 4.5 },
-    { image: require('../assets/miniatest2.jpg'), name: 'Prestataire 4', city: 'Paris 13e', adress: "875 boulevard de Mantes", note: 4.5 },
-    { image: require('../assets/miniatest1.jpg'), name: 'Prestataire 5', city: 'Paris 15e', adress: "92 rue de la Marne", note: 4.5 },
-    { image: require('../assets/miniatest2.jpg'), name: 'Prestataire 6', city: 'Paris 14e', adress: "165 rue Donatelo", note: 4.5 },
-    { image: require('../assets/miniatest1.jpg'), name: 'Prestataire 7', city: 'Paris 13e', adress: "2509 rue de Beni", note: 4.5 },
+    { image: require('../assets/fakeminia/miniatest2.jpg'),name: "Controle Techinque Mant'te", city: 'Paris 13e', adress: "875 boulevard de Mantes", note: 5 },
+    { image: require('../assets/fakeminia/miniatest1.jpg'),name: 'Coiffeur du Marnois', city: 'Paris 15e', adress: "92 rue de la Marne", note: 4.6 },
+    { image: require('../assets/fakeminia/miniatest3.jpg'),name: "Montagn'enfance", city: 'Paris 17e', adress: "1515 boulevard Montagne", note: 4.5 },
+    { image: require('../assets/fakeminia/miniatest4.jpg'),name: 'Beni Crochet', city: 'Paris 13e', adress: "2509 rue de Beni", note: 4.5 },
+    { image: require('../assets/fakeminia/miniatest5.jpg'),name: 'Massage du 15', city: 'Paris 14e', adress: "5 rue de Paris", note: 4.4 },
+    { image: require('../assets/fakeminia/miniatest6.jpg'),name: "Pedic'dona", city: 'Paris 14e', adress: "165 rue Donatelo", note: 4.3 },
+    { image: require('../assets/fakeminia/miniatest7.jpg'),name: 'Maquille Moi des Champs', city: 'Paris 15e', adress: "14 avenue des Champs Elysees", note: 4.1 },
   ]
 
   return (
@@ -85,44 +85,55 @@ export default function Home(props) {
         <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
           {fakeCategories.map((element, i) => {
             return (
-              <View key={i} style={styles.categorieswidget}>
-                <Image
-                  rounded
-                  style={{ borderRadius : 50, height:90, width: 90, marginBottom: 10 }}
-                  source={element.image}
-                />
-                <Text style={{ textAlign: 'center', fontSize: 17 }}>{element.name}</Text>
-              </View>
+              <TouchableWithoutFeedback onPress={() => { props.navigation.navigate('Categories') }}>
+                <View key={i} style={styles.categorieswidget}>
+
+                  <Image
+                    rounded
+                    backgroundColor={element.color}
+                    style={{ borderRadius: 50, height: 90, width: 90, marginBottom: 10, borderColor: 'black', borderWidth: 3 }}
+                    source={element.image}
+                  />
+                  <Text style={{ textAlign: 'center', fontSize: 17 }}>{element.name}</Text>
+                </View>
+              </TouchableWithoutFeedback>
             )
           })
           }
         </ScrollView>
       </View>
-
-      <View style={styles.categoriestext}>
-        <Text style={{ marginRight: 5, fontWeight: 'bold', fontSize: 17 }}>Voir tout</Text>
-        <Ionicons name='chevron-forward' size={15} color='black' />
-      </View>
+      
+      <TouchableWithoutFeedback onPress={() => { props.navigation.navigate('AllCategories') }}>
+        <View style={styles.categoriestext}>
+          <Text style={{ marginRight: 5, fontWeight: 'bold', fontSize: 17 }}>Voir tout</Text>
+          <Ionicons name='chevron-forward' size={15} color='black' />
+        </View>
+      </TouchableWithoutFeedback>
 
       <ScrollView style={{ width: '100%' }} showsVerticalScrollIndicator={false} >
         {fakeTableau.map((element, i) => {
           return (
-            <Card 
+            <TouchableWithoutFeedback onPress={() => { props.navigation.navigate('Prestataire') }}>
+            <Card
               key={i}
               containerStyle={{ padding: 0, borderRadius: 10 }}>
               <View style={{ flexDirection: 'row' }} >
                 <Image
-                  style={{ borderTopLeftRadius: 10, borderBottomLeftRadius: 10, height:100, width: 100 }}
+                  style={{ borderTopLeftRadius: 10, borderBottomLeftRadius: 10, height: 100, width: 100 }}
                   source={element.image}
                 />
-                <View style={{ marginLeft: 15, justifyContent: 'center' }}>
-                  <Text onPress={() => { props.navigation.navigate('Presta') }} style={styles.fontsize}>{element.name}</Text>
-                  <Text onPress={() => { props.navigation.navigate('Presta') }} >{element.adress}</Text>
-                  <Text onPress={() => { props.navigation.navigate('Presta') }} >{element.city}</Text>
-                  <Text onPress={() => { props.navigation.navigate('Presta') }} >{element.note}</Text>
+                <View style={{ marginLeft: 15, justifyContent: 'center', minWidth: '65%'}}>
+                  <Text style={styles.fontsize}>{element.name}</Text>
+                  <Text >{element.adress}</Text>
+                  <Text >{element.city}</Text>
+                  <View style={{flexDirection : 'row', justifyContent: 'flex-end', alignItems: 'center'}}>
+                  <Text style={{fontSize:17, fontWeight:'bold', marginLeft:10}}>{element.note}</Text>
+                  <Ionicons name="md-star" size={17} color="#F5B642" style={{marginLeft:10}} />
+                  </View>
                 </View>
               </View>
             </Card>
+            </TouchableWithoutFeedback>
           )
         })
         }

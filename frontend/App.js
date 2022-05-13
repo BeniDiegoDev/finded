@@ -16,6 +16,8 @@ import { Ionicons } from '@expo/vector-icons';
 
 import Home from './screens/Home';
 import Prestataire from './screens/Prestataire';
+import AllCategories from './screens/AllCategories';
+import Categories from './screens/Categories';
 import Search from './screens/Search';
 import Reservation from './screens/Reservation';
 import Profil from './screens/Profil';
@@ -27,7 +29,9 @@ function HomeStackScreen() {
   return (
     <HomeStack.Navigator screenOptions={{ headerShown: false }}>
       <HomeStack.Screen name="Home" component={Home} />
-      <HomeStack.Screen name="Presta" component={Prestataire} />
+      <HomeStack.Screen name="Prestataire" component={Prestataire} />
+      <HomeStack.Screen name="AllCategories" component={AllCategories} />
+      <HomeStack.Screen name="Categories" component={Categories} />
     </HomeStack.Navigator>
   );
 }
