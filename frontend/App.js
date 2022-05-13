@@ -1,4 +1,6 @@
 import React from 'react';
+
+// Import des navigations
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -37,6 +39,7 @@ function SearchStackStackScreen() {
     </SearchStack.Navigator>
   );
 }
+
 const ReservationStack = createStackNavigator();
 
 function ReservationStackScreen() {

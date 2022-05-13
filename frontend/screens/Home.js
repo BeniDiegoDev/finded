@@ -30,119 +30,115 @@ export default function Home() {
   ]
 
   var fakeTableau = [
-    { image: { name: 'adb', type: 'material' }, name: 'Prestataire 1', city: 'Paris 17e', desc: "Entreprise connu depuis plus de 100 ans pour son patrimoine, vous pourrez profiter d'une grande claque de plaisir", note: 4.5 },
-    { image: { name: 'adb', type: 'material' }, name: 'Prestataire 2', city: 'Paris 15e', desc: "Entreprise connu depuis plus de 100 ans pour son patrimoine, vous pourrez profiter d'une grande claque de plaisir", note: 4.5 },
-    { image: { name: 'adb', type: 'material' }, name: 'Prestataire 3', city: 'Paris 14e', desc: "Entreprise connu depuis plus de 100 ans pour son patrimoine, vous pourrez profiter d'une grande claque de plaisir", note: 4.5 },
-    { image: { name: 'adb', type: 'material' }, name: 'Prestataire 4', city: 'Paris 13e', desc: "Entreprise connu depuis plus de 100 ans pour son patrimoine, vous pourrez profiter d'une grande claque de plaisir", note: 4.5 },
-    { image: { name: 'adb', type: 'material' }, name: 'Prestataire 5', city: 'Paris 15e', desc: "Entreprise connu depuis plus de 100 ans pour son patrimoine, vous pourrez profiter d'une grande claque de plaisir", note: 4.5 },
-    { image: { name: 'adb', type: 'material' }, name: 'Prestataire 6', city: 'Paris 14e', desc: "Entreprise connu depuis plus de 100 ans pour son patrimoine, vous pourrez profiter d'une grande claque de plaisir", note: 4.5 },
-    { image: { name: 'adb', type: 'material' }, name: 'Prestataire 7', city: 'Paris 13e', desc: "Entreprise connu depuis plus de 100 ans pour son patrimoine, vous pourrez profiter d'une grande claque de plaisir", note: 4.5 },
+    { image: { name: 'adb', type: 'material' }, name: 'Prestataire 1', city: 'Paris 17e', adress: "1515 boulevard Montagne", note: 4.5 },
+    { image: { name: 'adb', type: 'material' }, name: 'Prestataire 2', city: 'Paris 15e', adress: "14 avenue des Champs Elysees", note: 4.5 },
+    { image: { name: 'adb', type: 'material' }, name: 'Prestataire 3', city: 'Paris 14e', adress: "5 rue de Paris", note: 4.5 },
+    { image: { name: 'adb', type: 'material' }, name: 'Prestataire 4', city: 'Paris 13e', adress: "875 boulevard de Mantes", note: 4.5 },
+    { image: { name: 'adb', type: 'material' }, name: 'Prestataire 5', city: 'Paris 15e', adress: "92 rue de la Marne", note: 4.5 },
+    { image: { name: 'adb', type: 'material' }, name: 'Prestataire 6', city: 'Paris 14e', adress: "165 rue Donatelo", note: 4.5 },
+    { image: { name: 'adb', type: 'material' }, name: 'Prestataire 7', city: 'Paris 13e', adress: "2509 rue de Beni", note: 4.5 },
   ]
 
   return (
+    <View style={styles.container}>
 
-    <ScrollView showsVerticalScrollIndicator={false}>
-      <View style={styles.container}>
+      <View style={styles.finded}>
+        <Text style={{
+          color: '#7241DB',
+          fontWeight: 'bold',
+          fontStyle: 'italic',
+          textAlign: 'center',
+          fontSize: 20,
+        }}>Finded</Text>
+      </View>
 
-        <View style={styles.finded}>
-          <Text style={{
-            color: '#7241DB',
-            fontWeight: 'bold',
-            fontStyle: 'italic',
-            textAlign: 'center',
-            fontSize: 20,
-          }}>Finded</Text>
+      <View style={styles.topsearchbar}>
+        <View style={{ flexDirection: 'row', alignItems: 'center', marginLeft: 10 }}>
+          <Ionicons name='location' size={32} color='#3DA787' />
+          <Text style={{ fontWeight: 'bold', marginLeft: 10, fontSize: 17 }}>Paris 17e</Text>
         </View>
-
-        <View style={styles.topsearchbar}>
-          <View style={{ flexDirection: 'row', alignItems: 'center', marginLeft: 10 }}>
-            <Ionicons name='location' size={32} color='#3DA787' />
-            <Text style={{ fontWeight: 'bold', marginLeft: 10, fontSize: 17 }}>Paris 17e</Text>
-          </View>
-          <View style={{ marginRight: 10 }}>
-            <Button
-              buttonStyle={{ borderColor: "#7241DB" }}
-              titleStyle={{ color: '#7241DB', fontSize: 17 }}
-              title="Autour de vous"
-              type="outline"
-              containerStyle={{ marginLeft: 20, }}
-            />
-          </View>
-        </View>
-
-        <View style={styles.searchbar}>
-          <SearchBar
-            placeholder="Recherche"
-            onChangeText={updateSearch}
-            value={search}
-            lightTheme="true"
-            containerStyle={{ backgroundColor: 'white', borderTopColor: 'white', borderBottomColor: 'white' }}
-            leftIconContainerStyle={{ backgroundColor: 'white' }}
-            inputStyle={{ backgroundColor: 'white' }}
-            inputContainerStyle={{ backgroundColor: 'white' }}
+        <View style={{ marginRight: 10 }}>
+          <Button
+            buttonStyle={{ borderColor: "#7241DB" }}
+            titleStyle={{ color: '#7241DB', fontSize: 17 }}
+            title="Autour de vous"
+            type="outline"
+            containerStyle={{ marginLeft: 20, }}
           />
         </View>
+      </View>
 
+      <View style={styles.searchbar}>
+        <SearchBar
+          placeholder="Recherche"
+          onChangeText={updateSearch}
+          value={search}
+          lightTheme="true"
+          containerStyle={{ backgroundColor: 'white', borderTopColor: 'white', borderBottomColor: 'white' }}
+          leftIconContainerStyle={{ backgroundColor: 'white' }}
+          inputStyle={{ backgroundColor: 'white' }}
+          inputContainerStyle={{ backgroundColor: 'white', borderWidth: 1, borderRadius: 10, borderBottomWidth: 1 }}
+        />
+        <Text style={{ paddingLeft: 20, fontSize: 30 }}>Catégories</Text>
+      </View>
+
+      <View style={styles.categories}>
         <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-          <View style={styles.categories}>
-            {fakeCategories.map((element, i) => {
-              return (
-                <View key={i} style={styles.categorieswidget}>
-                  <Avatar
-                    rounded
-                    icon={element.image}
-                    containerStyle={{ backgroundColor: 'orange' }}
-                    size="large"
-                  />
-                  <Text style={{ textAlign: 'center' }}>{element.name}</Text>
-                </View>
-              )
-            })
-            }
-          </View>
-        </ScrollView>
-
-        <View style={styles.categoriestext}>
-          <Text style={{ marginRight: 5, fontWeight: 'bold' }}>Voir tout</Text>
-          <Ionicons name='chevron-forward' size={15} color='black' />
-        </View>
-
-        <View style={styles.cards}>
-          {fakeTableau.map((element, i) => {
+          {fakeCategories.map((element, i) => {
             return (
-              <Card key={i}>
-                <View style={{ flexDirection: 'row' }}>
-                  <Avatar
-                    rounded
-                    icon={element.image}
-                    containerStyle={{ backgroundColor: 'orange' }}
-                    size="large"
-                  />
-                  <View style={{ marginLeft: 15 }}>
-                    <Text>{element.name}</Text>
-                    <Text>{element.city}</Text>
-                    <Text style={{ maxWidth: '90%' }}>{element.desc}</Text>
-                    <View>
-                      <Text>{element.note}</Text>
-                    </View>
-                  </View>
-                </View>
-              </Card>
+              <View key={i} style={styles.categorieswidget}>
+                <Avatar
+                  rounded
+                  icon={element.image}
+                  containerStyle={{ backgroundColor: 'orange' }}
+                  size="large"
+                />
+                <Text style={{ textAlign: 'center', fontSize: 17 }}>{element.name}</Text>
+              </View>
             )
           })
           }
-        </View>
-
+        </ScrollView>
       </View>
 
-    </ScrollView>
+      <View style={styles.categoriestext}>
+        <Text style={{ marginRight: 5, fontWeight: 'bold', fontSize: 17 }}>Voir tout</Text>
+        <Ionicons name='chevron-forward' size={15} color='black' />
+      </View>
+
+      <ScrollView style={{ width: '100%' }} showsVerticalScrollIndicator={false}>
+        {fakeTableau.map((element, i) => {
+          return (
+            <Card key={i}>
+              <View style={{ flexDirection: 'row' }}>
+                <Avatar
+                  rounded
+                  icon={element.image}
+                  containerStyle={{ backgroundColor: 'orange' }}
+                  size="large"
+                />
+                <View style={{ marginLeft: 15 }}>
+                  <Text style={styles.fontsize}>{element.name}</Text>
+                  <Text>{element.adress}</Text>
+                  <Text>{element.city}</Text>
+                  <Text>{element.note}</Text>
+                </View>
+              </View>
+            </Card>
+          )
+        })
+        }
+      </ScrollView >
+
+    </View>
+
+
   );
 }
 
 const styles = StyleSheet.create({
-  safearea: {
-    backgroundColor: '#FFFFFF',
-    flex: 1,
+  fontsize: {
+    fontSize: 17,
   },
   container: {
     backgroundColor: 'white',
@@ -161,6 +157,8 @@ const styles = StyleSheet.create({
   },
   searchbar: {
     width: '100%',
+    paddingTop: 10,
+    paddingBottom: 10,
   },
   categories: {
     marginTop: 10,
@@ -176,7 +174,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: '100%',
     paddingRight: 15,
-    paddingTop: 10,
+    paddingTop: 15,
+    paddingBottom: 10,
   },
   cards: {
     width: '100%',
