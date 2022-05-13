@@ -34,21 +34,23 @@ export default function App() {
 
 function tabBar() {
   return (
-    <Tab.Navigator screenOptions={({ route }) => ({
-      tabBarIcon: ({ color }) => {
-        let iconName;
-        if (route.name === 'Finded') {
-          iconName = 'home'
-        } else if (route.name === 'Reservation') {
-          iconName = 'calendar'
-        } else if (route.name === 'Recherche') {
-          iconName = 'md-search'
-        } else if (route.name === 'Profil') {
-          iconName = 'person'
-        }
-        return <Ionicons name={iconName} size={32} color={color} />;
-      },
-    })}
+    <Tab.Navigator
+
+      screenOptions={({ route }) => ({
+        tabBarIcon: ({ color }) => {
+          let iconName;
+          if (route.name === 'Finded') {
+            iconName = 'home'
+          } else if (route.name === 'Reservation') {
+            iconName = 'calendar'
+          } else if (route.name === 'Recherche') {
+            iconName = 'md-search'
+          } else if (route.name === 'Profil') {
+            iconName = 'person'
+          }
+          return <Ionicons name={iconName} size={32} color={color} />;
+        },
+      })}
 
       tabBarOptions={{
         activeTintColor: '#7241DB',
@@ -56,7 +58,8 @@ function tabBar() {
         activeBackgroundColor: '#FFFFFF',
         inactiveBackgroundColor: '#FFFFFF',
         showLabel: false,
-      }}>
+      }}
+    >
       <Tab.Screen name="Finded" component={Home} />
       <Tab.Screen name="Reservation" component={Reservation} />
       <Tab.Screen name="Recherche" component={Search} />
