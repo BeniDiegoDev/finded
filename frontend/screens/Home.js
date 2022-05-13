@@ -11,7 +11,7 @@ import { Button } from '@rneui/base'
 // Import des icones pour la navbar
 import { Ionicons } from '@expo/vector-icons';
 
-function Home() {
+export default function Home() {
 
   const [search, setSearch] = useState("");
   const updateSearch = (search) => {
@@ -87,7 +87,7 @@ function Home() {
           <View style={styles.categories}>
             {fakeCategories.map((element, i) => {
               return (
-                <View style={styles.categorieswidget}>
+                <View key={i} style={styles.categorieswidget}>
                   <Avatar
                     rounded
                     icon={element.image}
@@ -110,7 +110,7 @@ function Home() {
         <View style={styles.cards}>
           {fakeTableau.map((element, i) => {
             return (
-              <Card>
+              <Card key={i}>
                 <View style={{ flexDirection: 'row' }}>
                   <Avatar
                     rounded
@@ -182,5 +182,3 @@ const styles = StyleSheet.create({
     width: '100%',
   }
 });
-
-export default (Home)

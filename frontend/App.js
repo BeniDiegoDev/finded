@@ -1,4 +1,7 @@
 import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 // Import de la LogBox qui efface les erreurs visible sur le telephone
 import { LogBox } from 'react-native';
@@ -6,61 +9,90 @@ import { LogBox } from 'react-native';
 // Desactive les warnings sur le telephone
 LogBox.ignoreAllLogs();
 
-// Import de la navigation
-import { NavigationContainer } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { createStackNavigator } from '@react-navigation/stack';
-const Stack = createStackNavigator();
-const Tab = createBottomTabNavigator();
-
-// Import des screens
-import Home from './screens/Home';
-import Reservation from './screens/Reservation';
-import Search from './screens/Search';
-import Profil from './screens/Profil';
-
 // Import des icones pour la navbar
 import { Ionicons } from '@expo/vector-icons';
+
+import Home from './screens/Home';
+import Search from './screens/Search';
+import Reservation from './screens/Reservation';
+import Profil from './screens/Profil';
+import EditProfil from './screens/EditProfil';
+
+const HomeStack = createStackNavigator();
+
+function HomeStackScreen() {
+  return (
+    <HomeStack.Navigator screenOptions={{ headerShown: false }}>
+      <HomeStack.Screen name="Home" component={Home} />
+    </HomeStack.Navigator>
+  );
+}
+
+const SearchStack = createStackNavigator();
+
+function SearchStackStackScreen() {
+  return (
+    <SearchStack.Navigator screenOptions={{ headerShown: false }}>
+      <SearchStack.Screen name="Search" component={Search} />
+    </SearchStack.Navigator>
+  );
+}
+const ReservationStack = createStackNavigator();
+
+function ReservationStackScreen() {
+  return (
+    <ReservationStack.Navigator screenOptions={{ headerShown: false }}>
+      <ReservationStack.Screen name="Reservation" component={Reservation} />
+    </ReservationStack.Navigator>
+  );
+}
+
+const ProfilStack = createStackNavigator();
+
+function ProfilStackScreen() {
+  return (
+    <ProfilStack.Navigator screenOptions={{ headerShown: false }}>
+      <ProfilStack.Screen name="Profil" component={Profil} />
+      <ProfilStack.Screen name="EditProfil" component={EditProfil} />
+    </ProfilStack.Navigator>
+  );
+}
+
+const Tab = createBottomTabNavigator();
 
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="tabBar" component={tabBar} />
-      </Stack.Navigator>
+       <Tab.Navigator
+            screenOptions={({ route }) => ({
+              tabBarIcon: ({ color }) => {
+                let iconName;
+                if (route.name === 'Home') {
+                  iconName = 'home'
+                } else if (route.name === 'Reservation') {
+                  iconName = 'calendar'
+                } else if (route.name === 'Search') {
+                  iconName = 'md-search'
+                } else if (route.name === 'Profil') {
+                  iconName = 'person'
+                }
+                return <Ionicons name={iconName} size={32} color={color} />;
+              },
+            })}
+
+            tabBarOptions={{
+              activeTintColor: '#7241DB',
+              inactiveTintColor: '#3DA787',
+              activeBackgroundColor: '#FFFFFF',
+              inactiveBackgroundColor: '#FFFFFF',
+              showLabel: false,
+            }}
+            >
+        <Tab.Screen name="Home" component={HomeStackScreen} />
+        <Tab.Screen name="Search" component={SearchStackStackScreen} />
+        <Tab.Screen name="Reservation" component={ReservationStackScreen} />
+        <Tab.Screen name="Profil" component={ProfilStackScreen} />
+      </Tab.Navigator>
     </NavigationContainer>
   );
-}
-
-function tabBar() {
-  return (
-    <Tab.Navigator screenOptions={({ route }) => ({
-      tabBarIcon: ({ color }) => {
-        let iconName;
-        if (route.name === 'Finded') {
-          iconName = 'home'
-        } else if (route.name === 'Reservation') {
-          iconName = 'calendar'
-        } else if (route.name === 'Recherche') {
-          iconName = 'md-search'
-        } else if (route.name === 'Profil') {
-          iconName = 'person'
-        }
-        return <Ionicons name={iconName} size={32} color={color} />;
-      },
-    })}
-
-      tabBarOptions={{
-        activeTintColor: '#7241DB',
-        inactiveTintColor: '#3DA787',
-        activeBackgroundColor: '#FFFFFF',
-        inactiveBackgroundColor: '#FFFFFF',
-        showLabel: false,
-      }}>
-      <Tab.Screen name="Finded" component={Home} />
-      <Tab.Screen name="Reservation" component={Reservation} />
-      <Tab.Screen name="Recherche" component={Search} />
-      <Tab.Screen name="Profil" component={Profil} />
-    </Tab.Navigator>
-  )
 }
