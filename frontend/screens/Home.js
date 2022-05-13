@@ -11,7 +11,7 @@ import { Button } from '@rneui/base'
 // Import des icones pour la navbar
 import { Ionicons } from '@expo/vector-icons';
 
-function Home() {
+export default function Home() {
 
   const [search, setSearch] = useState("");
   const updateSearch = (search) => {
@@ -181,5 +181,3 @@ const styles = StyleSheet.create({
     width: '100%',
   }
 });
-
-export default (Home)
