@@ -18,6 +18,7 @@ import Home from './screens/Home';
 import Search from './screens/Search';
 import Reservation from './screens/Reservation';
 import Profil from './screens/Profil';
+import Prestataire from './screens/Prestataire';
 import EditProfil from './screens/EditProfil';
 
 const HomeStack = createStackNavigator();
@@ -26,6 +27,8 @@ function HomeStackScreen() {
   return (
     <HomeStack.Navigator screenOptions={{ headerShown: false }}>
       <HomeStack.Screen name="Home" component={Home} />
+      <HomeStack.Screen name="Presta" component={Prestataire} />
+
     </HomeStack.Navigator>
   );
 }

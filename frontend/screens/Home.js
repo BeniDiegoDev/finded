@@ -11,7 +11,7 @@ import { Button } from '@rneui/base'
 // Import des icones pour la navbar
 import { Ionicons } from '@expo/vector-icons';
 
-export default function Home() {
+export default function Home(props) {
 
   const [search, setSearch] = useState("");
   const updateSearch = (search) => {
@@ -115,6 +115,7 @@ export default function Home() {
                   style={{ backgroundColor: 'orange', borderTopLeftRadius: 10, borderBottomLeftRadius: 10, height:100, width: 100 }}
                   size={100}
                   source={element.image}
+                  onPress={() => {props.navigation.navigate('Presta')}}
                 />
                 <View style={{ marginLeft: 15, justifyContent: 'center' }}>
                   <Text style={styles.fontsize}>{element.name}</Text>
