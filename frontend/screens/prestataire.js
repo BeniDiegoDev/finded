@@ -12,7 +12,7 @@ import { Button } from '@rneui/base'
 import { Ionicons } from '@expo/vector-icons';
 import { Divider, Tab } from 'react-native-elements';
 
-export default function Prestataire() {
+export default function Prestataire(props) {
 
     let services = [
       {

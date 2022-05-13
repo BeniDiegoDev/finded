@@ -19,24 +19,23 @@ export default function Home(props) {
   };
 
   var fakeCategories = [
-    { image: { name: 'adb', type: 'material' }, name: 'Categorie 1' },
-    { image: { name: 'adb', type: 'material' }, name: 'Categorie 2' },
-    { image: { name: 'adb', type: 'material' }, name: 'Categorie 3' },
-    { image: { name: 'adb', type: 'material' }, name: 'Categorie 4' },
-    { image: { name: 'adb', type: 'material' }, name: 'Categorie 5' },
-    { image: { name: 'adb', type: 'material' }, name: 'Categorie 6' },
-    { image: { name: 'adb', type: 'material' }, name: 'Categorie 7' },
-    { image: { name: 'adb', type: 'material' }, name: 'Categorie 8' },
+    { image: require('../assets/categories/haircut.png'), name: 'Coiffeur' },
+    { image: require('../assets/categories/massage-des-pieds.png'), name: 'Pédicure' },
+    { image: require('../assets/categories/massage.png'), name: 'Massage' },
+    { image: require('../assets/categories/mother.png'), name: 'Baby-Sitting' },
+    { image: require('../assets/categories/peinture.png'), name: 'Peinture' },
+    { image: require('../assets/categories/relooking.png'), name: 'Maquillage' },
+    { image: require('../assets/categories/trou-de-serrure.png'), name: 'Serrurier' },
   ]
 
   var fakeTableau = [
-    { image: require('../assets/coiffeur.jpg'), name: 'Prestataire 1', city: 'Paris 17e', adress: "1515 boulevard Montagne", note: 4.5 },
-    { image: require('../assets/mecanique.jpg'), name: 'Prestataire 2', city: 'Paris 15e', adress: "14 avenue des Champs Elysees", note: 4.5 },
-    { image: require('../assets/coiffeur.jpg'), name: 'Prestataire 3', city: 'Paris 14e', adress: "5 rue de Paris", note: 4.5 },
-    { image: require('../assets/mecanique.jpg'), name: 'Prestataire 4', city: 'Paris 13e', adress: "875 boulevard de Mantes", note: 4.5 },
-    { image: require('../assets/coiffeur.jpg'), name: 'Prestataire 5', city: 'Paris 15e', adress: "92 rue de la Marne", note: 4.5 },
-    { image: require('../assets/mecanique.jpg'), name: 'Prestataire 6', city: 'Paris 14e', adress: "165 rue Donatelo", note: 4.5 },
-    { image: require('../assets/coiffeur.jpg'), name: 'Prestataire 7', city: 'Paris 13e', adress: "2509 rue de Beni", note: 4.5 },
+    { image: require('../assets/miniatest1.jpg'), name: 'Prestataire 1', city: 'Paris 17e', adress: "1515 boulevard Montagne", note: 4.5 },
+    { image: require('../assets/miniatest2.jpg'), name: 'Prestataire 2', city: 'Paris 15e', adress: "14 avenue des Champs Elysees", note: 4.5 },
+    { image: require('../assets/miniatest1.jpg'), name: 'Prestataire 3', city: 'Paris 14e', adress: "5 rue de Paris", note: 4.5 },
+    { image: require('../assets/miniatest2.jpg'), name: 'Prestataire 4', city: 'Paris 13e', adress: "875 boulevard de Mantes", note: 4.5 },
+    { image: require('../assets/miniatest1.jpg'), name: 'Prestataire 5', city: 'Paris 15e', adress: "92 rue de la Marne", note: 4.5 },
+    { image: require('../assets/miniatest2.jpg'), name: 'Prestataire 6', city: 'Paris 14e', adress: "165 rue Donatelo", note: 4.5 },
+    { image: require('../assets/miniatest1.jpg'), name: 'Prestataire 7', city: 'Paris 13e', adress: "2509 rue de Beni", note: 4.5 },
   ]
 
   return (
@@ -87,11 +86,10 @@ export default function Home(props) {
           {fakeCategories.map((element, i) => {
             return (
               <View key={i} style={styles.categorieswidget}>
-                <Avatar
+                <Image
                   rounded
-                  icon={element.image}
-                  containerStyle={{ backgroundColor: 'orange' }}
-                  size="large"
+                  style={{ borderRadius : 50, height:90, width: 90, marginBottom: 10 }}
+                  source={element.image}
                 />
                 <Text style={{ textAlign: 'center', fontSize: 17 }}>{element.name}</Text>
               </View>
@@ -106,22 +104,22 @@ export default function Home(props) {
         <Ionicons name='chevron-forward' size={15} color='black' />
       </View>
 
-      <ScrollView style={{ width: '100%' }} showsVerticalScrollIndicator={false}>
+      <ScrollView style={{ width: '100%' }} showsVerticalScrollIndicator={false} >
         {fakeTableau.map((element, i) => {
           return (
-            <Card key={i} containerStyle={{padding: 0, borderRadius: 10}}>
-              <View style={{ flexDirection: 'row' }}>
+            <Card 
+              key={i}
+              containerStyle={{ padding: 0, borderRadius: 10 }}>
+              <View style={{ flexDirection: 'row' }} >
                 <Image
-                  style={{ backgroundColor: 'orange', borderTopLeftRadius: 10, borderBottomLeftRadius: 10, height:100, width: 100 }}
-                  size={100}
+                  style={{ borderTopLeftRadius: 10, borderBottomLeftRadius: 10, height:100, width: 100 }}
                   source={element.image}
-                  onPress={() => {props.navigation.navigate('Presta')}}
                 />
                 <View style={{ marginLeft: 15, justifyContent: 'center' }}>
-                  <Text style={styles.fontsize}>{element.name}</Text>
-                  <Text>{element.adress}</Text>
-                  <Text>{element.city}</Text>
-                  <Text>{element.note}</Text>
+                  <Text onPress={() => { props.navigation.navigate('Presta') }} style={styles.fontsize}>{element.name}</Text>
+                  <Text onPress={() => { props.navigation.navigate('Presta') }} >{element.adress}</Text>
+                  <Text onPress={() => { props.navigation.navigate('Presta') }} >{element.city}</Text>
+                  <Text onPress={() => { props.navigation.navigate('Presta') }} >{element.note}</Text>
                 </View>
               </View>
             </Card>

@@ -15,10 +15,10 @@ LogBox.ignoreAllLogs();
 import { Ionicons } from '@expo/vector-icons';
 
 import Home from './screens/Home';
+import Prestataire from './screens/Prestataire';
 import Search from './screens/Search';
 import Reservation from './screens/Reservation';
 import Profil from './screens/Profil';
-import Prestataire from './screens/Prestataire';
 import EditProfil from './screens/EditProfil';
 
 const HomeStack = createStackNavigator();
@@ -28,7 +28,6 @@ function HomeStackScreen() {
     <HomeStack.Navigator screenOptions={{ headerShown: false }}>
       <HomeStack.Screen name="Home" component={Home} />
       <HomeStack.Screen name="Presta" component={Prestataire} />
-
     </HomeStack.Navigator>
   );
 }
