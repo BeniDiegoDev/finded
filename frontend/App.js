@@ -89,16 +89,6 @@ export default function App() {
               activeBackgroundColor: '#FFFFFF',
               inactiveBackgroundColor: '#FFFFFF',
               showLabel: false,
-              style: {
-                shadowColor: "black",
-                shadowOffset: {
-                  width: 0,
-                  height: 90,
-                },
-                shadowOpacity: 1,
-                shadowRadius: 20,
-                elevation: 20,
-              },
             }}
             >
         <Tab.Screen name="Home" component={HomeStackScreen} />

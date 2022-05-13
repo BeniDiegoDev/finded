@@ -30,13 +30,13 @@ export default function Home() {
   ]
 
   var fakeTableau = [
-    { image: { name: 'adb', type: 'material' }, name: 'Prestataire 1', city: 'Paris 17e', adress: "1515 boulevard Montagne", note: 4.5 },
-    { image: { name: 'adb', type: 'material' }, name: 'Prestataire 2', city: 'Paris 15e', adress: "14 avenue des Champs Elysees", note: 4.5 },
-    { image: { name: 'adb', type: 'material' }, name: 'Prestataire 3', city: 'Paris 14e', adress: "5 rue de Paris", note: 4.5 },
-    { image: { name: 'adb', type: 'material' }, name: 'Prestataire 4', city: 'Paris 13e', adress: "875 boulevard de Mantes", note: 4.5 },
-    { image: { name: 'adb', type: 'material' }, name: 'Prestataire 5', city: 'Paris 15e', adress: "92 rue de la Marne", note: 4.5 },
-    { image: { name: 'adb', type: 'material' }, name: 'Prestataire 6', city: 'Paris 14e', adress: "165 rue Donatelo", note: 4.5 },
-    { image: { name: 'adb', type: 'material' }, name: 'Prestataire 7', city: 'Paris 13e', adress: "2509 rue de Beni", note: 4.5 },
+    { image: require('../assets/coiffeur.jpg'), name: 'Prestataire 1', city: 'Paris 17e', adress: "1515 boulevard Montagne", note: 4.5 },
+    { image: require('../assets/mecanique.jpg'), name: 'Prestataire 2', city: 'Paris 15e', adress: "14 avenue des Champs Elysees", note: 4.5 },
+    { image: require('../assets/coiffeur.jpg'), name: 'Prestataire 3', city: 'Paris 14e', adress: "5 rue de Paris", note: 4.5 },
+    { image: require('../assets/mecanique.jpg'), name: 'Prestataire 4', city: 'Paris 13e', adress: "875 boulevard de Mantes", note: 4.5 },
+    { image: require('../assets/coiffeur.jpg'), name: 'Prestataire 5', city: 'Paris 15e', adress: "92 rue de la Marne", note: 4.5 },
+    { image: require('../assets/mecanique.jpg'), name: 'Prestataire 6', city: 'Paris 14e', adress: "165 rue Donatelo", note: 4.5 },
+    { image: require('../assets/coiffeur.jpg'), name: 'Prestataire 7', city: 'Paris 13e', adress: "2509 rue de Beni", note: 4.5 },
   ]
 
   return (
@@ -109,15 +109,14 @@ export default function Home() {
       <ScrollView style={{ width: '100%' }} showsVerticalScrollIndicator={false}>
         {fakeTableau.map((element, i) => {
           return (
-            <Card key={i}>
+            <Card key={i} containerStyle={{padding: 0, borderRadius: 10}}>
               <View style={{ flexDirection: 'row' }}>
-                <Avatar
-                  rounded
-                  icon={element.image}
-                  containerStyle={{ backgroundColor: 'orange' }}
-                  size="large"
+                <Image
+                  style={{ backgroundColor: 'orange', borderTopLeftRadius: 10, borderBottomLeftRadius: 10, height:100, width: 100 }}
+                  size={100}
+                  source={element.image}
                 />
-                <View style={{ marginLeft: 15 }}>
+                <View style={{ marginLeft: 15, justifyContent: 'center' }}>
                   <Text style={styles.fontsize}>{element.name}</Text>
                   <Text>{element.adress}</Text>
                   <Text>{element.city}</Text>
@@ -161,12 +160,11 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
   },
   categories: {
-    marginTop: 10,
     flexDirection: 'row',
-    paddingLeft: 20,
   },
   categorieswidget: {
-    marginRight: 20,
+    marginRight: 10,
+    marginLeft: 10,
   },
   categoriestext: {
     flexDirection: 'row',
