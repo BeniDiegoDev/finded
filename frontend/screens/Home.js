@@ -11,7 +11,7 @@ import { Button } from '@rneui/base'
 // Import des icones pour la navbar
 import { Ionicons } from '@expo/vector-icons';
 
-function Home() {
+function Home(props) {
 
   const [search, setSearch] = useState("");
   const updateSearch = (search) => {
@@ -107,7 +107,7 @@ function Home() {
           <Ionicons name='chevron-forward' size={15} color='black' />
         </View>
 
-        <View style={styles.cards}>
+        <View style={styles.cards} onPress={props.navigation.navigate("Presta")}>
           {fakeTableau.map((element, i) => {
             return (
               <Card>

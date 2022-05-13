@@ -18,6 +18,8 @@ import Home from './screens/Home';
 import Reservation from './screens/Reservation';
 import Search from './screens/Search';
 import Profil from './screens/Profil';
+import Prestataire from './screens/prestataire';
+
 
 // Import des icones pour la navbar
 import { Ionicons } from '@expo/vector-icons';
@@ -27,6 +29,7 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name="tabBar" component={tabBar} />
+        <Stack.Screen name="Presta" component={Prestataire} />
       </Stack.Navigator>
     </NavigationContainer>
   );
