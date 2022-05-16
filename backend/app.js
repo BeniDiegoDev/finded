@@ -1,4 +1,4 @@
-var mongoose = require("mongoose");
+var connexion = require("./models/connexion");
 
 var createError = require("http-errors");
 var express = require("express");

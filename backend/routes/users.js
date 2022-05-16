@@ -1,96 +1,9 @@
-// var express = require('express');
-// var router = express.Router();
-// const bcryptjs = require("bcryptjs");
-// var uid2 = require('uid2');
-
-// var userModel = require('../models/usersModel')
-
-
-// router.post('/sign-up', async function(req,res,next){
-
-//   var error = []
-//   var result = false
-//   var saveUser = null
-
-//   const userEmail = await userModel.findOne({
-//     email: req.body.emailFromFront
-//   })
-//   const userUsername = await userModel.findOne({
-//     username: req.body.usernameFromFront
-//   })
-  
-//   if(userEmail != null){
-//     error.push('utilisateur déjà présent')
-//   }
-//   if(userUsername != null){
-//     error.push('utilisateur déjà présent')
-//   }
-
-//   if(req.body.usernameFromFront == ''
-//   || req.body.emailFromFront == ''
-//   || req.body.passwordFromFront == ''
-//   ){
-//     error.push('champs vides')
-//   }
-
-
-//   if(error.length == 0){
-//     var newUser = new userModel({
-//       username: req.body.usernameFromFront,
-//       email: req.body.emailFromFront,
-//       password: req.body.passwordFromFront
-//     })
-  
-//     saveUser = await newUser.save()
-  
-    
-//     if(saveUser){
-//       result = true
-//     }
-//   }
-  
-
-//   res.json({result, saveUser, error})
-// })
-
-// router.post('/sign-in', async function(req,res,next){
-
-//   var result = false
-//   var user = null
-//   var error = []
-  
-//   if(req.body.emailFromFront == ''
-//   || req.body.passwordFromFront == ''
-//   ){
-//     error.push('champs vides')
-//   }
-
-//   if(error.length == 0){
-//       user = await userModel.findOne({
-//       email: req.body.emailFromFront,
-//       password: req.body.passwordFromFront
-//     })
-    
-//     if(user){
-//       result = true
-//     } else {
-//       error.push('email ou mot de passe incorrect')
-//     }
-//   }
-  
-//   res.json({result, user, error})
-
-// })
-
-// module.exports = router;
-
-
-const userModel= require("../models/usersModel");
 const bcryptjs = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const config = require("./config");
 const verifyToken = require("../middlewares/verifyToken");
 const express = require("express");
+
+const userModel= require("../models/usersModel");
 const professionalModel = require("../models/professionalData");
 
 const router = express.Router();
@@ -143,24 +56,6 @@ router.post("/sign-up", async (req, res, next) => {
             phoneNumber: req.body.phoneNumber,
             profilePicture: req.body.profilePicture,// ou avatar
         });
-//////////////////////  OU  ////////////////////////////////
-
-        // var newUser = new userModel({
-        //     accountType: req.body.accountType,
-        //     firstName: req.body.firstName,
-        //     lastName: req.body.lastName,
-        //     email: req.body.email,
-        //     password: bcryptjs.hashSync(req.body.password),         
-        //     address: req.body.address,
-        //     creditCard: req.body.creditCard,
-        //     reservations: req.body.reservations,
-        //     messages:req.body.messages,
-        //     conversations:req.body.conversations,
-        //     phoneNumber: req.body.phoneNumber,
-        //     profilePicture: req.body.profilePicture,           
-        // });
-        // 
-        // var userSave = await newUser.save()
     }catch (err){
         console.log(err);
         res.status(500).send("Something went wrong");
@@ -189,7 +84,7 @@ router.post("/sign-in", async (req, res, next) => {
             const token = jwt.sign({
                 id: userIndentifiant._id
                 },
-                config.secret,
+                "findedAddToken",
                 {
                 expiresIn: 3600
                 });
@@ -226,8 +121,6 @@ router.get("/search-presta",  async (req, res, next) => {
 router.get("/:id",  async (req, res, next) => {
 
 })
-
-/////////////////////////////////////////////////////////////////////////////////
 
 // Suppression d'un utilisateur
 router.delete("/:id", async (req, res) => {
