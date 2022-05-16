@@ -56,13 +56,13 @@ export default function Home(props) {
       
       // console.log('latitude :', latitude, 'longitude :', longitude)
 
-      var cityName = await fetch(`http://api.geonames.org/findNearbyJSON?lat=${latitude}&lng=${longitude}&username=benidiegodev`)
-      
+      var cityName = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=0c815b9455235455a301668a56c67b18`)
+
       let response = await cityName.json()
 
-      // console.log(response.geonames[0].name)
+      // console.log(response.name)
 
-      setLocation(response.geonames[0].name);
+      setLocation(response.name)
 
     })();
   }, []);

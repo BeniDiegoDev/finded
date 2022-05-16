@@ -6,17 +6,21 @@ const addressSchema = mongoose.Schema({
   ZIP: String,
   city: String,
 });
+
 const reservSchema = mongoose.Schema({
   date: Date,
 });
+
 const messageSchema = mongoose.Schema({
   username: String,
   date: Date,
   content: String,
 });
+
 const conversSchema = mongoose.Schema({
   messageList: String,
 });
+
 const cbSchema = mongoose.Schema({
   name: String,
   numbers: String,

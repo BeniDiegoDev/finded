@@ -1,90 +1,3 @@
-// var express = require('express');
-// var router = express.Router();
-// const bcryptjs = require("bcryptjs");
-// var uid2 = require('uid2');
-
-// var userModel = require('../models/usersModel')
-
-
-// router.post('/sign-up', async function(req,res,next){
-
-//   var error = []
-//   var result = false
-//   var saveUser = null
-
-//   const userEmail = await userModel.findOne({
-//     email: req.body.emailFromFront
-//   })
-//   const userUsername = await userModel.findOne({
-//     username: req.body.usernameFromFront
-//   })
-  
-//   if(userEmail != null){
-//     error.push('utilisateur déjà présent')
-//   }
-//   if(userUsername != null){
-//     error.push('utilisateur déjà présent')
-//   }
-
-//   if(req.body.usernameFromFront == ''
-//   || req.body.emailFromFront == ''
-//   || req.body.passwordFromFront == ''
-//   ){
-//     error.push('champs vides')
-//   }
-
-
-//   if(error.length == 0){
-//     var newUser = new userModel({
-//       username: req.body.usernameFromFront,
-//       email: req.body.emailFromFront,
-//       password: req.body.passwordFromFront
-//     })
-  
-//     saveUser = await newUser.save()
-  
-    
-//     if(saveUser){
-//       result = true
-//     }
-//   }
-  
-
-//   res.json({result, saveUser, error})
-// })
-
-// router.post('/sign-in', async function(req,res,next){
-
-//   var result = false
-//   var user = null
-//   var error = []
-  
-//   if(req.body.emailFromFront == ''
-//   || req.body.passwordFromFront == ''
-//   ){
-//     error.push('champs vides')
-//   }
-
-//   if(error.length == 0){
-//       user = await userModel.findOne({
-//       email: req.body.emailFromFront,
-//       password: req.body.passwordFromFront
-//     })
-    
-//     if(user){
-//       result = true
-//     } else {
-//       error.push('email ou mot de passe incorrect')
-//     }
-//   }
-  
-//   res.json({result, user, error})
-
-// })
-
-// module.exports = router;
-
-
 const bcryptjs = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const verifyToken = require("../middlewares/verifyToken");
@@ -188,7 +101,7 @@ router.post("/sign-in", async (req, res, next) => {
             const token = jwt.sign({
                 id: proIndentifiant._id
                 },
-                config.secret,
+                "findedAddToken",
                 {
                 expiresIn: 3600
                 });
