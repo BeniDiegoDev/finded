@@ -4,7 +4,7 @@ import { StyleSheet, Text, View } from 'react-native';
 export default function Reservation() {
     return (
       <View style={styles.container}>
-        <Text>Reservation.js</Text>
+        <Text>Agenda.js</Text>
       </View>
     );
   }

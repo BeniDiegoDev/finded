@@ -167,7 +167,7 @@ export default function Prestataire(props) {
                         backgroundColor: '#7241DB',
                         borderColor: '#7241DB',
                         borderWidth: 1,
-                      }} radius="20">
+                      }} radius="20" onPress={() => { props.navigation.navigate('DatePicker') }}>
                           <Text style={{color:"white"}}>
                             Valider
                           </Text>
