@@ -8,8 +8,10 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { SearchBar, Avatar, Card } from '@rneui/themed';
 import { Button } from '@rneui/base'
 
-// Import des icones pour la navbar
+// Import des icones 
 import { Ionicons } from '@expo/vector-icons';
+import { Feather } from '@expo/vector-icons';
+import { Entypo } from '@expo/vector-icons';
 import { Divider, Tab } from 'react-native-elements';
 
 export default function Prestataire(props) {
@@ -33,16 +35,85 @@ export default function Prestataire(props) {
       }
     ];
 
+    let avis = [
+      {
+        name : "Pierre Richard",
+        avis : 'Très bon salon, très professionnel et très sympathique. Je recommande !',
+        note : 4, 
+        date: '12/12/2020',
+      },
+      {
+        name : "Bertrand Tom",
+        avis : 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500',
+        note : 4.5, 
+        date: '12/12/2020',
+      },
+      {
+        name : "Constance Dupont",
+        avis : 'Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.',
+        note : 3.5, 
+        date: '12/12/2020',
+      },
+      {
+        name : "Charles André",
+        avis : 'When an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing',
+        note : 5,
+        date: '12/12/2020',
+      },
+      {
+        name : "Stéphane Rotshild",
+        avis : 'Vive la viennoisette !',
+        note : 2,
+        date: '12/12/2020',
+      },
+    ];
+
+    const [compteur, setCompteur] = useState(0);
+ 
     var listServices = services.map((item, index) => {
+          const [state, setState] = useState(false);
+          var onClick = () => {
+            if(state === false){
+              setCompteur(compteur + 1);
+            }else{
+              setCompteur(compteur - 1);
+            }
+            setState(!state);
+            
+          }
         return (
             <View style={styles.containerList} key={index}>
                 <View style={styles.container}>
                     <Text style={styles.Text}>{item.name}</Text>
-                    <Text style={styles.Text}>{item.price}</Text>
+                    <View style={{flexDirection:'row', alignItems:'center'}}>
+                      <Text style={[styles.Text,{marginRight:5}]}>{item.price}</Text>
+                      {state?<Feather name="minus-circle" size={24} color="#7241DB" onPress={()=>onClick()} />:
+                      <Entypo name="circle-with-plus" size={24} color="#7241DB" onPress={()=>onClick()} />}
+                    </View>
                 </View>
                 <Divider style={{ backgroundColor: '#7241DB' }} />
             </View>
         )});
+    
+    var listAvis = avis.map((item, index) => {
+      return(
+        <View style={{width:'100%'}} key={index}>
+          <View style={{flexDirection:'row', marginTop:10}}>
+            <Text style={{fontWeight:'bold'}}>{item.name}</Text>
+            <Text style={{marginLeft:10}}>{item.date}</Text>
+          </View>
+            <View style={{flexDirection:'row', alignItems:'center', justifyContent:'space-between'}}>
+            <Text style={[styles.Text,{width:'80%'}]}>{item.avis}</Text>
+            <View style={{flexDirection:'row', alignItems:'center'}}>
+              <Text style={{fontWeight:'bold', marginRight:5}}>{item.note}</Text>
+              <Ionicons name="ios-star" size={24} color="#F5B642" />
+            </View>
+            </View>
+
+
+          <Divider style={{ backgroundColor: '#7241DB' }} />
+        </View>
+      )});
 
       return (
         <View style={{flex:1, backgroundColor:'#fff'}}>
@@ -70,33 +141,57 @@ export default function Prestataire(props) {
             </View>
 
             <Divider/>
-            <View style={styles.container2}>
+            <ScrollView style={{ width: '100%' }} showsVerticalScrollIndicator={false} >
+              <View style={styles.container2}>
 
-            <Text style={styles.title}>
-            Description
-            </Text>
+              <Text style={styles.title}>
+              Description
+              </Text>
 
-            <Text style={styles.Text}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit amet, consectetur adipiscing elit. Sit amet
-            </Text>
+              <Text style={styles.Text}>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit amet, consectetur adipiscing elit. Sit amet
+              </Text>
 
-            <Text style={styles.title}>
-            Prestations
-            </Text>
+              <Text style={styles.title}>
+              Prestations
+              </Text>
 
-            {listServices}
+              {listServices}
 
-            <View style={{flexDirection:'row', marginRight:20,marginTop:10, justifyContent:'space-between'}}>
-                <View>
-                </View>
-                <View style={styles.button}>
-                    <Button color="#7241DB" radius="20">
-                        Valider
-                    </Button>
-                </View>
-            </View>
-            
-            </View>
+              <View style={{flexDirection:'row', marginRight:20,marginTop:10, justifyContent:'space-between'}}>
+                  <View>
+                  </View>
+                  <View style={styles.button}>
+                    {compteur!== 0? 
+                      <Button buttonStyle={{
+                        backgroundColor: '#7241DB',
+                        borderColor: '#7241DB',
+                        borderWidth: 1,
+                      }} radius="20">
+                          <Text style={{color:"white"}}>
+                            Valider
+                          </Text>
+                      </Button>:
+                      <Button buttonStyle={{
+                        backgroundColor: 'white',
+                        borderColor: '#7241DB',
+                        borderWidth: 1,
+                      }} radius="20">
+                          <Text style={{color:"#7241DB"}}>
+                            Valider
+                          </Text>
+                      </Button>}
+
+                  </View>
+              </View>
+
+              <Text style={styles.title}>
+              Avis clients
+              </Text>
+              
+              {listAvis}
+              </View>
+            </ScrollView>
 
        </View>
   
