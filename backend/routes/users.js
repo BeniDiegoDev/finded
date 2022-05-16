@@ -84,13 +84,13 @@
 
 // module.exports = router;
 
-
-const userModel= require("../models/usersModel");
 const bcryptjs = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const config = require("./config");
+const connexion = require("../models/connexion");
 const verifyToken = require("../middlewares/verifyToken");
 const express = require("express");
+
+const userModel= require("../models/usersModel");
 const professionalModel = require("../models/professionalData");
 
 const router = express.Router();

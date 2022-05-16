@@ -17,7 +17,6 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: false,
   },
-
   firstName: {
     type: String,
     required: true,
@@ -47,13 +46,10 @@ const userSchema = new mongoose.Schema({
     minLength: 16,
   },
   reservations: {
-
   },
   messages: {
-
   },
   conversations: {
-
   },
   phoneNumber: {
     type: String,
