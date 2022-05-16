@@ -28,7 +28,7 @@ export default function AllCategories(props) {
     <View style={styles.container}>
 
       <View style={{ paddingBottom: 10, paddingTop: 10}}>
-        <Text onPress={() => { props.navigation.navigate('Home') }} style={{ paddingRight: 15, fontSize: 30 }}><Ionicons name='chevron-back' size={30} color='black' /> Catégories</Text>
+        <Text onPress={() => { props.navigation.goBack(null) }} style={{ paddingRight: 15, fontSize: 30 }}><Ionicons name='chevron-back' size={30} color='black' /> Catégories</Text>
       </View>
 
       <View style={styles.searchbar}>
@@ -49,7 +49,7 @@ export default function AllCategories(props) {
           {fakeCategories.map((element, i) => {
             return (
               <TouchableWithoutFeedback key={i} onPress={() => { props.navigation.navigate('Categories') }}>
-                <View style={{ marginRight: 10, marginLeft: 10, marginTop: 10, marginBottom: 10, height: 150, width: 150, backgroundColor: element.color, alignItems: 'center', justifyContent: 'center', borderWidth: 3 }}>
+                <View style={{ marginRight: 10, marginLeft: 10, marginTop: 10, marginBottom: 10, height: 170, width: 170, backgroundColor: element.color, alignItems: 'center', justifyContent: 'center', borderWidth: 3 }}>
                   <Image
                     style={{ height: 90, width: 90 }}
                     source={element.image}
