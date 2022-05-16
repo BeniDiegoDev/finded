@@ -1,9 +1,7 @@
 const mongoose = require("mongoose");
 
 const professionalSchema = new mongoose.Schema({
-images: {
-
-},
+images: {},
 name: String,
 description: String,
 adress: String,

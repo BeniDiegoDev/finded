@@ -1,7 +1,6 @@
 const config = {
     secret: "leSecretDeLeoBenSanDams",
-    port: 8000,
-    mongoDB: "mongodb://localhost:27017/Finded"
+    mongoDB: "mongodb+srv://benidiegodev:benibenibeni@benidiegodev.youor.mongodb.net/findedApp?retryWrites=true&w=majority"
 };
 
 module.exports = config
