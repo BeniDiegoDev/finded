@@ -87,7 +87,6 @@
 
 const bcryptjs = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const config = require("./config");
 const verifyToken = require("../middlewares/verifyToken");
 const express = require("express");
 

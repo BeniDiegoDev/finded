@@ -1,11 +1,10 @@
 const jwt = require("jsonwebtoken");
 const userModel = require("../models/usersModel");
-const config = require("../routes/config");
 
 const verifyToken = async (req, res, next) => {
     try{
         const token = req.headers.authorization;
-        const result = jwt.verify(token.split(" ")[1], config.secret);
+        const result = jwt.verify(token.split(" ")[1], "findedAddToken");
         const customerUser = await userModel.findOne({
             _id: result.id
         }).exec();

@@ -3,7 +3,6 @@ import { View, Text, StyleSheet } from 'react-native';
 import { ListItem, Avatar, Button } from 'react-native-elements';
 
 
-import { AntDesign } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
 
@@ -13,7 +12,7 @@ export default function Profil(props) {
     return (
         <View style={styles.container}>
             <View style={{marginVertical:40, display:'flex', flexDirection:'row',  justifyContent:'center', borderBottomWidth: 1, paddingBottom:30}}>
-                <Text style={{fontSize:35}}>Prénom Nom</Text>
+                <Text style={{fontSize:30}}>Prénom Nom</Text>
             </View>
             <ListItem style={{display:'flex', flexDirection:'row', justifyContent:'center'}}>
                 <Avatar

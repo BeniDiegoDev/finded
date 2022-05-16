@@ -29,7 +29,6 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: false,
   },
-
   firstName: {
     type: String,
     required: true,

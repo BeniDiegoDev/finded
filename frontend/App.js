@@ -19,9 +19,16 @@ import Prestataire from './screens/Prestataire';
 import AllCategories from './screens/AllCategories';
 import Categories from './screens/Categories';
 import Search from './screens/Search';
-import Reservation from './screens/Reservation';
+import Reservation from './screens/ProfilPages/Reservations';
 import Profil from './screens/Profil';
-import EditProfil from './screens/EditProfil';
+import DatePicker from './screens/DatePicker';
+import EditProfil from './screens/ProfilPages/EditProfil';
+import Adresses from './screens/ProfilPages/Adresses';
+import Reservations from './screens/ProfilPages/Reservations';
+import Cards from './screens/ProfilPages/Cards';
+import Messages from './screens/ProfilPages/Messages';
+import Favoris from './screens/ProfilPages/Favoris';
+import Help from './screens/ProfilPages/Help';
 
 const HomeStack = createStackNavigator();
 
@@ -29,7 +36,7 @@ function HomeStackScreen() {
   return (
     <HomeStack.Navigator screenOptions={{ headerShown: false }}>
       <HomeStack.Screen name="Home" component={Home} />
-      <HomeStack.Screen name="Prestataire" component={Prestataire} />
+      <HomeStack.Screen name="Prestataire" component={PrestationStackScreen} />
       <HomeStack.Screen name="AllCategories" component={AllCategories} />
       <HomeStack.Screen name="Categories" component={Categories} />
     </HomeStack.Navigator>
@@ -56,6 +63,16 @@ function ReservationStackScreen() {
   );
 }
 
+const PrestationStack = createStackNavigator();
+function PrestationStackScreen() {
+  return (
+    <PrestationStack.Navigator screenOptions={{ headerShown: false }}>
+      <PrestationStack.Screen name="Prestataire" component={Prestataire} />
+      <PrestationStack.Screen name="DatePicker" component={DatePicker} />
+    </PrestationStack.Navigator>
+  );
+}
+
 const ProfilStack = createStackNavigator();
 
 function ProfilStackScreen() {
@@ -63,6 +80,12 @@ function ProfilStackScreen() {
     <ProfilStack.Navigator screenOptions={{ headerShown: false }}>
       <ProfilStack.Screen name="Profil" component={Profil} />
       <ProfilStack.Screen name="EditProfil" component={EditProfil} />
+      <ProfilStack.Screen name="Adresses" component={Adresses} />
+      <ProfilStack.Screen name="Reservations" component={Reservations} />
+      <ProfilStack.Screen name="Cards" component={Cards} />
+      <ProfilStack.Screen name="Messages" component={Messages} />
+      <ProfilStack.Screen name="Favoris" component={Favoris} />
+      <ProfilStack.Screen name="Help" component={Help} />
     </ProfilStack.Navigator>
   );
 }
