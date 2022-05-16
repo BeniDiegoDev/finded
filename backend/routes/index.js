@@ -4,9 +4,6 @@ var router = express.Router();
 
 var config = require("./config");
 
-const userModel= require("../models/usersModel");
-const professionalModel= require("../models/professionalData");
-
 var options = {
   connectTimeoutMS: 5000,
   useNewUrlParser: true,

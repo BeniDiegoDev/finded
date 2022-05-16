@@ -85,13 +85,13 @@
 // module.exports = router;
 
 
-const userModel= require("../models/usersModel");
 const bcryptjs = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const config = require("./config");
 const verifyToken = require("../middlewares/verifyToken");
 const express = require("express");
 const professionalModel = require("../models/professionalData");
+const userModel= require("../models/usersModel");
 
 const router = express.Router();
 
@@ -101,6 +101,8 @@ router.get('/login', function(req, res, next) {
 
 router.post("/sign-up", async (req, res, next) => {
     try{
+        var error = [];
+
         const userIndentifiant = await userModel.findOne({
             email: req.body.email
         });
@@ -110,19 +112,23 @@ router.post("/sign-up", async (req, res, next) => {
 
         if(userIndentifiant) {
             res.status(400).send(`Email ${req.body.email} already exists`);
+            error.push('Déjà existant');
             return;
         }
         if(phone) {
             res.status(400).send(`Phone number ${req.body.phoneNumber} already exists`);
+            error.push('Déjà existant');
             return;
         };
 
         if(req.body.password.length < 8) {
             res.status(400).send("Password too short");
+            error.push('Mot de passe trop court');
             return;
         }
         if(!bcryptjs.compareSync(req.body.password, bcryptjs.hashSync(req.body.confirmPassword))){
             res.status(401).send("Password and confirm password have to be sames");
+            error.push('La confirmation du mot de passe ne correspond pas');
             return;
         }else {
             res.send("Sign-up created");
@@ -164,6 +170,7 @@ router.post("/sign-up", async (req, res, next) => {
     }catch (err){
         console.log(err);
         res.status(500).send("Something went wrong");
+        error.push('Erreur détectée, nous mettons tout en oeuvre pour y remédier');
     }
 });
 
@@ -176,6 +183,7 @@ router.post("/sign-in", async (req, res, next) => {
 
         if(!userIndentifiant){
             res.status(404).send("Please enter your registred email")
+            error.push(`L'email ${req.body.email} non existant`);
             return;
         };
 
@@ -183,6 +191,7 @@ router.post("/sign-in", async (req, res, next) => {
 
         res.status(401).send("Invalid password");
         console.log("Invalid password");
+        error.push('Mot de passe invalide');
         return;
 
         }else{
@@ -203,6 +212,7 @@ router.post("/sign-in", async (req, res, next) => {
     }catch(err){
         console.log(err);
         res.status(500).send("Something went wrong");
+        error.push('Erreur détectée, nous mettons tout en oeuvre pour y remédier');
     }
 });
 

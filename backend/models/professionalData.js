@@ -1,16 +1,21 @@
 const mongoose = require("mongoose");
 
-const professionalSchema = new mongoose.Schema({
-images: {
+const reservSchema = mongoose.Schema({
+    date: Date,
+  });
 
-},
+const professionalSchema = new mongoose.Schema({
+images: {},
 name: String,
+email: String,
+password: String,
 description: String,
-adress: String,
+address: String,
+phoneNumber: String,
 prestation: String,
 category: String,
 feedback: String,
-reservations: String,
+reservations: reservSchema,
 isAvailable: Boolean
 });
 
