@@ -1,11 +1,13 @@
+const express = require("express");
+const router = express.Router();
+
 const bcryptjs = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const verifyToken = require("../middlewares/verifyToken");
-const express = require("express");
 
-const professionalModel = require("../models/professionalData");
+const professionalData = require("../models/professionalData");
+const userModel= require("../models/usersModel");
 
-const router = express.Router();
 
 router.get('/login', function(req, res, next) {
   // res.json('');
@@ -13,10 +15,10 @@ router.get('/login', function(req, res, next) {
 
 router.post("/sign-up", async (req, res, next) => {
     try{
-        const proIndentifiant = await professionalModel.findOne({
+        const proIndentifiant = await professionalData.findOne({
             email: req.body.email
         });
-        const phone = await professionalModel.findOne({
+        const phone = await professionalData.findOne({
             phoneNumber: req.body.phoneNumber
         });
 
@@ -41,7 +43,7 @@ router.post("/sign-up", async (req, res, next) => {
             console.log("Sign-up created");
         };
 
-        await professionalModel.create({
+        await professionalData.create({
             accountType: req.body.accountType,
             firstName: req.body.firstName,
             lastName: req.body.lastName,
@@ -57,7 +59,7 @@ router.post("/sign-up", async (req, res, next) => {
         });
 //////////////////////  OU  ////////////////////////////////
 
-        // var newUser = new professionalModel({
+        // var newUser = new professionalData({
         //     accountType: req.body.accountType,
         //     firstName: req.body.firstName,
         //     lastName: req.body.lastName,
@@ -82,7 +84,7 @@ router.post("/sign-up", async (req, res, next) => {
 
 router.post("/sign-in", async (req, res, next) => {
     try{
-        const proIndentifiant = await professionalModel.findOne({
+        const proIndentifiant = await professionalData.findOne({
         email: req.body.email
         }).exec();
 
@@ -129,7 +131,7 @@ router.post("/reservation",  async (req, res, next) => {
 
 // Rechercher un prestataire
 router.get("/search-presta",  async (req, res, next) => {
-  const prestaSearch = await professionalModel.findOne({
+  const prestaSearch = await professionalData.findOne({
 
   })
 })
@@ -143,7 +145,7 @@ router.get("/:id",  async (req, res, next) => {
 
 // Suppression d'un utilisateur
 router.delete("/:id", async (req, res) => {
-  const sup = await professionalModel.deleteOne({
+  const sup = await professionalData.deleteOne({
       _id: req.params.id
   }).exec();
   console.log(sup)
@@ -160,7 +162,7 @@ router.delete("/:id", async (req, res) => {
 // Mises à jour  (update ou edit)
 router.put("/updateFirstName/:id", async (req, res) => {
   try {
-    const upFirstName = await professionalModel.updateOne(
+    const upFirstName = await professionalData.updateOne(
       { _id: req.params.id },
       {
         $set: {
@@ -176,7 +178,7 @@ router.put("/updateFirstName/:id", async (req, res) => {
 
 router.put("/updateLastName/:id", async (req, res) => {
   try {
-    const upName = await professionalModel.updateOne(
+    const upName = await professionalData.updateOne(
       { _id: req.params.id },
       {
         $set: {
@@ -191,7 +193,7 @@ router.put("/updateLastName/:id", async (req, res) => {
 });
 router.put("/updateMail/:id", async (req, res) => {
   try {
-    const upMail = await professionalModel.updateOne(
+    const upMail = await professionalData.updateOne(
       { _id: req.params.id },
       {
         $set: {
@@ -206,7 +208,7 @@ router.put("/updateMail/:id", async (req, res) => {
 });
 router.put("/updateTel/:id", async (req, res) => {
   try {
-    const upTel = await professionalModel.updateOne(
+    const upTel = await professionalData.updateOne(
       { _id: req.params.id },
       {
         $set: {
@@ -221,7 +223,7 @@ router.put("/updateTel/:id", async (req, res) => {
 });
 router.put("/updateAddress/:id", async (req, res) => {
   try {
-    const upAddress = await professionalModel.updateOne(
+    const upAddress = await professionalData.updateOne(
       { _id: req.params.id },
       {
         $set: {

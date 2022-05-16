@@ -26,11 +26,11 @@ const feedbackSchema = mongoose.Schema({
 });
 
 const professionalSchema = new mongoose.Schema({
-  images: {},
+  images: String,
   name: String,
   email: String,
-  password: String,
   description: String,
+  number: String,
   address: String,
   zipcode: String,
   city: String,

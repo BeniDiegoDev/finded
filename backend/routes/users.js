@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 const verifyToken = require("../middlewares/verifyToken");
 const express = require("express");
 
-const professionalModel = require("../models/professionalData");
+const professionalData = require("../models/professionalData");
 const userModel= require("../models/usersModel");
 
 const router = express.Router();
@@ -122,7 +122,7 @@ router.post("/reservation",  async (req, res, next) => {
 
 // Rechercher un prestataire
 router.get("/search-presta",  async (req, res, next) => {
-  const prestaSearch = await professionalModel.findOne({
+  const prestaSearch = await professionalData.findOne({
 
   })
 })
