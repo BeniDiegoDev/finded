@@ -160,7 +160,7 @@ router.post("/sign-up", async (req, res, next) => {
         //     profilePicture: req.body.profilePicture,           
         // });
         // 
-        // var userSave = await newUser.save();
+        // var userSave = await newUser.save()
     }catch (err){
         console.log(err);
         res.status(500).send("Something went wrong");
