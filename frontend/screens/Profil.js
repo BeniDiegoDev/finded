@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View, Text, TouchableWithoutFeedback } from 'react-native';
 import { Avatar, ListItem, Divider, Button} from 'react-native-elements';
 import { Entypo } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
@@ -12,26 +12,32 @@ export default function Profil(props) {
     {
       icon : <Entypo name="home" size={30} color="black" />,
       name : 'Mes adresses',
+      url : 'Adresses'
     },
     {
-     icon : <FontAwesome name="calendar-check-o" size={30} color="black" />,
-     name : 'Mes réservations',
+      icon : <FontAwesome name="calendar-check-o" size={30} color="black" />,
+      name : 'Mes réservations',
+      url : 'Reservations'
     },
     {
       icon : <FontAwesome name="credit-card" size={30} color="black" />,
       name : 'Mes cartes',
+      url : 'Cards'
     },
     {
       icon : <Entypo name="mail" size={30} color="black" />,
       name : 'Mes messages',
+      url : 'Messages'
     },
     {
       icon : <FontAwesome name="star" size={30} color="black" />,
       name : 'Mes favoris',
+      url : 'Favoris'
     },
     {
       icon : <Entypo name="help" size={30} color="black" />,
       name : 'Aide',
+      url : 'Help'
     }
   ];
 
@@ -52,13 +58,16 @@ export default function Profil(props) {
           </ListItem>
           <Divider style={{height:2}}/>
   
+      
           {categories.map((item, i) => (
-          <ListItem key={i} style={{height:90, display:'flex', justifyContent:'center'}}>
-            {item.icon}
-            <ListItem.Content>
-              <ListItem.Title style={{marginVertical:2, fontSize:20}}>{item.name}</ListItem.Title>
-            </ListItem.Content>
-          </ListItem>
+            <TouchableWithoutFeedback key={i} onPress={() => { props.navigation.navigate(item.url)}}>
+              <ListItem style={{height:90, display:'flex', justifyContent:'center'}}>
+                {item.icon}
+                <ListItem.Content>
+                  <ListItem.Title style={{marginVertical:2, fontSize:20}}>{item.name}</ListItem.Title>
+                </ListItem.Content>
+              </ListItem>
+            </TouchableWithoutFeedback>
           ))}
 
           <ListItem>
