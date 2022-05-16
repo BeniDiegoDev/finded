@@ -27,8 +27,8 @@ export default function Categories(props) {
   return (
     <View style={styles.container}>
 
-      <View style={{ paddingBottom: 10, paddingTop: 10 }}>
-        <Text onPress={() => { props.navigation.goBack(null) }} style={{ paddingRight: 15, fontSize: 30 }}><Ionicons name='chevron-back' size={30} color='black' /> Nom de la catégorie</Text>
+      <View style={{ paddingLeft: 10, paddingBottom: 10, paddingTop: 10 }}>
+        <Text onPress={() => { props.navigation.goBack() }} style={{ paddingRight: 15, fontSize: 30 }}><Ionicons name='chevron-back' size={30} color='black' /> Nom de la catégorie</Text>
       </View>
 
       <View style={styles.searchbar}>

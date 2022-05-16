@@ -6,7 +6,7 @@ import { FontAwesome } from '@expo/vector-icons';
 
 export default function Profil(props) {
 
-  const [isLogged, setIsLogged] = useState(true);
+  const [isLogged, setIsLogged] = useState(false);
 
   let categories = [
     {
