@@ -4,4 +4,4 @@ const config = {
     mongoDB: "mongodb://localhost:27017/Finded"
 };
 
-module.exports = config;
+module.exports = config
