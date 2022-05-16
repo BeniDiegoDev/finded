@@ -70,10 +70,10 @@ export default function Adresses(props) {
 
 const styles = StyleSheet.create({
     container:{
-        paddingTop:40,
+        paddingTop:10,
         flex:1,
         backgroundColor:'#fff',
-        paddingHorizontal:20,
+        paddingHorizontal:10,
         display:'flex',
         flexDirection:'column',
         justifyContent:'space-between'
@@ -88,6 +88,7 @@ const styles = StyleSheet.create({
         flexDirection:'row',
         justifyContent:'space-between',
         paddingVertical:25,
+        paddingHorizontal:10
     },
     modify_remove: {
         display:'flex',
