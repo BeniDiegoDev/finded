@@ -1,14 +1,11 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, ScrollView, Image, Text, TouchableWithoutFeedback } from 'react-native';
 
-// Import de SafeAreaView pour ne pas etre gené par la barre haute par defaut du telephone
-import { SafeAreaView } from 'react-native-safe-area-context';
-
 // Import de la barre de recherche
-import { SearchBar, Avatar, Card } from '@rneui/themed';
+import { SearchBar, Card } from '@rneui/themed';
 import { Button } from '@rneui/base'
 
-// Import des icones pour la navbar
+// Import des icones
 import { Ionicons } from '@expo/vector-icons';
 
 export default function Home(props) {
@@ -29,13 +26,13 @@ export default function Home(props) {
   ]
 
   var fakeTableau = [
-    { image: require('../assets/fakeminia/miniatest2.jpg'),name: "Controle Techinque Mant'te", city: 'Paris 13e', adress: "875 boulevard de Mantes", note: 5 },
-    { image: require('../assets/fakeminia/miniatest1.jpg'),name: 'Coiffeur du Marnois', city: 'Paris 15e', adress: "92 rue de la Marne", note: 4.6 },
-    { image: require('../assets/fakeminia/miniatest3.jpg'),name: "Montagn'enfance", city: 'Paris 17e', adress: "1515 boulevard Montagne", note: 4.5 },
-    { image: require('../assets/fakeminia/miniatest4.jpg'),name: 'Beni Crochet', city: 'Paris 13e', adress: "2509 rue de Beni", note: 4.5 },
-    { image: require('../assets/fakeminia/miniatest5.jpg'),name: 'Massage du 15', city: 'Paris 14e', adress: "5 rue de Paris", note: 4.4 },
-    { image: require('../assets/fakeminia/miniatest6.jpg'),name: "Pedic'dona", city: 'Paris 14e', adress: "165 rue Donatelo", note: 4.3 },
-    { image: require('../assets/fakeminia/miniatest7.jpg'),name: 'Maquille Moi des Champs', city: 'Paris 15e', adress: "14 avenue des Champs Elysees", note: 4.1 },
+    { image: require('../assets/fakeminia/miniatest2.jpg'), name: "Controle Technique Mant'te", city: 'Paris 13e', adress: "875 boulevard de Mantes", note: 5 },
+    { image: require('../assets/fakeminia/miniatest1.jpg'), name: 'Coiffeur du Marnois', city: 'Paris 15e', adress: "92 rue de la Marne", note: 4.6 },
+    { image: require('../assets/fakeminia/miniatest3.jpg'), name: "Montagn'enfance", city: 'Paris 17e', adress: "1515 boulevard Montagne", note: 4.5 },
+    { image: require('../assets/fakeminia/miniatest4.jpg'), name: 'Beni Crochet', city: 'Paris 13e', adress: "2509 rue de Beni", note: 4.5 },
+    { image: require('../assets/fakeminia/miniatest5.jpg'), name: 'Massage du 15', city: 'Paris 14e', adress: "5 rue de Paris", note: 4.4 },
+    { image: require('../assets/fakeminia/miniatest6.jpg'), name: "Pedic'dona", city: 'Paris 14e', adress: "165 rue Donatelo", note: 4.3 },
+    { image: require('../assets/fakeminia/miniatest7.jpg'), name: 'Maquille Moi des Champs', city: 'Paris 15e', adress: "14 avenue des Champs Elysees", note: 4.1 },
   ]
 
   return (
@@ -78,15 +75,19 @@ export default function Home(props) {
           inputStyle={{ backgroundColor: 'white' }}
           inputContainerStyle={{ backgroundColor: 'white', borderWidth: 1, borderRadius: 10, borderBottomWidth: 1 }}
         />
-        <Text style={{ paddingLeft: 20, fontSize: 30 }}>Catégories</Text>
+      </View>
+
+      <View style={styles.categoriestop}>
+        <Text style={{ paddingLeft: 15, fontSize: 30 }}>Catégories</Text>
+        <Text onPress={() => { props.navigation.navigate('AllCategories') }} style={{ paddingRight: 15, fontWeight: 'bold', fontSize: 17 }}>Voir tout <Ionicons name='chevron-forward' size={15} color='black' /></Text>
       </View>
 
       <View style={styles.categories}>
         <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
           {fakeCategories.map((element, i) => {
             return (
-              <TouchableWithoutFeedback onPress={() => { props.navigation.navigate('Categories') }}>
-                <View key={i} style={styles.categorieswidget}>
+              <TouchableWithoutFeedback key={i} onPress={() => { props.navigation.navigate('Categories') }}>
+                <View style={styles.categorieswidget}>
 
                   <Image
                     rounded
@@ -102,37 +103,33 @@ export default function Home(props) {
           }
         </ScrollView>
       </View>
-      
-      <TouchableWithoutFeedback onPress={() => { props.navigation.navigate('AllCategories') }}>
-        <View style={styles.categoriestext}>
-          <Text style={{ marginRight: 5, fontWeight: 'bold', fontSize: 17 }}>Voir tout</Text>
-          <Ionicons name='chevron-forward' size={15} color='black' />
-        </View>
-      </TouchableWithoutFeedback>
+
+      <View style={styles.categoriestext}>
+        <Text style={{ marginLeft: 15, fontWeight: 'bold', fontSize: 20 }}>Prestataires populaires</Text>
+      </View>
 
       <ScrollView style={{ width: '100%' }} showsVerticalScrollIndicator={false} >
         {fakeTableau.map((element, i) => {
           return (
-            <TouchableWithoutFeedback onPress={() => { props.navigation.navigate('Prestataire') }}>
-            <Card
-              key={i}
-              containerStyle={{ padding: 0, borderRadius: 10 }}>
-              <View style={{ flexDirection: 'row' }} >
-                <Image
-                  style={{ borderTopLeftRadius: 10, borderBottomLeftRadius: 10, height: 100, width: 100 }}
-                  source={element.image}
-                />
-                <View style={{ marginLeft: 15, justifyContent: 'center', minWidth: '65%'}}>
-                  <Text style={styles.fontsize}>{element.name}</Text>
-                  <Text >{element.adress}</Text>
-                  <Text >{element.city}</Text>
-                  <View style={{flexDirection : 'row', justifyContent: 'flex-end', alignItems: 'center'}}>
-                  <Text style={{fontSize:17, fontWeight:'bold', marginLeft:10}}>{element.note}</Text>
-                  <Ionicons name="md-star" size={17} color="#F5B642" style={{marginLeft:10}} />
+            <TouchableWithoutFeedback key={i} onPress={() => { props.navigation.navigate('Prestataire') }}>
+              <Card
+                containerStyle={{ padding: 0, borderRadius: 10 }}>
+                <View style={{ flexDirection: 'row' }} >
+                  <Image
+                    style={{ borderTopLeftRadius: 10, borderBottomLeftRadius: 10, height: 100, width: 100 }}
+                    source={element.image}
+                  />
+                  <View style={{ marginLeft: 15, justifyContent: 'center', minWidth: '65%' }}>
+                    <Text style={styles.fontsize}>{element.name}</Text>
+                    <Text >{element.adress}</Text>
+                    <Text >{element.city}</Text>
+                    <View style={{ flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center' }}>
+                      <Text style={{ fontSize: 17, fontWeight: 'bold', marginLeft: 10 }}>{element.note}</Text>
+                      <Ionicons name="md-star" size={17} color="#F5B642" style={{ marginLeft: 10 }} />
+                    </View>
                   </View>
                 </View>
-              </View>
-            </Card>
+              </Card>
             </TouchableWithoutFeedback>
           )
         })
@@ -151,7 +148,6 @@ const styles = StyleSheet.create({
   },
   container: {
     backgroundColor: 'white',
-    alignItems: 'center',
     flex: 1,
     paddingTop: 40,
   },
@@ -167,6 +163,11 @@ const styles = StyleSheet.create({
   searchbar: {
     width: '100%',
     paddingTop: 10,
+  },
+  categoriestop: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     paddingBottom: 10,
   },
   categories: {
@@ -178,14 +179,11 @@ const styles = StyleSheet.create({
   },
   categoriestext: {
     flexDirection: 'row',
-    justifyContent: 'flex-end',
+    justifyContent: 'space-between',
     alignItems: 'center',
     width: '100%',
     paddingRight: 15,
     paddingTop: 15,
-    paddingBottom: 10,
+    paddingBottom: 5,
   },
-  cards: {
-    width: '100%',
-  }
 });
