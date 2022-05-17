@@ -14,6 +14,14 @@ LogBox.ignoreAllLogs();
 // Import des icones pour la navbar
 import { Ionicons } from '@expo/vector-icons';
 
+// Import de Redux
+import { Provider } from 'react-redux';
+import { createStore, combineReducers } from 'redux';
+
+import prestataires from './reducers/prestataires';
+
+const store = createStore(combineReducers({ prestataires }));
+
 import Home from './screens/Home';
 import Prestataire from './screens/Prestataire';
 import AllCategories from './screens/AllCategories';
@@ -94,37 +102,39 @@ const Tab = createBottomTabNavigator();
 
 export default function App() {
   return (
-    <NavigationContainer>
-       <Tab.Navigator
-            screenOptions={({ route }) => ({
-              tabBarIcon: ({ color }) => {
-                let iconName;
-                if (route.name === 'Home') {
-                  iconName = 'home'
-                } else if (route.name === 'Reservation') {
-                  iconName = 'calendar'
-                } else if (route.name === 'Search') {
-                  iconName = 'md-search'
-                } else if (route.name === 'Profil') {
-                  iconName = 'person'
-                }
-                return <Ionicons name={iconName} size={32} color={color} />;
-              },
-            })}
+    <Provider store={store}>
+      <NavigationContainer>
+        <Tab.Navigator
+          screenOptions={({ route }) => ({
+            tabBarIcon: ({ color }) => {
+              let iconName;
+              if (route.name === 'Home') {
+                iconName = 'home'
+              } else if (route.name === 'Reservation') {
+                iconName = 'calendar'
+              } else if (route.name === 'Search') {
+                iconName = 'md-search'
+              } else if (route.name === 'Profil') {
+                iconName = 'person'
+              }
+              return <Ionicons name={iconName} size={32} color={color} />;
+            },
+          })}
 
-            tabBarOptions={{
-              activeTintColor: '#7241DB',
-              inactiveTintColor: '#3DA787',
-              activeBackgroundColor: '#FFFFFF',
-              inactiveBackgroundColor: '#FFFFFF',
-              showLabel: false,
-            }}
-            >
-        <Tab.Screen name="Home" component={HomeStackScreen} />
-        <Tab.Screen name="Search" component={SearchStackStackScreen} />
-        <Tab.Screen name="Reservation" component={ReservationStackScreen} />
-        <Tab.Screen name="Profil" component={ProfilStackScreen} />
-      </Tab.Navigator>
-    </NavigationContainer>
+          tabBarOptions={{
+            activeTintColor: '#7241DB',
+            inactiveTintColor: '#3DA787',
+            activeBackgroundColor: '#FFFFFF',
+            inactiveBackgroundColor: '#FFFFFF',
+            showLabel: false,
+          }}
+        >
+          <Tab.Screen name="Home" component={HomeStackScreen} />
+          <Tab.Screen name="Search" component={SearchStackStackScreen} />
+          <Tab.Screen name="Reservation" component={ReservationStackScreen} />
+          <Tab.Screen name="Profil" component={ProfilStackScreen} />
+        </Tab.Navigator>
+      </NavigationContainer>
+    </Provider>
   );
 }
