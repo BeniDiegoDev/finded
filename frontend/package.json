@@ -28,6 +28,7 @@
     "react-native-elements": "^3.4.2",
     "react-native-gesture-handler": "~2.2.1",
     "react-native-modal-datetime-picker": "^13.1.2",
+    "react-native-pager-view": "^5.4.15",
     "react-native-paper": "^4.12.1",
     "react-native-paper-dates": "^0.8.7",
     "react-native-reanimated": "~2.8.0",
@@ -36,12 +37,9 @@
     "react-native-swipeout": "^2.3.6",
     "react-native-tab-view": "^3.1.1",
     "react-native-web": "0.17.7",
-<<<<<<< HEAD
-    "react-timeslot-calendar": "^0.2.0"
-=======
     "react-redux": "^8.0.1",
+    "react-timeslot-calendar": "^0.2.0",
     "redux": "^4.2.0"
->>>>>>> 32d81dc646d410957ad254551e6cf70158195cfb
   },
   "devDependencies": {
     "@babel/core": "^7.12.9"
