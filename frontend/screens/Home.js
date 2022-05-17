@@ -45,16 +45,13 @@ function Home(props) {
 
   const [location, setLocation] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
-  const [prestatairesState, setPrestatairesState] = useState([]);
 
   useEffect(() => {
     async function loadData() {
       let prestataireInBdd = await fetch(`http://${ip}:3000/recuppresta`)
       let responsePresta = await prestataireInBdd.json()
       
-      props.updateReducer(JSON.stringify(responsePresta.prestataires))
-      
-      setPrestatairesState(props.preStataires)
+      props.updateReducer(responsePresta.prestataires)
 
     }
     loadData()
@@ -97,7 +94,6 @@ function Home(props) {
   } else if (location) {
     geoloc = location;
   }
-
 
   return (
     <View style={styles.container}>
@@ -173,8 +169,8 @@ function Home(props) {
       </View>
 
       <ScrollView style={{ width: '100%' }} showsVerticalScrollIndicator={false} >
-        {console.log(prestatairesState)}
-        {fakeTableau.map((element, i) => {
+        {props.preStataires.map((element, i) => {
+          console.log(element.images)
           return (
             <TouchableWithoutFeedback key={i} onPress={() => { props.navigation.navigate('Prestataire') }}>
               <Card
@@ -182,14 +178,14 @@ function Home(props) {
                 <View style={{ flexDirection: 'row' }} >
                   <Image
                     style={{ borderTopLeftRadius: 10, borderBottomLeftRadius: 10, height: 100, width: 100 }}
-                    source={element.image}
+                    source={{ uri : element.images}}
                   />
                   <View style={{ marginLeft: 15, justifyContent: 'center', minWidth: '65%' }}>
                     <Text style={styles.fontsize}>{element.name}</Text>
-                    <Text >{element.address}</Text>
-                    <Text >{element.city}</Text>
+                    <Text >{element.number} {element.address}</Text>
+                    <Text >{element.zipcode} {element.city}</Text>
                     <View style={{ flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center' }}>
-                      <Text style={{ fontSize: 17, fontWeight: 'bold', marginLeft: 10 }}>{element.note}</Text>
+                      <Text style={{ fontSize: 17, fontWeight: 'bold', marginLeft: 10 }}>{/*{element.note}*/}4.2</Text>
                       <Ionicons name="md-star" size={17} color="#F5B642" style={{ marginLeft: 10 }} />
                     </View>
                   </View>
