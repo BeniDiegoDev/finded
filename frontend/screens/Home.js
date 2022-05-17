@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, ScrollView, Image, Text, TouchableWithoutFeedback } from 'react-native';
 
 // Import de la barre de recherche
@@ -7,6 +7,9 @@ import { Button } from '@rneui/base'
 
 // Import des icones
 import { Ionicons } from '@expo/vector-icons';
+
+// Import module de geolocalisation via Expo
+import * as Location from 'expo-location';
 
 export default function Home(props) {
 
@@ -35,6 +38,44 @@ export default function Home(props) {
     { image: require('../assets/fakeminia/miniatest7.jpg'), name: 'Maquille Moi des Champs', city: 'Paris 15e', adress: "14 avenue des Champs Elysees", note: 4.1 },
   ]
 
+  const [location, setLocation] = useState(null);
+  const [errorMsg, setErrorMsg] = useState(null);
+
+  useEffect(() => {
+    (async () => {
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== 'granted') {
+        setErrorMsg('Permission to access location was denied');
+        return;
+      }
+
+      let location = await Location.getCurrentPositionAsync({});
+      
+      let latitude = JSON.parse(location.coords.latitude)
+      let longitude = JSON.parse(location.coords.longitude)
+      
+      // console.log('latitude :', latitude, 'longitude :', longitude)
+
+      var cityName = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=0c815b9455235455a301668a56c67b18`)
+
+      let response = await cityName.json()
+
+      // console.log(response.name)
+
+      setLocation(response.name)
+
+    })();
+  }, []);
+
+  let geoloc = 'Géolocalisation en cours..';
+
+  if (errorMsg) {
+    geoloc = errorMsg;
+  } else if (location) {
+    geoloc = location;
+  }
+
+
   return (
     <View style={styles.container}>
 
@@ -51,7 +92,7 @@ export default function Home(props) {
       <View style={styles.topsearchbar}>
         <View style={{ flexDirection: 'row', alignItems: 'center', marginLeft: 10 }}>
           <Ionicons name='location' size={32} color='#3DA787' />
-          <Text style={{ fontWeight: 'bold', marginLeft: 10, fontSize: 17 }}>Paris 17e</Text>
+          <Text style={{ fontWeight: 'bold', marginLeft: 10, fontSize: 17 }}>{geoloc}</Text>
         </View>
         <View style={{ marginRight: 10 }}>
           <Button

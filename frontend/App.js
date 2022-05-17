@@ -21,6 +21,7 @@ import Categories from './screens/Categories';
 import Search from './screens/Search';
 import Reservation from './screens/ProfilPages/Reservations';
 import Profil from './screens/Profil';
+import DatePicker from './screens/DatePicker';
 import EditProfil from './screens/ProfilPages/EditProfil';
 import Adresses from './screens/ProfilPages/Adresses';
 import Reservations from './screens/ProfilPages/Reservations';
@@ -35,7 +36,7 @@ function HomeStackScreen() {
   return (
     <HomeStack.Navigator screenOptions={{ headerShown: false }}>
       <HomeStack.Screen name="Home" component={Home} />
-      <HomeStack.Screen name="Prestataire" component={Prestataire} />
+      <HomeStack.Screen name="Prestataire" component={PrestationStackScreen} />
       <HomeStack.Screen name="AllCategories" component={AllCategories} />
       <HomeStack.Screen name="Categories" component={Categories} />
     </HomeStack.Navigator>
@@ -59,6 +60,16 @@ function ReservationStackScreen() {
     <ReservationStack.Navigator screenOptions={{ headerShown: false }}>
       <ReservationStack.Screen name="Reservation" component={Reservation} />
     </ReservationStack.Navigator>
+  );
+}
+
+const PrestationStack = createStackNavigator();
+function PrestationStackScreen() {
+  return (
+    <PrestationStack.Navigator screenOptions={{ headerShown: false }}>
+      <PrestationStack.Screen name="Prestataire" component={Prestataire} />
+      <PrestationStack.Screen name="DatePicker" component={DatePicker} />
+    </PrestationStack.Navigator>
   );
 }
 
