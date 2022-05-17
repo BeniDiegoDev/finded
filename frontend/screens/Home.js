@@ -18,15 +18,18 @@ import { connect } from 'react-redux'
 import Listing from '../components/Listing'
 
 // Config IP pour connexion avec le backend
-const ip = "192.168.10.155"
+const ip = "192.168.1.17"
 
+// Debut de la fonction Home qui gere toute la page HOME
 function Home(props) {
 
+  // Necessaire pour la barre de recherche
   const [search, setSearch] = useState("");
   const updateSearch = (search) => {
     setSearch(search);
   };
 
+  // Envoi en dur des categories
   var Categories = [
     { image: require('../assets/categories/mechanic.png'), color: '#3DA787', name: 'Mécanique' },
     { image: require('../assets/categories/haircut.png'), color: '#7241DB', name: 'Coiffeur' },
@@ -38,9 +41,11 @@ function Home(props) {
     { image: require('../assets/categories/trou-de-serrure.png'), color: '#7241DB', name: 'Serrurier' },
   ]
 
+  // Necessaire pour la Geo Localisation
   const [location, setLocation] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
 
+  // Recuperation des informations Prestataires en BDD
   useEffect(() => {
     async function loadData() {
       let prestataireInBdd = await fetch(`http://${ip}:3000/recuppresta`)
@@ -52,6 +57,7 @@ function Home(props) {
     loadData()
   }, []);
 
+  // Recuperation du nom de la ville via Geo Localisation du mobile et transformer par l'API OpenWeatherApp en nom de ville grace aux coords
   useEffect(() => {
     (async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();
@@ -65,23 +71,16 @@ function Home(props) {
       let latitude = JSON.parse(location.coords.latitude)
       let longitude = JSON.parse(location.coords.longitude)
 
-      // console.log('latitude :', latitude, 'longitude :', longitude)
-
       var cityName = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=0c815b9455235455a301668a56c67b18`)
 
       let response = await cityName.json()
-
-      // console.log(response.name)
 
       setLocation(response.name)
 
     })();
   }, []);
 
-  // console.log("je suis le console du front " + props.prestataires)
-
-
-
+  // Affichage selon statut de la Geo Localisation
   let geoloc = 'Géolocalisation en cours..';
 
   if (errorMsg) {
@@ -90,20 +89,17 @@ function Home(props) {
     geoloc = location;
   }
 
+  // Filtre appliqué pour n'afficher que les fiches avec une note superieur à 4.9
   let listingFilter = props.preStataires.filter(elem => elem.note >= 4.9)
 
+  // Affichage grace au resultat du filtre
   let listing = listingFilter.map((element, i) => {
     return (
-        <Listing key={i} navigation={props.navigation} name={element.name} number={element.number} images={element.images} address={element.address} zipcode={element.zipcode} city={element.city} note={element.note} />
+        <Listing key={i} id={props.id} navigation={props.navigation} name={element.name} number={element.number} images={element.images} address={element.address} zipcode={element.zipcode} city={element.city} note={element.note} nbeval={element.nbeval} />
     )
   })
 
-  // function onPressCategories() => {
-  //   'Details', {
-  //     itemId: 86,
-  //     otherParam: 'anything you want here',
-  // }
-
+  // Partie visuelle de la page HOME
   return (
     <View style={styles.container}>
 
@@ -187,10 +183,8 @@ function Home(props) {
   );
 }
 
+// Style appliqué
 const styles = StyleSheet.create({
-  fontsize: {
-    fontSize: 17,
-  },
   container: {
     backgroundColor: 'white',
     flex: 1,
@@ -234,10 +228,12 @@ const styles = StyleSheet.create({
   },
 });
 
+//
 function mapStateToProps(state) {
   return { preStataires: state.prestataires, }
 }
 
+//
 function mapDispatchToProps(dispatch) {
   return {
     updateReducer: function (prestataires) {
@@ -250,6 +246,7 @@ function mapDispatchToProps(dispatch) {
 
 }
 
+//
 export default connect(
   mapStateToProps,
   mapDispatchToProps

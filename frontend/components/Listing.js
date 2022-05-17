@@ -28,8 +28,8 @@ export default function Listing(props) {
                         <Text style={{ fontSize: 17 }}>{props.name}</Text>
                         <Text >{props.number} {props.address}</Text>
                         <Text >{props.zipcode} {props.city}</Text>
-                        <View style={{ flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center' }}>
-                            <Text style={{ fontSize: 17, fontWeight: 'bold', marginLeft: 10, marginTop: 5 }}>{props.note} <Ionicons name="md-star" size={17} color="#F5B642" /></Text>
+                        <View style={{ flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center', marginTop: 10 }}>
+                            <Text style={{ fontSize: 10}}>({props.nbeval} Avis) </Text><Text style={{ fontSize: 17, fontWeight: 'bold'}}> {props.note} <Ionicons name="md-star" size={17} color="#F5B642" /></Text>
                         </View>
                     </View>
                 </View>

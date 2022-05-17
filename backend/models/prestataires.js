@@ -17,7 +17,7 @@ const prestatairesSchema = mongoose.Schema({
     // reservations: reservSchema,
     // isAvailable: Boolean,
     note: Number,
-    // nbeval: Number,
+    nbeval: Number,
 })
 
 const prestatairesModel = mongoose.model('prestataires', prestatairesSchema)

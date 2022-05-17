@@ -13,6 +13,21 @@ router.post('/importpresta', async function (req, res, next) {
   var fakeTableau = [
     {
       images: 'https://res.cloudinary.com/dktfcexev/image/upload/v1652779424/FindedApp/miniatest2_myaxoo.jpg',
+      name: 'CT Montparn',
+      email: 'ctmontparn@gmail.com',
+      description: 'Controle technique pres de vous ! Commandez votre prestation dès maitenant, regardez nos disponibilités',
+      number: '15',
+      address: 'avenue de montparnasse',
+      zipcode: '75015',
+      city: 'Paris',
+      phoneNumber: '0161419845',
+      category: 'mechanic',
+      categoryName: 'Mécanique',
+      note: 4.9,
+      nbeval: 92
+    },
+    {
+      images: 'https://res.cloudinary.com/dktfcexev/image/upload/v1652817311/FindedApp/miniatest10_rtos46.jpg',
       name: 'Controle technique Fiacre',
       email: 'ctdufiacre@gmail.com',
       description: 'Controle technique pres de vous ! Commandez votre prestation dès maitenant, regardez nos disponibilités',
@@ -23,10 +38,11 @@ router.post('/importpresta', async function (req, res, next) {
       phoneNumber: '0161416014',
       category: 'mechanic',
       categoryName: 'Mécanique',
-      note: 4.5
+      note: 4.5,
+      nbeval: 34
     },
     {
-      images: 'https://res.cloudinary.com/dktfcexev/image/upload/v1652779424/FindedApp/miniatest2_myaxoo.jpg',
+      images: 'https://res.cloudinary.com/dktfcexev/image/upload/v1652817311/FindedApp/miniatest8_vdxlfi.jpg',
       name: 'Controle technique Descartes',
       email: 'ctdescartese@gmail.com',
       description: 'CT pres de vous ! Commandez votre prestation dès maitenant, regardez nos disponibilités',
@@ -37,10 +53,11 @@ router.post('/importpresta', async function (req, res, next) {
       phoneNumber: '0166516014',
       category: 'mechanic',
       categoryName: 'Mécanique',
-      note: 4.8
+      note: 4.8,
+      nbeval: 244
     },
     {
-      images: 'https://res.cloudinary.com/dktfcexev/image/upload/v1652779424/FindedApp/miniatest2_myaxoo.jpg',
+      images: 'https://res.cloudinary.com/dktfcexev/image/upload/v1652817311/FindedApp/miniatest9_fimsh8.jpg',
       name: 'CT La Fleche',
       email: 'ctlafleche@gmail.com',
       description: 'Controle technique pres de vous ! Commandez votre prestation dès maitenant, regardez nos disponibilités',
@@ -51,7 +68,8 @@ router.post('/importpresta', async function (req, res, next) {
       phoneNumber: '0161419845',
       category: 'mechanic',
       categoryName: 'Mécanique',
-      note: 4.9
+      note: 4.9,
+      nbeval: 124
     },
     {
       images: 'https://res.cloudinary.com/dktfcexev/image/upload/v1652779424/FindedApp/miniatest7_jodpum.jpg',
@@ -65,13 +83,14 @@ router.post('/importpresta', async function (req, res, next) {
       phoneNumber: '0171419845',
       category: 'relooking',
       categoryName: 'Maquillage',
-      note: 4.9
+      note: 4.9,
+      nbeval: 322
     },
     {
-      images: 'https://res.cloudinary.com/dktfcexev/image/upload/v1652779424/FindedApp/miniatest7_jodpum.jpg',
+      images: 'https://res.cloudinary.com/dktfcexev/image/upload/v1652817649/FindedApp/miniatest13_cjgakt.jpg',
       name: 'Beauty People',
       email: 'beautyppl@gmail.com',
-      description: 'Estheticienne pas cher ! Reservez votre prestation dès maitenant, regardez nos disponibilités',
+      description: 'Esthetique homme pas cher ! Reservez votre prestation dès maitenant, regardez nos disponibilités',
       number: '98',
       address: 'rue du peuple',
       zipcode: '75017',
@@ -79,7 +98,8 @@ router.post('/importpresta', async function (req, res, next) {
       phoneNumber: '0171414121',
       category: 'relooking',
       categoryName: 'Maquillage',
-      note: 4.8
+      note: 4.8,
+      nbeval: 145
     },
     {
       images: 'https://res.cloudinary.com/dktfcexev/image/upload/v1652779424/FindedApp/miniatest6_miijlx.jpg',
@@ -93,7 +113,8 @@ router.post('/importpresta', async function (req, res, next) {
       phoneNumber: '0114578459',
       category: 'massage-des-pieds',
       categoryName: 'Pédicure',
-      note: 4.7
+      note: 4.7,
+      nbeval: 35
     },
     {
       images: 'https://res.cloudinary.com/dktfcexev/image/upload/v1652779424/FindedApp/miniatest3_aumalt.jpg',
@@ -107,10 +128,11 @@ router.post('/importpresta', async function (req, res, next) {
       phoneNumber: '0114758459',
       category: 'mother',
       categoryName: 'Baby-Sitting',
-      note: 4.9
+      note: 4.9,
+      nbeval: 421
     },
     {
-      images: 'https://res.cloudinary.com/dktfcexev/image/upload/v1652779424/FindedApp/miniatest3_aumalt.jpg',
+      images: 'https://res.cloudinary.com/dktfcexev/image/upload/v1652817537/FindedApp/miniatest12_mkau8t.jpg',
       name: 'Baby Green',
       email: 'babygreen@gmail.com',
       description: "Garde d'enfants dans notre centre ! Reservez votre créneau dès maitenant, regardez nos disponibilités",
@@ -121,7 +143,8 @@ router.post('/importpresta', async function (req, res, next) {
       phoneNumber: '0168878459',
       category: 'mother',
       categoryName: 'Baby-Sitting',
-      note: 4.9
+      note: 4.9,
+      nbeval: 130
     },
     {
       images: 'https://res.cloudinary.com/dktfcexev/image/upload/v1652779424/FindedApp/miniatest5_nnjibb.jpg',
@@ -135,10 +158,11 @@ router.post('/importpresta', async function (req, res, next) {
       phoneNumber: '0147496754',
       category: 'massage',
       categoryName: 'Massage',
-      note: 4.7
+      note: 4.7,
+      nbeval: 659
     },
     {
-      images: 'https://res.cloudinary.com/dktfcexev/image/upload/v1652779424/FindedApp/miniatest5_nnjibb.jpg',
+      images: 'https://res.cloudinary.com/dktfcexev/image/upload/v1652817471/FindedApp/miniatest11_epcvzs.jpg',
       name: "Massage des Beauxjours",
       email: 'massagedbj@gmail.com',
       description: "Massage de qualité dans notre centre à Paris ! Reservez votre prestation dès maitenant, regardez nos disponibilités",
@@ -149,7 +173,8 @@ router.post('/importpresta', async function (req, res, next) {
       phoneNumber: '0141475754',
       category: 'massage',
       categoryName: 'Massage',
-      note: 4.9
+      note: 4.4,
+      nbeval: 875
     },
     {
       images: 'https://res.cloudinary.com/dktfcexev/image/upload/v1652779424/FindedApp/miniatest4_yoqnq9.jpg',
@@ -163,12 +188,13 @@ router.post('/importpresta', async function (req, res, next) {
       phoneNumber: '0141147854',
       category: 'trou-de-serrure',
       categoryName: 'Serrurier',
-      note: 4.9
+      note: 4.9,
+      nbeval: 127
     },
     {
-      images: 'https://res.cloudinary.com/dktfcexev/image/upload/v1652779424/FindedApp/miniatest4_yoqnq9.jpg',
+      images: 'https://res.cloudinary.com/dktfcexev/image/upload/v1652817694/FindedApp/miniatest14_e0pfqz.jpg',
       name: "Serrurier du sentier",
-      email: 'deblokserr@gmail.com',
+      email: 'serrursent@gmail.com',
       description: "Serrurier rapide se déplace à Paris ! Reservez votre créneau dès maitenant, regardez nos disponibilités",
       number: '15',
       address: "avenue du sentier",
@@ -177,7 +203,53 @@ router.post('/importpresta', async function (req, res, next) {
       phoneNumber: '01142987564',
       category: 'trou-de-serrure',
       categoryName: 'Serrurier',
-      note: 4.8
+      note: 4.8,
+      nbeval: 245
+    },
+    {
+      images: 'https://res.cloudinary.com/dktfcexev/image/upload/v1652818114/FindedApp/miniatest15_tfbogj.jpg',
+      name: "Koif'Tif",
+      email: 'coiftif@gmail.com',
+      description: "Coiffeur disponible qui se déplace à Paris ! Reservez votre créneau dès maitenant, regardez nos disponibilités",
+      number: '16',
+      address: "boulevard du var",
+      zipcode: '75017',
+      city: 'Paris',
+      phoneNumber: '0154785698',
+      category: 'haircut',
+      categoryName: 'Coiffeur',
+      note: 4.6,
+      nbeval: 147
+    },
+    {
+      images: 'https://res.cloudinary.com/dktfcexev/image/upload/v1652818114/FindedApp/miniatest16_vid5f1.jpg',
+      name: "Coif'Tignasse",
+      email: 'coiftign@gmail.com',
+      description: "Coiffeur disponible dans ses locaux chic ! Reservez votre créneau dès maitenant, regardez nos disponibilités",
+      number: '98',
+      address: "avenue des champs",
+      zipcode: '75008',
+      city: 'Paris',
+      phoneNumber: '0148569852',
+      category: 'haircut',
+      categoryName: 'Coiffeur',
+      note: 4.9,
+      nbeval: 342
+    },
+    {
+      images: 'https://res.cloudinary.com/dktfcexev/image/upload/v1652818114/FindedApp/miniatest17_pohp90.jpg',
+      name: "Peinture de paris",
+      email: 'pdp@gmail.com',
+      description: "Peintre à domicile ! Reservez votre créneau dès maitenant, regardez nos disponibilités",
+      number: '45',
+      address: "rue de paris",
+      zipcode: '75017',
+      city: 'Paris',
+      phoneNumber: '0148569852',
+      category: 'peinture',
+      categoryName: 'Peinture',
+      note: 4.6,
+      nbeval: 87
     },
   ]
 
@@ -194,8 +266,10 @@ router.post('/importpresta', async function (req, res, next) {
       phoneNumber: fakeTableau[i].phoneNumber,
       category: fakeTableau[i].category,
       categoryName: fakeTableau[i].categoryName,
-      note: fakeTableau[i].note
+      note: fakeTableau[i].note,
+      nbeval: fakeTableau[i].nbeval
     });
+
     var prestatairesSave = await newPrestataire.save();
   }
 
