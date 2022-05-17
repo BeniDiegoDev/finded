@@ -8,6 +8,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
 
 
+
 let meeting = [
   { type: 'Terminées', 
     hour: '8h00',
@@ -447,9 +448,11 @@ const ThirdRoute = (props) => {
         </View>
   );
 }
-
+ 
 
 export default function Reservations(props) {
+
+  const [isLogged, setIsLogged] = useState(true);
 
   const renderScene = ({ route }) => {
     switch (route.key) {
@@ -484,6 +487,9 @@ export default function Reservations(props) {
     />
   );
 
+
+  if (isLogged === true) {
+
   return (
     
       <View style={styles.container}>
@@ -500,9 +506,31 @@ export default function Reservations(props) {
         />
       </View>
       
-  );
-}
+  )
 
+  } else {
+
+    return (
+      <View style={{paddingTop:40, flex:1, backgroundColor:'#fff', paddingHorizontal:20, display:'flex', flexDirection:'column', justifyContent:'space-between'}}>
+       
+            <View style={{marginVertical:10}}>
+              <Text style={{fontSize:30}}>Réservations</Text>
+            </View>
+            <View style={{display:'flex', alignItems:'center'}}>
+              <AntDesign name="calendar" size={150} color="#3DA787" />
+              <Text style={{color: '#7241DB', fontWeight: 'bold',fontStyle: 'italic',textAlign: 'center',fontSize: 20,}}>Finded</Text>
+              <Text style={{fontSize:20, marginVertical:20}}>Vos réservations apparaîtront ici</Text>
+            </View>
+        
+        <View style={{display:'flex', alignItems:'center'}}>
+          <Text style={{marginBottom:20, color: '#7241DB', fontWeight:'bold', fontSize:15}}>S'identifier</Text>
+          <Text style={{marginBottom:20, color: '#7241DB', fontWeight:'bold', fontSize:15}}>Créer un compte</Text>
+        </View> 
+      </View>
+    );
+  
+  }
+}
 
 const styles = StyleSheet.create({
   container:{
