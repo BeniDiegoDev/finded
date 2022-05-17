@@ -36,12 +36,8 @@
     "react-native-swipeout": "^2.3.6",
     "react-native-tab-view": "^3.1.1",
     "react-native-web": "0.17.7",
-<<<<<<< HEAD
-    "react-timeslot-calendar": "^0.2.0"
-=======
     "react-redux": "^8.0.1",
     "redux": "^4.2.0"
->>>>>>> 32d81dc646d410957ad254551e6cf70158195cfb
   },
   "devDependencies": {
     "@babel/core": "^7.12.9"
