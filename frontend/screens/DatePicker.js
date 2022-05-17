@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { StyleSheet, View, ScrollView, Image, Text } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { StyleSheet, View, ScrollView, Image, Text, TouchableOpacity, StatusBar } from 'react-native';
 
 // Import de SafeAreaView pour ne pas etre gené par la barre haute par defaut du telephone
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -14,28 +14,55 @@ import { Feather } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
 import { Divider, Tab } from 'react-native-elements';
 import CalendarPicker from 'react-native-calendar-picker';
+
+
 var moment = require('moment'); // require
 moment.locale ('fr');
 
 
-export default class App extends Component {
-    constructor(props) {
-      super(props);
-      this.state = {
-        selectedStartDate: null,
-      };
-      this.onDateChange = this.onDateChange.bind(this);
-    }
+export default function App(props) {
+    const [selectedStartDate, setSelectedStartDate] = useState(null)
   
-    onDateChange(date) {
-      this.setState({
-        selectedStartDate: date,
-      });
+    const startDate = selectedStartDate ? selectedStartDate.toString() : '';
+    const maDate = new Date(startDate)  
+    const todayDate = new Date()
+
+    let slots = [ 
+                '10h - 11h',
+                '11h - 12h',
+                '12h - 13h',
+                '13h - 14h',
+                '14h - 15h',
+                '15h - 16h',
+                '16h - 17h',]
+    
+    const [state, setState] = useState(-1);
+    if( maDate.toLocaleDateString("fr")!=='Invalid Date'){
+        var listSlots = slots.map((slot,i) => {
+            
+            var onClick = () => {
+                setState(i);
+            }
+            
+            return (
+                <View key={i} style={{margin:5, width:'30%'}}>
+                    {state == i ? <Button buttonStyle={{ backgroundColor: '#7241DB'}} radius="20" onPress={()=>(slotsPress(i),onClick())}>{slot}</Button>:
+                    <Button radius="20" onPress={()=>(slotsPress(i),onClick())}>{slot}</Button>}
+                </View>
+            )});
     }
-    render() {
-      const { selectedStartDate } = this.state;
-      const startDate = selectedStartDate ? selectedStartDate.toString() : '';
-      const maDate = new Date(startDate)
+    const[slotSelected, setSlotSelected] = useState('');
+    var slotsPress = (i) => {
+        setSlotSelected(slots[i])
+        console.log(slotSelected)
+    }
+
+    console.log(slotSelected)
+
+     useEffect(() => {
+             setSlotSelected('')
+             setState(-1)
+            }, [selectedStartDate]);
 
     return (
         <View style={{flex:1, backgroundColor:'white'}}>
@@ -75,9 +102,12 @@ export default class App extends Component {
                     </View>
                     <Divider style={{ backgroundColor: '#7241DB' }} />
                 </View>
+                <Text style={[styles.title,{marginTop:10}]}>
+                    Choisir une date
+                </Text>
 
                 <CalendarPicker
-                onDateChange={this.onDateChange}
+                onDateChange={(date) => setSelectedStartDate(date)}
                 showDayStragglers='true'
                 weekdays={['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim']}
                 months={['Janvier', 'Fevrier', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Decembre']}
@@ -85,18 +115,30 @@ export default class App extends Component {
                 nextTitle="Suivant"
                 todayBackgroundColor="#d3d3d3"
                 selectedDayColor="#7241DB"
+                minDate={todayDate}
                 />
-                <View style={{alignItems:'center', marginTop:10}}>
-                <Text style={styles.title}>{ maDate.toLocaleDateString("fr")==='Invalid Date' ?'':moment(maDate).format('LL') }</Text>
+                <Text style={[styles.title,{marginTop:10}]}>
+                    { maDate.toLocaleDateString('fr')==='Invalid Date' ?null:'Choisir un créneau' }
+                </Text>
+                <View style={{width:'100%',flexDirection:'row', flexWrap:'wrap'}}>
+                {listSlots}
                 </View>
-
+                <View style={{marginLeft:0, marginTop:10, alignItems:'center'}}>
+                    <Text style={styles.title}> 
+                        { slotSelected==='' ?null:moment(maDate).format('LL') +' de ' + slotSelected}                   
+                    </Text> 
+                    <View style={{width:'50%', marginBottom:20}}>
+                    { slotSelected==='' ? null :<Button  buttonStyle={{ backgroundColor: '#7241DB'}} radius="20" onPress={() => { props.navigation.navigate('DatePicker') }}>Réserver</Button>
+                   }                   
+                    </View>
+                </View>
 
             </View>
             </ScrollView>
         </View>
      
     );
-    }   };
+      };
   
   const styles = StyleSheet.create({
     container: {
