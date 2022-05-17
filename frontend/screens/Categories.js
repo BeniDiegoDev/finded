@@ -24,7 +24,7 @@ function Categories(props) {
 
   let listing = listingFilter.map((element, i) => {
     return (
-      <TouchableWithoutFeedback key={i} onPress={() => { props.navigation.navigate('Prestataire') }}>
+      <TouchableWithoutFeedback key={i} onPress={() => { props.navigation.navigate('Prerstataire') }}>
         <Listing key={i} navigation={props.navigation} name={element.name} number={element.number} images={element.images} address={element.address} zipcode={element.zipcode} city={element.city} note={element.note} />
       </TouchableWithoutFeedback>
     )
