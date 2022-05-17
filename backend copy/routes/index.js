@@ -22,7 +22,6 @@ router.post('/importpresta', async function (req, res, next) {
       city: 'Paris',
       phoneNumber: '0161416014',
       category: 'mechanic',
-      categoryName: 'Mécanique',
       note: 4.5
     },
     {
@@ -36,7 +35,6 @@ router.post('/importpresta', async function (req, res, next) {
       city: 'Paris',
       phoneNumber: '0166516014',
       category: 'mechanic',
-      categoryName: 'Mécanique',
       note: 4.8
     },
     {
@@ -50,7 +48,6 @@ router.post('/importpresta', async function (req, res, next) {
       city: 'Paris',
       phoneNumber: '0161419845',
       category: 'mechanic',
-      categoryName: 'Mécanique',
       note: 4.9
     },
     {
@@ -64,7 +61,6 @@ router.post('/importpresta', async function (req, res, next) {
       city: 'Paris',
       phoneNumber: '0171419845',
       category: 'relooking',
-      categoryName: 'Maquillage',
       note: 4.9
     },
     {
@@ -78,7 +74,6 @@ router.post('/importpresta', async function (req, res, next) {
       city: 'Paris',
       phoneNumber: '0171414121',
       category: 'relooking',
-      categoryName: 'Maquillage',
       note: 4.8
     },
     {
@@ -92,7 +87,6 @@ router.post('/importpresta', async function (req, res, next) {
       city: 'Paris',
       phoneNumber: '0114578459',
       category: 'massage-des-pieds',
-      categoryName: 'Pédicure',
       note: 4.7
     },
     {
@@ -106,7 +100,6 @@ router.post('/importpresta', async function (req, res, next) {
       city: 'Paris',
       phoneNumber: '0114758459',
       category: 'mother',
-      categoryName: 'Baby-Sitting',
       note: 4.9
     },
     {
@@ -120,7 +113,6 @@ router.post('/importpresta', async function (req, res, next) {
       city: 'Paris',
       phoneNumber: '0168878459',
       category: 'mother',
-      categoryName: 'Baby-Sitting',
       note: 4.9
     },
     {
@@ -134,7 +126,6 @@ router.post('/importpresta', async function (req, res, next) {
       city: 'Paris',
       phoneNumber: '0147496754',
       category: 'massage',
-      categoryName: 'Massage',
       note: 4.7
     },
     {
@@ -148,7 +139,6 @@ router.post('/importpresta', async function (req, res, next) {
       city: 'Paris',
       phoneNumber: '0141475754',
       category: 'massage',
-      categoryName: 'Massage',
       note: 4.9
     },
     {
@@ -162,7 +152,6 @@ router.post('/importpresta', async function (req, res, next) {
       city: 'Paris',
       phoneNumber: '0141147854',
       category: 'trou-de-serrure',
-      categoryName: 'Serrurier',
       note: 4.9
     },
     {
@@ -176,7 +165,6 @@ router.post('/importpresta', async function (req, res, next) {
       city: 'Paris',
       phoneNumber: '01142987564',
       category: 'trou-de-serrure',
-      categoryName: 'Serrurier',
       note: 4.8
     },
   ]
@@ -193,7 +181,6 @@ router.post('/importpresta', async function (req, res, next) {
       city: fakeTableau[i].city,
       phoneNumber: fakeTableau[i].phoneNumber,
       category: fakeTableau[i].category,
-      categoryName: fakeTableau[i].categoryName,
       note: fakeTableau[i].note
     });
     var prestatairesSave = await newPrestataire.save();

@@ -17,11 +17,11 @@ export default function AllCategories(props) {
   var fakeCategories = [
     { image: require('../assets/categories/haircut.png'), color: '#7241DB', name: 'Coiffeur' },
     { image: require('../assets/categories/massage-des-pieds.png'), color: '#3DA787', name: 'Pédicure' },
-    { image: require('../assets/categories/massage.png'), color: '#7241DB', name: 'Massage' },
-    { image: require('../assets/categories/mother.png'), color: '#3DA787', name: 'Baby-Sitting' },
+    { image: require('../assets/categories/massage.png'), color: '#3DA787', name: 'Massage' },
+    { image: require('../assets/categories/mother.png'), color: '#7241DB', name: 'Baby-Sitting' },
     { image: require('../assets/categories/peinture.png'), color: '#7241DB', name: 'Peinture' },
     { image: require('../assets/categories/relooking.png'), color: '#3DA787', name: 'Maquillage' },
-    { image: require('../assets/categories/trou-de-serrure.png'), color: '#7241DB', name: 'Serrurier' },
+    { image: require('../assets/categories/trou-de-serrure.png'), color: '#3DA787', name: 'Serrurier' },
   ]
 
   return (
@@ -45,11 +45,11 @@ export default function AllCategories(props) {
       </View>
 
       <ScrollView showsVerticalScrollIndicator={false} >
-        <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent : 'center' }}>
+        <View style={{marginHorizontal:'5%', display:'flex', flexDirection:'row', flexWrap:'wrap'}}>
           {fakeCategories.map((element, i) => {
             return (
               <TouchableWithoutFeedback key={i} onPress={() => { props.navigation.navigate('Categories') }}>
-                <View style={{ marginRight: 10, marginLeft: 10, marginTop: 10, marginBottom: 10, height: 170, width: 170, backgroundColor: element.color, alignItems: 'center', justifyContent: 'center', borderWidth: 3 }}>
+                <View style={{ backgroundColor: element.color, alignItems: 'center', borderWidth: 3, marginVertical:10, paddingVertical:10, width:'45%', marginHorizontal:'2.5%' }}>
                   <Image
                     style={{ height: 90, width: 90 }}
                     source={element.image}

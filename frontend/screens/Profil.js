@@ -21,7 +21,7 @@ export default function Profil(props) {
     },
     {
       icon : <FontAwesome name="credit-card" size={30} color="black" />,
-      name : 'Mes cartes',
+      name : 'Mon Wallet',
       url : 'Cards'
     },
     {

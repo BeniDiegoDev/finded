@@ -11,14 +11,24 @@ import { Ionicons } from '@expo/vector-icons';
 // Import module de geolocalisation via Expo
 import * as Location from 'expo-location';
 
-export default function Home(props) {
+// Import de la connexion avec Redux
+import { connect } from 'react-redux'
+
+// Import components
+import Listing from '../components/Listing'
+
+// Config IP pour connexion avec le backend
+const ip = "192.168.10.157"
+
+function Home(props) {
 
   const [search, setSearch] = useState("");
   const updateSearch = (search) => {
     setSearch(search);
   };
 
-  var fakeCategories = [
+  var Categories = [
+    { image: require('../assets/categories/mechanic.png'), color: '#3DA787', name: 'Mécanique' },
     { image: require('../assets/categories/haircut.png'), color: '#7241DB', name: 'Coiffeur' },
     { image: require('../assets/categories/massage-des-pieds.png'), color: '#3DA787', name: 'Pédicure' },
     { image: require('../assets/categories/massage.png'), color: '#7241DB', name: 'Massage' },
@@ -28,18 +38,19 @@ export default function Home(props) {
     { image: require('../assets/categories/trou-de-serrure.png'), color: '#7241DB', name: 'Serrurier' },
   ]
 
-  var fakeTableau = [
-    { image: require('../assets/fakeminia/miniatest2.jpg'), name: "Controle Technique Mant'te", city: 'Paris 13e', adress: "875 boulevard de Mantes", note: 5 },
-    { image: require('../assets/fakeminia/miniatest1.jpg'), name: 'Coiffeur du Marnois', city: 'Paris 15e', adress: "92 rue de la Marne", note: 4.6 },
-    { image: require('../assets/fakeminia/miniatest3.jpg'), name: "Montagn'enfance", city: 'Paris 17e', adress: "1515 boulevard Montagne", note: 4.5 },
-    { image: require('../assets/fakeminia/miniatest4.jpg'), name: 'Beni Crochet', city: 'Paris 13e', adress: "2509 rue de Beni", note: 4.5 },
-    { image: require('../assets/fakeminia/miniatest5.jpg'), name: 'Massage du 15', city: 'Paris 14e', adress: "5 rue de Paris", note: 4.4 },
-    { image: require('../assets/fakeminia/miniatest6.jpg'), name: "Pedic'dona", city: 'Paris 14e', adress: "165 rue Donatelo", note: 4.3 },
-    { image: require('../assets/fakeminia/miniatest7.jpg'), name: 'Maquille Moi des Champs', city: 'Paris 15e', adress: "14 avenue des Champs Elysees", note: 4.1 },
-  ]
-
   const [location, setLocation] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
+
+  useEffect(() => {
+    async function loadData() {
+      let prestataireInBdd = await fetch(`http://${ip}:3000/recuppresta`)
+      let responsePresta = await prestataireInBdd.json()
+
+      props.updateReducer(responsePresta.prestataires)
+
+    }
+    loadData()
+  }, []);
 
   useEffect(() => {
     (async () => {
@@ -50,10 +61,10 @@ export default function Home(props) {
       }
 
       let location = await Location.getCurrentPositionAsync({});
-      
+
       let latitude = JSON.parse(location.coords.latitude)
       let longitude = JSON.parse(location.coords.longitude)
-      
+
       // console.log('latitude :', latitude, 'longitude :', longitude)
 
       var cityName = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=0c815b9455235455a301668a56c67b18`)
@@ -67,6 +78,10 @@ export default function Home(props) {
     })();
   }, []);
 
+  // console.log("je suis le console du front " + props.prestataires)
+
+
+
   let geoloc = 'Géolocalisation en cours..';
 
   if (errorMsg) {
@@ -75,6 +90,19 @@ export default function Home(props) {
     geoloc = location;
   }
 
+  let listingFilter = props.preStataires.filter(elem => elem.note >= 4.9)
+
+  let listing = listingFilter.map((element, i) => {
+    return (
+        <Listing key={i} navigation={props.navigation} name={element.name} number={element.number} images={element.images} address={element.address} zipcode={element.zipcode} city={element.city} note={element.note} />
+    )
+  })
+
+  // function onPressCategories() => {
+  //   'Details', {
+  //     itemId: 86,
+  //     otherParam: 'anything you want here',
+  // }
 
   return (
     <View style={styles.container}>
@@ -125,18 +153,18 @@ export default function Home(props) {
 
       <View style={styles.categories}>
         <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-          {fakeCategories.map((element, i) => {
+          {Categories.map((element, i) => {
             return (
-              <TouchableWithoutFeedback key={i} onPress={() => { props.navigation.navigate('Categories') }}>
+              <TouchableWithoutFeedback key={i} onPress={() => { props.navigation.navigate('Categories', {name : element.name}) }}>
                 <View style={styles.categorieswidget}>
 
                   <Image
                     rounded
                     backgroundColor={element.color}
-                    style={{ borderRadius: 50, height: 90, width: 90, marginBottom: 10, borderColor: 'black', borderWidth: 3 }}
+                    style={{ borderRadius: 50, height: 70, width: 70, marginBottom: 10, borderColor: 'black', borderWidth: 3 }}
                     source={element.image}
                   />
-                  <Text style={{ textAlign: 'center', fontSize: 17 }}>{element.name}</Text>
+                  <Text style={{ textAlign: 'center' }}>{element.name}</Text>
                 </View>
               </TouchableWithoutFeedback>
             )
@@ -150,31 +178,7 @@ export default function Home(props) {
       </View>
 
       <ScrollView style={{ width: '100%' }} showsVerticalScrollIndicator={false} >
-        {fakeTableau.map((element, i) => {
-          return (
-            <TouchableWithoutFeedback key={i} onPress={() => { props.navigation.navigate('Prestataire') }}>
-              <Card
-                containerStyle={{ padding: 0, borderRadius: 10 }}>
-                <View style={{ flexDirection: 'row' }} >
-                  <Image
-                    style={{ borderTopLeftRadius: 10, borderBottomLeftRadius: 10, height: 100, width: 100 }}
-                    source={element.image}
-                  />
-                  <View style={{ marginLeft: 15, justifyContent: 'center', minWidth: '65%' }}>
-                    <Text style={styles.fontsize}>{element.name}</Text>
-                    <Text >{element.adress}</Text>
-                    <Text >{element.city}</Text>
-                    <View style={{ flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center' }}>
-                      <Text style={{ fontSize: 17, fontWeight: 'bold', marginLeft: 10 }}>{element.note}</Text>
-                      <Ionicons name="md-star" size={17} color="#F5B642" style={{ marginLeft: 10 }} />
-                    </View>
-                  </View>
-                </View>
-              </Card>
-            </TouchableWithoutFeedback>
-          )
-        })
-        }
+        {listing}
       </ScrollView >
 
     </View>
@@ -217,6 +221,7 @@ const styles = StyleSheet.create({
   categorieswidget: {
     marginRight: 10,
     marginLeft: 10,
+    alignItems: 'center',
   },
   categoriestext: {
     flexDirection: 'row',
@@ -225,6 +230,27 @@ const styles = StyleSheet.create({
     width: '100%',
     paddingRight: 15,
     paddingTop: 15,
-    paddingBottom: 5,
+    paddingBottom: 10,
   },
 });
+
+function mapStateToProps(state) {
+  return { preStataires: state.prestataires, }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    updateReducer: function (prestataires) {
+      dispatch({
+        type: 'addPrestataire',
+        prestataires
+      })
+    }
+  }
+
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Home);
