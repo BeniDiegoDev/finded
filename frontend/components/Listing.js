@@ -16,23 +16,25 @@ import { connect } from 'react-redux'
 
 export default function Listing(props) {
     return (
-                    <Card
-                        containerStyle={{ padding: 0, borderRadius: 10 }}>
-                        <View style={{ flexDirection: 'row' }} >
-                            <Image
-                                style={{ borderTopLeftRadius: 10, borderBottomLeftRadius: 10, height: 120, width: 120 }}
-                                source={{ uri: props.images }}
-                            />
-                            <View style={{ marginLeft: 15, justifyContent: 'center', minWidth: '60%' }}>
-                                <Text style={{fontSize: 17}}>{props.name}</Text>
-                                <Text >{props.number} {props.address}</Text>
-                                <Text >{props.zipcode} {props.city}</Text>
-                                <View style={{ flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center' }}>
-                                    <Text style={{ fontSize: 17, fontWeight: 'bold', marginLeft: 10, marginTop: 5 }}>{props.note} <Ionicons name="md-star" size={17} color="#F5B642" /></Text>
-                                </View>
-                            </View>
+        <TouchableWithoutFeedback onPress={() => { props.navigation.navigate('Prestataire') }}>
+            <Card
+                containerStyle={{ padding: 0, borderRadius: 10, marginTop: 0, marginBottom: 10 }}>
+                <View style={{ flexDirection: 'row' }} >
+                    <Image
+                        style={{ borderTopLeftRadius: 10, borderBottomLeftRadius: 10, height: 120, width: 120 }}
+                        source={{ uri: props.images }}
+                    />
+                    <View style={{ marginLeft: 15, justifyContent: 'center', minWidth: '60%' }}>
+                        <Text style={{ fontSize: 17 }}>{props.name}</Text>
+                        <Text >{props.number} {props.address}</Text>
+                        <Text >{props.zipcode} {props.city}</Text>
+                        <View style={{ flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center' }}>
+                            <Text style={{ fontSize: 17, fontWeight: 'bold', marginLeft: 10, marginTop: 5 }}>{props.note} <Ionicons name="md-star" size={17} color="#F5B642" /></Text>
                         </View>
-                    </Card>
+                    </View>
+                </View>
+            </Card>
+        </TouchableWithoutFeedback>
     )
 }
 

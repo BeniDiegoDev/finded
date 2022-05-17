@@ -7,28 +7,37 @@ import { SearchBar, Card } from '@rneui/themed';
 // Import des icones
 import { Ionicons } from '@expo/vector-icons';
 
-export default function Categories(props) {
+// Import components
+import Listing from '../components/Listing'
+
+// Import de la connexion avec Redux
+import { connect } from 'react-redux'
+
+function Categories(props) {
 
   const [search, setSearch] = useState("");
   const updateSearch = (search) => {
     setSearch(search);
   };
 
-  var fakeTableau = [
-    { image: require('../assets/fakeminia/miniatest2.jpg'), name: "Controle Technique Mant'te", city: 'Paris 13e', adress: "875 boulevard de Mantes", note: 5 },
-    { image: require('../assets/fakeminia/miniatest1.jpg'), name: 'Coiffeur du Marnois', city: 'Paris 15e', adress: "92 rue de la Marne", note: 4.6 },
-    { image: require('../assets/fakeminia/miniatest3.jpg'), name: "Montagn'enfance", city: 'Paris 17e', adress: "1515 boulevard Montagne", note: 4.5 },
-    { image: require('../assets/fakeminia/miniatest4.jpg'), name: 'Beni Crochet', city: 'Paris 13e', adress: "2509 rue de Beni", note: 4.5 },
-    { image: require('../assets/fakeminia/miniatest5.jpg'), name: 'Massage du 15', city: 'Paris 14e', adress: "5 rue de Paris", note: 4.4 },
-    { image: require('../assets/fakeminia/miniatest6.jpg'), name: "Pedic'dona", city: 'Paris 14e', adress: "165 rue Donatelo", note: 4.3 },
-    { image: require('../assets/fakeminia/miniatest7.jpg'), name: 'Maquille Moi des Champs', city: 'Paris 15e', adress: "14 avenue des Champs Elysees", note: 4.1 },
-  ]
+  let listingFilter = props.preStataires.filter(elem => elem.categoryName == props.route.params.name)
+
+  let listing = listingFilter.map((element, i) => {
+    return (
+      <TouchableWithoutFeedback key={i} onPress={() => { props.navigation.navigate('Prestataire') }}>
+        <Listing name={element.name} number={element.number} images={element.images} address={element.address} zipcode={element.zipcode} city={element.city} note={element.note} />
+      </TouchableWithoutFeedback>
+    )
+  })
+
+  // Recupere les infos du clique
+  // console.log(props.route.params.name)
 
   return (
     <View style={styles.container}>
 
       <View style={{ paddingLeft: 10, paddingBottom: 10, paddingTop: 10 }}>
-        <Text style={{ paddingRight: 15, fontSize: 30 }}><Ionicons onPress={() => { props.navigation.goBack() }} name='chevron-back' size={30} color='black' /> Nom de la catégorie</Text>
+        <Text style={{ paddingRight: 15, fontSize: 30 }}><Ionicons onPress={() => { props.navigation.goBack() }} name='chevron-back' size={30} color='black' /> {props.route.params.name}</Text>
       </View>
 
       <View style={styles.searchbar}>
@@ -45,31 +54,7 @@ export default function Categories(props) {
       </View>
 
       <ScrollView style={{ width: '100%' }} showsVerticalScrollIndicator={false} >
-        {fakeTableau.map((element, i) => {
-          return (
-            <TouchableWithoutFeedback key={i} onPress={() => { props.navigation.navigate('Prestataire') }}>
-              <Card
-                containerStyle={{ padding: 0, borderRadius: 10 }}>
-                <View style={{ flexDirection: 'row' }} >
-                  <Image
-                    style={{ borderTopLeftRadius: 10, borderBottomLeftRadius: 10, height: 100, width: 100 }}
-                    source={element.image}
-                  />
-                  <View style={{ marginLeft: 15, justifyContent: 'center', minWidth: '65%' }}>
-                    <Text style={styles.fontsize}>{element.name}</Text>
-                    <Text >{element.adress}</Text>
-                    <Text >{element.city}</Text>
-                    <View style={{ flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center' }}>
-                      <Text style={{ fontSize: 17, fontWeight: 'bold', marginLeft: 10 }}>{element.note}</Text>
-                      <Ionicons name="md-star" size={17} color="#F5B642" style={{ marginLeft: 10 }} />
-                    </View>
-                  </View>
-                </View>
-              </Card>
-            </TouchableWithoutFeedback>
-          )
-        })
-        }
+        {listing}
       </ScrollView >
 
     </View>
@@ -87,3 +72,12 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
   },
 });
+
+function mapStateToProps(state) {
+  return { preStataires: state.prestataires, }
+}
+
+export default connect(
+  mapStateToProps,
+  null
+)(Categories);

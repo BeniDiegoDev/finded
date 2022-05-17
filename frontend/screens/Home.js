@@ -94,11 +94,15 @@ function Home(props) {
 
   let listing = listingFilter.map((element, i) => {
     return (
-      <TouchableWithoutFeedback key={i} onPress={() => { props.navigation.navigate('Prestataire') }}>
-        <Listing name={element.name} number={element.number} images={element.images} address={element.address} zipcode={element.zipcode} city={element.city} note={element.note} />
-      </TouchableWithoutFeedback>
+        <Listing key={i} navigation={props.navigation} name={element.name} number={element.number} images={element.images} address={element.address} zipcode={element.zipcode} city={element.city} note={element.note} />
     )
   })
+
+  // function onPressCategories() => {
+  //   'Details', {
+  //     itemId: 86,
+  //     otherParam: 'anything you want here',
+  // }
 
   return (
     <View style={styles.container}>
@@ -151,7 +155,7 @@ function Home(props) {
         <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
           {Categories.map((element, i) => {
             return (
-              <TouchableWithoutFeedback key={i} onPress={() => { props.navigation.navigate('Categories') }}>
+              <TouchableWithoutFeedback key={i} onPress={() => { props.navigation.navigate('Categories', {name : element.name}) }}>
                 <View style={styles.categorieswidget}>
 
                   <Image
@@ -226,7 +230,7 @@ const styles = StyleSheet.create({
     width: '100%',
     paddingRight: 15,
     paddingTop: 15,
-    paddingBottom: 5,
+    paddingBottom: 10,
   },
 });
 
