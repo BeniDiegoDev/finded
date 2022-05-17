@@ -186,7 +186,7 @@ router.post('/importpresta', async function (req, res, next) {
     var prestatairesSave = await newPrestataire.save();
   }
 
-  console.log(newPrestataire)
+  // console.log(newPrestataire)
 
   res.json({ prestatairesSave });
 });

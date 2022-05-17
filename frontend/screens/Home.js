@@ -24,7 +24,7 @@ function Home(props) {
     setSearch(search);
   };
 
-  var fakeCategories = [
+  var Categories = [
     { image: require('../assets/categories/mechanic.png'), color: '#3DA787', name: 'Mécanique' },
     { image: require('../assets/categories/haircut.png'), color: '#7241DB', name: 'Coiffeur' },
     { image: require('../assets/categories/massage-des-pieds.png'), color: '#3DA787', name: 'Pédicure' },
@@ -136,7 +136,7 @@ function Home(props) {
 
       <View style={styles.categories}>
         <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-          {fakeCategories.map((element, i) => {
+          {Categories.map((element, i) => {
             return (
               <TouchableWithoutFeedback key={i} onPress={() => { props.navigation.navigate('Categories') }}>
                 <View style={styles.categorieswidget}>
@@ -229,6 +229,7 @@ const styles = StyleSheet.create({
   categorieswidget: {
     marginRight: 10,
     marginLeft: 10,
+    alignItems: 'center',
   },
   categoriestext: {
     flexDirection: 'row',
