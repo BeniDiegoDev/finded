@@ -14,6 +14,9 @@ import * as Location from 'expo-location';
 // Import de la connexion avec Redux
 import { connect } from 'react-redux'
 
+// Import components
+import Listing from '../components/Listing'
+
 // Config IP pour connexion avec le backend
 const ip = "192.168.10.155"
 
@@ -24,7 +27,7 @@ function Home(props) {
     setSearch(search);
   };
 
-  var fakeCategories = [
+  var Categories = [
     { image: require('../assets/categories/mechanic.png'), color: '#3DA787', name: 'Mécanique' },
     { image: require('../assets/categories/haircut.png'), color: '#7241DB', name: 'Coiffeur' },
     { image: require('../assets/categories/massage-des-pieds.png'), color: '#3DA787', name: 'Pédicure' },
@@ -87,6 +90,20 @@ function Home(props) {
     geoloc = location;
   }
 
+  let listingFilter = props.preStataires.filter(elem => elem.note >= 4.9)
+
+  let listing = listingFilter.map((element, i) => {
+    return (
+        <Listing key={i} navigation={props.navigation} name={element.name} number={element.number} images={element.images} address={element.address} zipcode={element.zipcode} city={element.city} note={element.note} />
+    )
+  })
+
+  // function onPressCategories() => {
+  //   'Details', {
+  //     itemId: 86,
+  //     otherParam: 'anything you want here',
+  // }
+
   return (
     <View style={styles.container}>
 
@@ -136,18 +153,18 @@ function Home(props) {
 
       <View style={styles.categories}>
         <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-          {fakeCategories.map((element, i) => {
+          {Categories.map((element, i) => {
             return (
-              <TouchableWithoutFeedback key={i} onPress={() => { props.navigation.navigate('Categories') }}>
+              <TouchableWithoutFeedback key={i} onPress={() => { props.navigation.navigate('Categories', {name : element.name}) }}>
                 <View style={styles.categorieswidget}>
 
                   <Image
                     rounded
                     backgroundColor={element.color}
-                    style={{ borderRadius: 50, height: 90, width: 90, marginBottom: 10, borderColor: 'black', borderWidth: 3 }}
+                    style={{ borderRadius: 50, height: 70, width: 70, marginBottom: 10, borderColor: 'black', borderWidth: 3 }}
                     source={element.image}
                   />
-                  <Text style={{ textAlign: 'center', fontSize: 17 }}>{element.name}</Text>
+                  <Text style={{ textAlign: 'center' }}>{element.name}</Text>
                 </View>
               </TouchableWithoutFeedback>
             )
@@ -161,32 +178,7 @@ function Home(props) {
       </View>
 
       <ScrollView style={{ width: '100%' }} showsVerticalScrollIndicator={false} >
-        {props.preStataires.map((element, i) => {
-          console.log(element.images)
-          return (
-            <TouchableWithoutFeedback key={i} onPress={() => { props.navigation.navigate('Prestataire') }}>
-              <Card
-                containerStyle={{ padding: 0, borderRadius: 10 }}>
-                <View style={{ flexDirection: 'row' }} >
-                  <Image
-                    style={{ borderTopLeftRadius: 10, borderBottomLeftRadius: 10, height: 100, width: 100 }}
-                    source={{ uri: element.images }}
-                  />
-                  <View style={{ marginLeft: 15, justifyContent: 'center', minWidth: '65%' }}>
-                    <Text style={styles.fontsize}>{element.name}</Text>
-                    <Text >{element.number} {element.address}</Text>
-                    <Text >{element.zipcode} {element.city}</Text>
-                    <View style={{ flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center' }}>
-                      <Text style={{ fontSize: 17, fontWeight: 'bold', marginLeft: 10 }}>{element.note}</Text>
-                      <Ionicons name="md-star" size={17} color="#F5B642" style={{ marginLeft: 10 }} />
-                    </View>
-                  </View>
-                </View>
-              </Card>
-            </TouchableWithoutFeedback>
-          )
-        })
-        }
+        {listing}
       </ScrollView >
 
     </View>
@@ -229,6 +221,7 @@ const styles = StyleSheet.create({
   categorieswidget: {
     marginRight: 10,
     marginLeft: 10,
+    alignItems: 'center',
   },
   categoriestext: {
     flexDirection: 'row',
@@ -237,7 +230,7 @@ const styles = StyleSheet.create({
     width: '100%',
     paddingRight: 15,
     paddingTop: 15,
-    paddingBottom: 5,
+    paddingBottom: 10,
   },
 });
 
