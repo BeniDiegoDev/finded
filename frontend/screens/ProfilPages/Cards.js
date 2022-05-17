@@ -45,8 +45,8 @@ export default function Cards(props) {
 
   let paymentList = payment.map((item, index) => {
     return (
-      <Swipeout autoClose right={swipeoutBtns} style={{backgroundColor:'white'}}>
-        <View style={styles.personnal_informations} key={index}>
+      <Swipeout autoClose right={swipeoutBtns} style={{backgroundColor:'white'}} key={index}>
+        <View style={styles.personnal_informations} >
             <View style={styles.adresses_container}>
                 <FontAwesome name={item.icon} size={35} color="#7241DB" style={{marginRight:10}} />
                 <View>

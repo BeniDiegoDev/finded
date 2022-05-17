@@ -15,7 +15,7 @@ import * as Location from 'expo-location';
 import { connect } from 'react-redux'
 
 // Config IP pour connexion avec le backend
-const ip = "192.168.10.157"
+const ip = "192.168.10.155"
 
 function Home(props) {
 
