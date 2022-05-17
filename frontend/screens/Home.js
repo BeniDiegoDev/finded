@@ -25,8 +25,15 @@ function Home(props) {
 
   // Necessaire pour la barre de recherche
   const [search, setSearch] = useState("");
+  const [viewSearch, setViewSearch] = useState(false)
+
   const updateSearch = (search) => {
     setSearch(search);
+    if (search == "") {
+      setViewSearch(false)
+    } else {
+      setViewSearch(true)
+    }
   };
 
   // Envoi en dur des categories
@@ -40,11 +47,20 @@ function Home(props) {
     { image: require('../assets/categories/relooking.png'), color: '#3DA787', name: 'Maquillage' },
     { image: require('../assets/categories/trou-de-serrure.png'), color: '#7241DB', name: 'Serrurier' },
   ]
-
+  
   // Necessaire pour la Geo Localisation
   const [location, setLocation] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
-
+  
+  // Affichage selon statut de la Geo Localisation
+  let geoloc = 'Géolocalisation en cours..';
+  
+  if (errorMsg) {
+    geoloc = errorMsg;
+  } else if (location) {
+    geoloc = location;
+  }
+  
   // Recuperation des informations Prestataires en BDD
   useEffect(() => {
     async function loadData() {
@@ -80,14 +96,6 @@ function Home(props) {
     })();
   }, []);
 
-  // Affichage selon statut de la Geo Localisation
-  let geoloc = 'Géolocalisation en cours..';
-
-  if (errorMsg) {
-    geoloc = errorMsg;
-  } else if (location) {
-    geoloc = location;
-  }
 
   // Filtre appliqué pour n'afficher que les fiches avec une note superieur à 4.9
   let listingFilter = props.preStataires.filter(elem => elem.note >= 4.9)
@@ -95,92 +103,138 @@ function Home(props) {
   // Affichage grace au resultat du filtre
   let listing = listingFilter.map((element, i) => {
     return (
-        <Listing key={i} id={props.id} navigation={props.navigation} name={element.name} number={element.number} images={element.images} address={element.address} zipcode={element.zipcode} city={element.city} note={element.note} nbeval={element.nbeval} />
+      <Listing key={i} id={props.id} navigation={props.navigation} name={element.name} number={element.number} images={element.images} address={element.address} zipcode={element.zipcode} city={element.city} note={element.note} nbeval={element.nbeval} />
     )
   })
 
-  // Partie visuelle de la page HOME
-  return (
-    <View style={styles.container}>
+  // Partie visuel de la page HOME
+  if (search != "") {
+    return (
+      <View style={styles.container}>
 
-      <View style={styles.finded}>
-        <Text style={{
-          color: '#7241DB',
-          fontWeight: 'bold',
-          fontStyle: 'italic',
-          textAlign: 'center',
-          fontSize: 20,
-        }}>Finded</Text>
-      </View>
-
-      <View style={styles.topsearchbar}>
-        <View style={{ flexDirection: 'row', alignItems: 'center', marginLeft: 10 }}>
-          <Ionicons name='location' size={32} color='#3DA787' />
-          <Text style={{ fontWeight: 'bold', marginLeft: 10, fontSize: 17 }}>{geoloc}</Text>
+        <View style={styles.finded}>
+          <Text style={{
+            color: '#7241DB',
+            fontWeight: 'bold',
+            fontStyle: 'italic',
+            textAlign: 'center',
+            fontSize: 20,
+          }}>Finded</Text>
         </View>
-        <View style={{ marginRight: 10 }}>
-          <Button
-            buttonStyle={{ borderColor: "#7241DB" }}
-            titleStyle={{ color: '#7241DB', fontSize: 17 }}
-            title="Autour de vous"
-            type="outline"
-            containerStyle={{ marginLeft: 20, }}
+
+        <View style={styles.topsearchbar}>
+          <View style={{ flexDirection: 'row', alignItems: 'center', marginLeft: 10 }}>
+            <Ionicons name='location' size={32} color='#3DA787' />
+            <Text style={{ fontWeight: 'bold', marginLeft: 10, fontSize: 17 }}>{geoloc}</Text>
+          </View>
+          <View style={{ marginRight: 10 }}>
+            <Button
+              buttonStyle={{ borderColor: "#7241DB", borderRadius: 10, borderWidth: 1 }}
+              titleStyle={{ color: '#7241DB', fontSize: 17 }}
+              title="Autour de vous"
+              type="outline"
+              containerStyle={{ marginLeft: 20, }}
+              onPress={() => { setSearch(location) }}
+            />
+          </View>
+        </View>
+
+        <View style={styles.searchbar}>
+          <SearchBar
+            placeholder="Recherche"
+            onChangeText={updateSearch}
+            value={search}
+            lightTheme="true"
+            containerStyle={{ backgroundColor: 'white', borderTopColor: 'white', borderBottomColor: 'white' }}
+            leftIconContainerStyle={{ backgroundColor: 'white' }}
+            inputStyle={{ backgroundColor: 'white' }}
+            inputContainerStyle={{ backgroundColor: 'white', borderWidth: 1, borderRadius: 10, borderBottomWidth: 1 }}
           />
         </View>
+       </View> 
+    );
+  } else {
+    return (
+      <View style={styles.container}>
+
+        <View style={styles.finded}>
+          <Text style={{
+            color: '#7241DB',
+            fontWeight: 'bold',
+            fontStyle: 'italic',
+            textAlign: 'center',
+            fontSize: 20,
+          }}>Finded</Text>
+        </View>
+
+        <View style={styles.topsearchbar}>
+          <View style={{ flexDirection: 'row', alignItems: 'center', marginLeft: 10 }}>
+            <Ionicons name='location' size={32} color='#3DA787' />
+            <Text style={{ fontWeight: 'bold', marginLeft: 10, fontSize: 17 }}>{geoloc}</Text>
+          </View>
+          <View style={{ marginRight: 10 }}>
+            <Button
+              buttonStyle={{ borderColor: "#7241DB", borderRadius: 10, borderWidth: 1 }}
+              titleStyle={{ color: '#7241DB', fontSize: 17 }}
+              title="Autour de vous"
+              type="outline"
+              containerStyle={{ marginLeft: 20, }}
+              onPress={() => { setSearch(location) }}
+            />
+          </View>
+        </View>
+
+        <View style={styles.searchbar}>
+          <SearchBar
+            placeholder="Recherche"
+            onChangeText={updateSearch}
+            value={search}
+            lightTheme="true"
+            containerStyle={{ backgroundColor: 'white', borderTopColor: 'white', borderBottomColor: 'white' }}
+            leftIconContainerStyle={{ backgroundColor: 'white' }}
+            inputStyle={{ backgroundColor: 'white' }}
+            inputContainerStyle={{ backgroundColor: 'white', borderWidth: 1, borderRadius: 10, borderBottomWidth: 1 }}
+          />
+        </View>
+
+        <View style={styles.categoriestop}>
+          <Text style={{ paddingLeft: 15, fontSize: 30 }}>Catégories</Text>
+          <Text onPress={() => { props.navigation.navigate('AllCategories') }} style={{ paddingRight: 15, fontWeight: 'bold', fontSize: 17 }}>Voir tout <Ionicons name='chevron-forward' size={15} color='black' /></Text>
+        </View>
+
+        <View style={styles.categories}>
+          <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+            {Categories.map((element, i) => {
+              return (
+                <TouchableWithoutFeedback key={i} onPress={() => { props.navigation.navigate('Categories', { name: element.name }) }}>
+                  <View style={styles.categorieswidget}>
+
+                    <Image
+                      rounded
+                      backgroundColor={element.color}
+                      style={{ borderRadius: 50, height: 70, width: 70, marginBottom: 10, borderColor: 'black', borderWidth: 3 }}
+                      source={element.image}
+                    />
+                    <Text style={{ textAlign: 'center' }}>{element.name}</Text>
+                  </View>
+                </TouchableWithoutFeedback>
+              )
+            })
+            }
+          </ScrollView>
+        </View>
+
+        <View style={styles.categoriestext}>
+          <Text style={{ marginLeft: 15, fontWeight: 'bold', fontSize: 20 }}>Prestataires populaires</Text>
+        </View>
+
+        <ScrollView style={{ width: '100%' }} showsVerticalScrollIndicator={false} >
+          {listing}
+        </ScrollView >
+
       </View>
-
-      <View style={styles.searchbar}>
-        <SearchBar
-          placeholder="Recherche"
-          onChangeText={updateSearch}
-          value={search}
-          lightTheme="true"
-          containerStyle={{ backgroundColor: 'white', borderTopColor: 'white', borderBottomColor: 'white' }}
-          leftIconContainerStyle={{ backgroundColor: 'white' }}
-          inputStyle={{ backgroundColor: 'white' }}
-          inputContainerStyle={{ backgroundColor: 'white', borderWidth: 1, borderRadius: 10, borderBottomWidth: 1 }}
-        />
-      </View>
-
-      <View style={styles.categoriestop}>
-        <Text style={{ paddingLeft: 15, fontSize: 30 }}>Catégories</Text>
-        <Text onPress={() => { props.navigation.navigate('AllCategories') }} style={{ paddingRight: 15, fontWeight: 'bold', fontSize: 17 }}>Voir tout <Ionicons name='chevron-forward' size={15} color='black' /></Text>
-      </View>
-
-      <View style={styles.categories}>
-        <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-          {Categories.map((element, i) => {
-            return (
-              <TouchableWithoutFeedback key={i} onPress={() => { props.navigation.navigate('Categories', {name : element.name}) }}>
-                <View style={styles.categorieswidget}>
-
-                  <Image
-                    rounded
-                    backgroundColor={element.color}
-                    style={{ borderRadius: 50, height: 70, width: 70, marginBottom: 10, borderColor: 'black', borderWidth: 3 }}
-                    source={element.image}
-                  />
-                  <Text style={{ textAlign: 'center' }}>{element.name}</Text>
-                </View>
-              </TouchableWithoutFeedback>
-            )
-          })
-          }
-        </ScrollView>
-      </View>
-
-      <View style={styles.categoriestext}>
-        <Text style={{ marginLeft: 15, fontWeight: 'bold', fontSize: 20 }}>Prestataires populaires</Text>
-      </View>
-
-      <ScrollView style={{ width: '100%' }} showsVerticalScrollIndicator={false} >
-        {listing}
-      </ScrollView >
-
-    </View>
-
-
-  );
+    )
+  }
 }
 
 // Style appliqué

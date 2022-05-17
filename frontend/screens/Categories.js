@@ -16,8 +16,15 @@ import { connect } from 'react-redux'
 function Categories(props) {
 
   const [search, setSearch] = useState("");
+  const [viewSearch, setViewSearch] = useState(false)
+
   const updateSearch = (search) => {
     setSearch(search);
+    if (search == "") {
+      setViewSearch(false)
+    } else {
+      setViewSearch(true)
+    }
   };
 
   let listingFilter = props.preStataires.filter(elem => elem.categoryName == props.route.params.name)
@@ -33,32 +40,57 @@ function Categories(props) {
   // Recupere les infos du clique
   // console.log(props.route.params.name)
 
-  return (
-    <View style={styles.container}>
+  if (search != "") {
+    return (
+      <View style={styles.container}>
 
-      <View style={{ paddingLeft: 10, paddingBottom: 10, paddingTop: 10 }}>
-        <Text style={{ paddingRight: 15, fontSize: 30 }}><Ionicons onPress={() => { props.navigation.goBack() }} name='chevron-back' size={30} color='black' /> {props.route.params.name}</Text>
+        <View style={{ paddingLeft: 10, paddingBottom: 10, paddingTop: 10 }}>
+          <Text style={{ paddingRight: 15, fontSize: 30 }}><Ionicons onPress={() => { props.navigation.goBack() }} name='chevron-back' size={30} color='black' /> {props.route.params.name}</Text>
+        </View>
+
+        <View style={styles.searchbar}>
+          <SearchBar
+            placeholder="Recherche"
+            onChangeText={updateSearch}
+            value={search}
+            lightTheme="true"
+            containerStyle={{ backgroundColor: 'white', borderTopColor: 'white', borderBottomColor: 'white' }}
+            leftIconContainerStyle={{ backgroundColor: 'white' }}
+            inputStyle={{ backgroundColor: 'white' }}
+            inputContainerStyle={{ backgroundColor: 'white', borderWidth: 1, borderRadius: 10, borderBottomWidth: 1 }}
+          />
+        </View>
+
       </View>
+    )
+  } else {
+    return (
+      <View style={styles.container}>
 
-      <View style={styles.searchbar}>
-        <SearchBar
-          placeholder="Recherche"
-          onChangeText={updateSearch}
-          value={search}
-          lightTheme="true"
-          containerStyle={{ backgroundColor: 'white', borderTopColor: 'white', borderBottomColor: 'white' }}
-          leftIconContainerStyle={{ backgroundColor: 'white' }}
-          inputStyle={{ backgroundColor: 'white' }}
-          inputContainerStyle={{ backgroundColor: 'white', borderWidth: 1, borderRadius: 10, borderBottomWidth: 1 }}
-        />
+        <View style={{ paddingLeft: 10, paddingBottom: 10, paddingTop: 10 }}>
+          <Text style={{ paddingRight: 15, fontSize: 30 }}><Ionicons onPress={() => { props.navigation.goBack() }} name='chevron-back' size={30} color='black' /> {props.route.params.name}</Text>
+        </View>
+
+        <View style={styles.searchbar}>
+          <SearchBar
+            placeholder="Recherche"
+            onChangeText={updateSearch}
+            value={search}
+            lightTheme="true"
+            containerStyle={{ backgroundColor: 'white', borderTopColor: 'white', borderBottomColor: 'white' }}
+            leftIconContainerStyle={{ backgroundColor: 'white' }}
+            inputStyle={{ backgroundColor: 'white' }}
+            inputContainerStyle={{ backgroundColor: 'white', borderWidth: 1, borderRadius: 10, borderBottomWidth: 1 }}
+          />
+        </View>
+
+        <ScrollView style={{ width: '100%' }} showsVerticalScrollIndicator={false} >
+          {listing}
+        </ScrollView >
+
       </View>
-
-      <ScrollView style={{ width: '100%' }} showsVerticalScrollIndicator={false} >
-        {listing}
-      </ScrollView >
-
-    </View>
-  );
+    )
+  }
 }
 
 const styles = StyleSheet.create({
