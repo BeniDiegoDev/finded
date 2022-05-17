@@ -11,7 +11,12 @@ import { Ionicons } from '@expo/vector-icons';
 // Import module de geolocalisation via Expo
 import * as Location from 'expo-location';
 
-export default function Home(props) {
+// Import de la connexion avec Redux
+import { connect } from 'react-redux'
+
+const ip = "192.168.10.157"
+
+function Home(props) {
 
   const [search, setSearch] = useState("");
   const updateSearch = (search) => {
@@ -40,6 +45,20 @@ export default function Home(props) {
 
   const [location, setLocation] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
+  const [prestatairesState, setPrestatairesState] = useState([]);
+
+  useEffect(() => {
+    async function loadData() {
+      let prestataireInBdd = await fetch(`http://${ip}:3000/recuppresta`)
+      let responsePresta = await prestataireInBdd.json()
+      
+      props.updateReducer(JSON.stringify(responsePresta.prestataires))
+      
+      setPrestatairesState(props.preStataires)
+
+    }
+    loadData()
+  }, []);
 
   useEffect(() => {
     (async () => {
@@ -50,10 +69,10 @@ export default function Home(props) {
       }
 
       let location = await Location.getCurrentPositionAsync({});
-      
+
       let latitude = JSON.parse(location.coords.latitude)
       let longitude = JSON.parse(location.coords.longitude)
-      
+
       // console.log('latitude :', latitude, 'longitude :', longitude)
 
       var cityName = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=0c815b9455235455a301668a56c67b18`)
@@ -66,6 +85,10 @@ export default function Home(props) {
 
     })();
   }, []);
+
+  // console.log("je suis le console du front " + props.prestataires)
+
+
 
   let geoloc = 'Géolocalisation en cours..';
 
@@ -150,6 +173,7 @@ export default function Home(props) {
       </View>
 
       <ScrollView style={{ width: '100%' }} showsVerticalScrollIndicator={false} >
+        {console.log(prestatairesState)}
         {fakeTableau.map((element, i) => {
           return (
             <TouchableWithoutFeedback key={i} onPress={() => { props.navigation.navigate('Prestataire') }}>
@@ -162,10 +186,10 @@ export default function Home(props) {
                   />
                   <View style={{ marginLeft: 15, justifyContent: 'center', minWidth: '65%' }}>
                     <Text style={styles.fontsize}>{element.name}</Text>
-                    <Text >{element.adress}</Text>
+                    {/* <Text >{element.address}</Text> */}
                     <Text >{element.city}</Text>
                     <View style={{ flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center' }}>
-                      <Text style={{ fontSize: 17, fontWeight: 'bold', marginLeft: 10 }}>{element.note}</Text>
+                      {/* <Text style={{ fontSize: 17, fontWeight: 'bold', marginLeft: 10 }}>{element.note}</Text> */}
                       <Ionicons name="md-star" size={17} color="#F5B642" style={{ marginLeft: 10 }} />
                     </View>
                   </View>
@@ -228,3 +252,24 @@ const styles = StyleSheet.create({
     paddingBottom: 5,
   },
 });
+
+function mapStateToProps(state) {
+  return { preStataires: state.prestataires, }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    updateReducer: function (prestataires) {
+      dispatch({
+        type: 'addPrestataire',
+        prestataires
+      })
+    }
+  }
+
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Home);
