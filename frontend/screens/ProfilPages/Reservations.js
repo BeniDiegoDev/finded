@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { View, useWindowDimensions, Text, StyleSheet, ScrollView, TouchableWithoutFeedback} from 'react-native';
+import { View, useWindowDimensions, Text, StyleSheet, ScrollView, TouchableWithoutFeedback, TextInput} from 'react-native';
 import { TabView, TabBar } from 'react-native-tab-view';
 import { Button, Overlay } from 'react-native-elements';
 
@@ -316,8 +316,8 @@ const FirstRoute = (props) => {
                 <Text style={{fontSize:17}}>Annuler le rendez-vous</Text>
 
                 <View style={{display:'flex', flexDirection:'row', justifyContent:'space-around', marginTop:20}}>
-                  <Button title='Oui' buttonStyle={{width:90, marginHorizontal: 10}}/>
-                  <Button onPress={toggleOverlay} title='Non' buttonStyle={{width:90, marginHorizontal: 10}} />
+                  <Button title='Oui' buttonStyle={{width:90, marginHorizontal: 10, backgroundColor:'#7241DB'}}/>
+                  <Button onPress={toggleOverlay} title='Non' buttonStyle={{width:90, marginHorizontal: 10, backgroundColor:'#3DA787'}} />
                 </View>
 
               </View>
@@ -382,8 +382,15 @@ const SecondRoute = (props) => {
                   <AntDesign name="star" size={24} color="grey" style={{marginHorizontal:5}}/>
                 </View>
 
+                <TextInput 
+                  style ={{borderWidth:1, borderColor:'grey', borderRadius:5, padding:10, width:200, marginVertical:20, minHeight:40}}
+                  placeholder="Écrivez votre commentaire"
+                  multiline={true}
+                >
+                </TextInput>
+
                 <View style={{display:'flex', flexDirection:'row', justifyContent:'space-around', marginTop:20}}>
-                  <Button onPress={toggleOverlay} title='Valider' buttonStyle={{width:90, marginHorizontal: 10}} />
+                  <Button onPress={toggleOverlay} title='Valider' buttonStyle={{width:90, marginHorizontal: 10, backgroundColor:'#3DA787'}} />
                 </View>
 
               </View>
