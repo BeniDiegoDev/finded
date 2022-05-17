@@ -14,6 +14,7 @@ import * as Location from 'expo-location';
 // Import de la connexion avec Redux
 import { connect } from 'react-redux'
 
+// Config IP pour connexion avec le backend
 const ip = "192.168.10.157"
 
 function Home(props) {
@@ -24,6 +25,7 @@ function Home(props) {
   };
 
   var fakeCategories = [
+    { image: require('../assets/categories/mechanic.png'), color: '#3DA787', name: 'Mécanique' },
     { image: require('../assets/categories/haircut.png'), color: '#7241DB', name: 'Coiffeur' },
     { image: require('../assets/categories/massage-des-pieds.png'), color: '#3DA787', name: 'Pédicure' },
     { image: require('../assets/categories/massage.png'), color: '#7241DB', name: 'Massage' },
@@ -33,16 +35,6 @@ function Home(props) {
     { image: require('../assets/categories/trou-de-serrure.png'), color: '#7241DB', name: 'Serrurier' },
   ]
 
-  var fakeTableau = [
-    { image: require('../assets/fakeminia/miniatest2.jpg'), name: "Controle Technique Mant'te", city: 'Paris 13e', adress: "875 boulevard de Mantes", note: 5 },
-    { image: require('../assets/fakeminia/miniatest1.jpg'), name: 'Coiffeur du Marnois', city: 'Paris 15e', adress: "92 rue de la Marne", note: 4.6 },
-    { image: require('../assets/fakeminia/miniatest3.jpg'), name: "Montagn'enfance", city: 'Paris 17e', adress: "1515 boulevard Montagne", note: 4.5 },
-    { image: require('../assets/fakeminia/miniatest4.jpg'), name: 'Beni Crochet', city: 'Paris 13e', adress: "2509 rue de Beni", note: 4.5 },
-    { image: require('../assets/fakeminia/miniatest5.jpg'), name: 'Massage du 15', city: 'Paris 14e', adress: "5 rue de Paris", note: 4.4 },
-    { image: require('../assets/fakeminia/miniatest6.jpg'), name: "Pedic'dona", city: 'Paris 14e', adress: "165 rue Donatelo", note: 4.3 },
-    { image: require('../assets/fakeminia/miniatest7.jpg'), name: 'Maquille Moi des Champs', city: 'Paris 15e', adress: "14 avenue des Champs Elysees", note: 4.1 },
-  ]
-
   const [location, setLocation] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
 
@@ -50,7 +42,7 @@ function Home(props) {
     async function loadData() {
       let prestataireInBdd = await fetch(`http://${ip}:3000/recuppresta`)
       let responsePresta = await prestataireInBdd.json()
-      
+
       props.updateReducer(responsePresta.prestataires)
 
     }
@@ -178,14 +170,14 @@ function Home(props) {
                 <View style={{ flexDirection: 'row' }} >
                   <Image
                     style={{ borderTopLeftRadius: 10, borderBottomLeftRadius: 10, height: 100, width: 100 }}
-                    source={{ uri : element.images}}
+                    source={{ uri: element.images }}
                   />
                   <View style={{ marginLeft: 15, justifyContent: 'center', minWidth: '65%' }}>
                     <Text style={styles.fontsize}>{element.name}</Text>
                     <Text >{element.number} {element.address}</Text>
                     <Text >{element.zipcode} {element.city}</Text>
                     <View style={{ flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center' }}>
-                      <Text style={{ fontSize: 17, fontWeight: 'bold', marginLeft: 10 }}>{/*{element.note}*/}4.2</Text>
+                      <Text style={{ fontSize: 17, fontWeight: 'bold', marginLeft: 10 }}>{element.note}</Text>
                       <Ionicons name="md-star" size={17} color="#F5B642" style={{ marginLeft: 10 }} />
                     </View>
                   </View>
