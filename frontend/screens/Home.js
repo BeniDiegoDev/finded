@@ -186,10 +186,10 @@ function Home(props) {
                   />
                   <View style={{ marginLeft: 15, justifyContent: 'center', minWidth: '65%' }}>
                     <Text style={styles.fontsize}>{element.name}</Text>
-                    {/* <Text >{element.address}</Text> */}
+                    <Text >{element.address}</Text>
                     <Text >{element.city}</Text>
                     <View style={{ flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center' }}>
-                      {/* <Text style={{ fontSize: 17, fontWeight: 'bold', marginLeft: 10 }}>{element.note}</Text> */}
+                      <Text style={{ fontSize: 17, fontWeight: 'bold', marginLeft: 10 }}>{element.note}</Text>
                       <Ionicons name="md-star" size={17} color="#F5B642" style={{ marginLeft: 10 }} />
                     </View>
                   </View>
