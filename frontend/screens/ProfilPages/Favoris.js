@@ -45,43 +45,6 @@ const styles = StyleSheet.create({
       flexDirection:'column',
       justifyContent:'space-between'
     },
-    icon: {
-        paddingHorizontal:10,
-        marginVertical: 5, 
-        fontSize: 18
-    },
-    personnal_informations: {
-        display:'flex',
-        flexDirection:'row',
-        justifyContent:'space-between',
-        paddingVertical:25,
-        paddingHorizontal:20
-    },
-    modify_remove: {
-        display:'flex',
-        flexDirection:'row',
-        justifyContent:'center',
-        borderBottomWidth: 1,
-        paddingVertical:30
-    },
-    button: {
-        marginTop:30,
-    },
-    adresses_container: {
-        display:'flex',
-        flexDirection:'row',
-        alignItems:'center',
-    },
-    adresses: {
-        color:'#828282'
-    },
-    cards_infos: {
-        display:'flex',
-        flexDirection:'column',
-        justifyContent:'space-between',
-        alignItems:'space-between',
-    }
-
 });
 
 function mapStateToProps(state) {

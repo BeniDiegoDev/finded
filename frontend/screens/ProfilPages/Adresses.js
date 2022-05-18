@@ -26,6 +26,7 @@ export default function Adresses(props) {
       icon : <MaterialCommunityIcons name="home-variant" size={35} color="#7241DB" style={{marginRight:10}}/>,
       name : 'Domicile',
       adress : '12 Rue de la paix\n75000 Paris',
+      id : 1
     },
     {
       icon : <MaterialIcons name="card-travel" size={35} color="#7241DB" style={{marginRight:10}}/>,
@@ -41,8 +42,8 @@ export default function Adresses(props) {
 
   let adressesList = adresses.map((item, index) => {
     return (
-      <Swipeout autoClose right={swipeoutBtns} style={{backgroundColor:'white'}}>
-        <View style={styles.personnal_informations} key={index}>
+      <Swipeout autoClose right={swipeoutBtns} style={{backgroundColor:'white'}} key={index}>
+        <View style={styles.personnal_informations}>
           <View style={styles.adresses_container}>
               {item.icon}
               <View>
