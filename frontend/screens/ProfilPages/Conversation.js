@@ -2,14 +2,15 @@ import React, { useState, useCallback, useEffect } from 'react'
 import { GiftedChat } from 'react-native-gifted-chat'
 import { Pressable, StyleSheet, Text, View} from 'react-native';
 
+// mise en place du webSocket
+import socketIOClient from "socket.io-client";
+var socket = socketIOClient("http://192.168.10.148:3000");
 
 import { Ionicons } from '@expo/vector-icons';
 
 
 export default function Conversation(props) {
     const [messages, setMessages] = useState([]);
-
-    
 
     useEffect(() => {
       setMessages([
@@ -28,6 +29,7 @@ export default function Conversation(props) {
   
     const onSend = useCallback((messages = []) => {
       setMessages(previousMessages => GiftedChat.append(previousMessages, messages))
+      socket.emit('sendMessage', {messages: messages})
     }, [])
 
   

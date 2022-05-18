@@ -30,7 +30,7 @@ export default function Profil(props) {
       url : 'Messages'
     },
     {
-      icon : <FontAwesome name="star" size={30} color="black" />,
+      icon : <FontAwesome name="heart" size={30} color="black" />,
       name : 'Mes favoris',
       url : 'Favoris'
     },
@@ -72,7 +72,7 @@ export default function Profil(props) {
 
           <ListItem>
             <ListItem.Content style={{display:'flex', flexDirection:'row', justifyContent:'space-between'}}>
-              <ListItem.Title style={{marginVertical:2,fontSize:15 }}>Mentions Légales</ListItem.Title>
+              <ListItem.Title onPress={() => {props.navigation.navigate('MentionsLegales')}} style={{marginVertical:2,fontSize:15 }}>Mentions Légales</ListItem.Title>
               <ListItem.Title style={{marginVertical:2, fontSize:15, color:'red'}}>Déconnexion</ListItem.Title>
             </ListItem.Content>
           </ListItem>

@@ -21,6 +21,18 @@ app.set('port', port);
 
 var server = http.createServer(app);
 
+var io = require('socket.io')(server);
+
+
+io.on('connection', function(socket){
+  console.log('Utilisateur connecté au Chat');
+
+  socket.on('sendMessage', function(messageData){
+   console.log(messageData);
+  })
+
+});
+
 /**
  * Listen on provided port, on all network interfaces.
  */
