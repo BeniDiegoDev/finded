@@ -86,13 +86,11 @@ export default function Profil(props) {
               <Text style={{fontSize:35}}>Bienvenue !</Text>
             </View>
             <View>
-              <Text style={{fontSize:16}}>Connectez-vous pour réserver votre prochaine prestation.</Text>
-              <Button title="S'identifier" style={{marginVertical:30}}></Button>
-              <Text>Pas encore membre ? S'inscrire</Text>
+              <Text style={{fontSize:16, marginBottom:60}}>Connectez-vous pour réserver votre prochaine prestation.</Text>
+              <Button title="S'identifier"></Button>
+              <Text style={{marginTop:60}}>Pas encore membre ?</Text>
+              <Text style={{marginTop:15, color:'#7241DB', fontWeight:'bold'}}>S'inscrire</Text>
             </View>
-        </View>
-        <View>
-          <Text style={{marginBottom:20}}>Mention Légales</Text>
         </View>
       </View>
     );
