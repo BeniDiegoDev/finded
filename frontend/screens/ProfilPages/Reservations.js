@@ -559,7 +559,7 @@ function Reservations(props) {
     
       <View style={styles.container}>
         <View style={{marginVertical:40, display:'flex', flexDirection:'row'}}>
-            <Text style={{fontSize:30, paddingHorizontal:10}}><Ionicons onPress={() => { props.navigation.goBack(null)}} name="chevron-back" size={30} color="black"/> Mes réservations</Text>
+            <Text style={{fontSize:30, paddingHorizontal:10}}><Ionicons onPress={() => { props.navigation.goBack()}} name="chevron-back" size={30} color="black"/> Mes réservations</Text>
         </View> 
         <TabView
           renderTabBar={renderTabBar}
