@@ -18,7 +18,7 @@ import { connect } from 'react-redux'
 import Listing from '../components/Listing'
 
 // Config IP pour connexion avec le backend
-const ip = "192.168.10.155"
+const ip = "192.168.10.179"
 
 // Debut de la fonction Home qui gere toute la page HOME
 function Home(props) {
@@ -68,7 +68,6 @@ function Home(props) {
       let responsePresta = await prestataireInBdd.json()
 
       props.updateReducer(responsePresta.prestataires)
-
     }
     loadData()
   }, []);
