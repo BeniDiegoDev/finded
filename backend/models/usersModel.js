@@ -38,6 +38,7 @@ const userSchema = new mongoose.Schema({
     unique: true,
     required: true,
   },
+  address: String,
   password: {
     type: String,
     minLength: 8,
@@ -47,15 +48,14 @@ const userSchema = new mongoose.Schema({
   creditCard: {
     type: String,
     required: false,
-    unique: true,
     minLength: 16,
     maxLength: 16,
   },
-  address: addressSchema,
-  creditCard: creditSchema,
-  reservations: reservSchema,
-  messages: messagesSchema,
-  conversations: conversSchema,
+  // address: addressSchema,
+  // creditCard: creditSchema,
+  // reservations: reservSchema,
+  // messages: messagesSchema,
+  // conversations: conversSchema,
   phoneNumber: {
     type: String,
     required: false,
@@ -63,6 +63,7 @@ const userSchema = new mongoose.Schema({
     unique: true,
   },
   profilePicture: String,
+  note: String,
 });
 
 const userModel = mongoose.model("users", userSchema);
