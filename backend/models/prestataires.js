@@ -1,10 +1,5 @@
 const mongoose = require('mongoose')
 
-// const prestaSchema = new mongoose.Schema({
-//     name: String,
-//     prix: Number,
-// })
-
 const prestatairesSchema = mongoose.Schema({
     images: String,
     name: String,
@@ -18,7 +13,7 @@ const prestatairesSchema = mongoose.Schema({
     prestation: Array,
     category: String,
     categoryName: String,
-    // feedback: feedbackSchema,
+    feedback: Array,
     // reservations: reservSchema,
     // isAvailable: Boolean,
     note: Number,

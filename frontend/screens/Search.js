@@ -29,18 +29,12 @@ function Search(props) {
 
   
   let recherche = search.split(" ")
-  let condition = false
-  // console.log(recherche)
-
   
   let listing = props.preStataires.map((element, i) => {
-    // console.log(element.tags)
     for (let j = 0; j < recherche.length; j++) {
-      if (element.tags.includes(recherche[j]) || element.tags.includes(recherche[j]) || search === "") {
+      if (recherche[j] == element.city || recherche[j] == element.zipcode || recherche[j] == element.categoryName || search === "") {
         return (
-          <TouchableWithoutFeedback key={i} onPress={() => { props.navigation.navigate('Prestataire') }}>
-            <Listing navigation={props.navigation} name={element.name} number={element.number} images={element.images} address={element.address} zipcode={element.zipcode} city={element.city} note={element.note} nbeval={element.nbeval} />
-          </TouchableWithoutFeedback>
+            <Listing key={i} navigation={props.navigation} name={element.name} number={element.number} images={element.images} address={element.address} zipcode={element.zipcode} city={element.city} note={element.note} nbeval={element.nbeval} />
         )
       }
     }
@@ -54,7 +48,7 @@ function Search(props) {
 
       <View style={styles.searchbar}>
         <SearchBar
-          placeholder="Recherche"
+          placeholder="Rechercher..."
           onChangeText={updateSearch}
           value={search}
           lightTheme="true"

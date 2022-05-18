@@ -95,6 +95,19 @@ function Home(props) {
     })();
   }, []);
 
+  let recherche = search.split(" ")
+
+  // Listing pour la barre de recherche
+  let listingSearch = props.preStataires.map((element, i) => {
+    for (let j = 0; j < recherche.length; j++) {
+      // console.log(search)
+      if (recherche[j] == element.city || recherche[j] == element.zipcode || recherche[j] == element.categoryName || search === "") {
+        return (
+            <Listing key={i} navigation={props.navigation} name={element.name} number={element.number} images={element.images} address={element.address} zipcode={element.zipcode} city={element.city} note={element.note} nbeval={element.nbeval} />
+        )
+      }
+    }
+  })
 
   // Filtre appliqué pour n'afficher que les fiches avec une note superieur à 4.9
   let listingFilter = props.preStataires.filter(elem => elem.note >= 4.9)
@@ -140,7 +153,7 @@ function Home(props) {
 
         <View style={styles.searchbar}>
           <SearchBar
-            placeholder="Recherche"
+            placeholder="Rechercher..."
             onChangeText={updateSearch}
             value={search}
             lightTheme="true"
@@ -150,6 +163,11 @@ function Home(props) {
             inputContainerStyle={{ backgroundColor: 'white', borderWidth: 1, borderRadius: 10, borderBottomWidth: 1 }}
           />
         </View>
+
+        <ScrollView style={{ width: '100%' }} showsVerticalScrollIndicator={false} >
+          {listingSearch}
+        </ScrollView >
+
        </View> 
     );
   } else {
@@ -185,7 +203,7 @@ function Home(props) {
 
         <View style={styles.searchbar}>
           <SearchBar
-            placeholder="Recherche"
+            placeholder="Rechercher..."
             onChangeText={updateSearch}
             value={search}
             lightTheme="true"
