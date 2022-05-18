@@ -14,10 +14,11 @@ import * as Location from 'expo-location';
 // Import de la connexion avec Redux
 import { connect } from 'react-redux'
 
-export default function Listing(props) {
+function Listing(props) {
+  
     return (
-        <TouchableWithoutFeedback onPress={() => { props.navigation.navigate('Prestataire') }}>
-            <Card
+        <TouchableWithoutFeedback onPress={() => (props.navigation.navigate('Prestataire'), props.selectPresta(props.name) )}>
+            <Card id={props.id} navigation={props.navigation} name={props.name} number={props.number} images={props.images} address={props.address} zipcode={props.zipcode} city={props.city} note={props.note} nbeval={props.nbeval}
                 containerStyle={{ padding: 0, borderRadius: 10, marginTop: 0, marginBottom: 10 }}>
                 <View style={{ flexDirection: 'row' }} >
                     <Image
@@ -38,5 +39,16 @@ export default function Listing(props) {
     )
 }
 
-
+function mapDispatchToProps(dispatch) {
+    return {
+      selectPresta: function (name) {
+        dispatch({
+          type: 'selectPrestataire',
+          name
+        })
+      }
+    }
+  
+  }
+  export default connect(null, mapDispatchToProps)(Listing)
 

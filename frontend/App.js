@@ -19,8 +19,9 @@ import { Provider } from 'react-redux';
 import { createStore, combineReducers } from 'redux';
 
 import prestataires from './reducers/prestataires';
+import selectPresta from './reducers/selectPresta';
 
-const store = createStore(combineReducers({ prestataires }));
+const store = createStore(combineReducers({ prestataires, selectPresta }));
 
 import Home from './screens/Home';
 import Prestataire from './screens/Prestataire';

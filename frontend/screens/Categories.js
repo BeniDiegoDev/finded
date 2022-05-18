@@ -26,14 +26,17 @@ function Categories(props) {
       setViewSearch(true)
     }
   };
+  var onClick = () => {
+    console.log("clicked")
+  }
 
   let listingFilter = props.preStataires.filter(elem => elem.categoryName == props.route.params.name)
 
   let listing = listingFilter.map((element, i) => {
     return (
-      <TouchableWithoutFeedback key={i} onPress={() => { props.navigation.navigate('Prerstataire') }}>
+      //<TouchableWithoutFeedback key={i} onPress={() => { props.navigation.navigate('Prestataire',{ name: element.name }) }}>
         <Listing navigation={props.navigation} name={element.name} number={element.number} images={element.images} address={element.address} zipcode={element.zipcode} city={element.city} note={element.note} nbeval={element.nbeval} />
-      </TouchableWithoutFeedback>
+     // </TouchableWithoutFeedback>
     )
   })
 
