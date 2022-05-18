@@ -27,70 +27,52 @@ function Search(props) {
     }
   };
 
-  let listingFilter = props.preStataires.filter(elem => elem.nbeval >= 2)
+  
+  let recherche = search.split(" ")
+  let condition = false
+  // console.log(recherche)
 
-  // elem.categoryName == 'Mécanique' && elem.categoryName == 'Coiffeur' && elem.categoryName == 'Pédicure' && elem.categoryName == 'Massage' && elem.categoryName == 'Baby-Sitting' && elem.categoryName == 'Peinture' && elem.categoryName == 'Maquillage' && elem.categoryName == 'Serrurier'
-
-  let listing = listingFilter.map((element, i) => {
-    return (
-      <TouchableWithoutFeedback key={i} onPress={() => { props.navigation.navigate('Prerstataire') }}>
-        <Listing navigation={props.navigation} name={element.name} number={element.number} images={element.images} address={element.address} zipcode={element.zipcode} city={element.city} note={element.note} nbeval={element.nbeval} />
-      </TouchableWithoutFeedback>
-    )
+  
+  let listing = props.preStataires.map((element, i) => {
+    // console.log(element.tags)
+    for (let j = 0; j < recherche.length; j++) {
+      if (element.tags.includes(recherche[j]) || search === "") {
+        return (
+          <TouchableWithoutFeedback key={i} onPress={() => { props.navigation.navigate('Prestataire') }}>
+            <Listing navigation={props.navigation} name={element.name} number={element.number} images={element.images} address={element.address} zipcode={element.zipcode} city={element.city} note={element.note} nbeval={element.nbeval} />
+          </TouchableWithoutFeedback>
+        )
+      }
+    }
   })
-
-  if (search != "") {
-    return (
-      <View style={styles.container}>
-
-        <View style={{ paddingLeft: 10, paddingBottom: 10, paddingTop: 10 }}>
-          <Text style={{ paddingRight: 15, fontSize: 30 }}><Ionicons onPress={() => { props.navigation.goBack() }} name='chevron-back' size={30} color='black' /> Recherche</Text>
-        </View>
-
-        <View style={styles.searchbar}>
-          <SearchBar
-            placeholder="Recherche"
-            onChangeText={updateSearch}
-            value={search}
-            lightTheme="true"
-            containerStyle={{ backgroundColor: 'white', borderTopColor: 'white', borderBottomColor: 'white' }}
-            leftIconContainerStyle={{ backgroundColor: 'white' }}
-            inputStyle={{ backgroundColor: 'white' }}
-            inputContainerStyle={{ backgroundColor: 'white', borderWidth: 1, borderRadius: 10, borderBottomWidth: 1 }}
-          />
-        </View>
-
+  
+  return (
+    <View style={styles.container}>
+      <View style={{ paddingLeft: 10, paddingBottom: 10, paddingTop: 10 }}>
+        <Text style={{ paddingRight: 15, fontSize: 30 }}><Ionicons onPress={() => { props.navigation.goBack() }} name='chevron-back' size={30} color='black' /> Recherche</Text>
       </View>
-    )
-  } else {
-    return (
-      <View style={styles.container}>
 
-        <View style={{ paddingLeft: 10, paddingBottom: 10, paddingTop: 10 }}>
-          <Text style={{ paddingRight: 15, fontSize: 30 }}><Ionicons onPress={() => { props.navigation.goBack() }} name='chevron-back' size={30} color='black' /> Recherche</Text>
-        </View>
-
-        <View style={styles.searchbar}>
-          <SearchBar
-            placeholder="Recherche"
-            onChangeText={updateSearch}
-            value={search}
-            lightTheme="true"
-            containerStyle={{ backgroundColor: 'white', borderTopColor: 'white', borderBottomColor: 'white' }}
-            leftIconContainerStyle={{ backgroundColor: 'white' }}
-            inputStyle={{ backgroundColor: 'white' }}
-            inputContainerStyle={{ backgroundColor: 'white', borderWidth: 1, borderRadius: 10, borderBottomWidth: 1 }}
-          />
-        </View>
-
-        <ScrollView style={{ width: '100%' }} showsVerticalScrollIndicator={false} >
-          {listing}
-        </ScrollView >
-
+      <View style={styles.searchbar}>
+        <SearchBar
+          placeholder="Recherche"
+          onChangeText={updateSearch}
+          value={search}
+          lightTheme="true"
+          containerStyle={{ backgroundColor: 'white', borderTopColor: 'white', borderBottomColor: 'white' }}
+          leftIconContainerStyle={{ backgroundColor: 'white' }}
+          inputStyle={{ backgroundColor: 'white' }}
+          inputContainerStyle={{ backgroundColor: 'white', borderWidth: 1, borderRadius: 10, borderBottomWidth: 1 }}
+        />
       </View>
-    )
-  }
+
+      <ScrollView style={{ width: '100%' }} showsVerticalScrollIndicator={false} >
+        {listing}
+      </ScrollView >
+
+    </View>
+  )
 }
+
 
 const styles = StyleSheet.create({
   container: {

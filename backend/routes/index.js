@@ -24,7 +24,8 @@ router.post('/importpresta', async function (req, res, next) {
       category: 'mechanic',
       categoryName: 'Mécanique',
       note: 4.9,
-      nbeval: 92
+      nbeval: 92,
+      tags: ["mécanique", "montparnasse", "controle technique", "controle", "technique", "paris"]
     },
     {
       images: 'https://res.cloudinary.com/dktfcexev/image/upload/v1652817311/FindedApp/miniatest10_rtos46.jpg',
@@ -39,7 +40,8 @@ router.post('/importpresta', async function (req, res, next) {
       category: 'mechanic',
       categoryName: 'Mécanique',
       note: 4.5,
-      nbeval: 34
+      nbeval: 34,
+      tags: ["mécanique", "16", "controle technique", "controle", "technique", "paris"]
     },
     {
       images: 'https://res.cloudinary.com/dktfcexev/image/upload/v1652817311/FindedApp/miniatest8_vdxlfi.jpg',
@@ -54,7 +56,8 @@ router.post('/importpresta', async function (req, res, next) {
       category: 'mechanic',
       categoryName: 'Mécanique',
       note: 4.8,
-      nbeval: 244
+      nbeval: 244,
+      tags: ["mécanique", "17", "controle technique", "controle", "technique", "paris", "ème"]
     },
     {
       images: 'https://res.cloudinary.com/dktfcexev/image/upload/v1652817311/FindedApp/miniatest9_fimsh8.jpg',
@@ -69,7 +72,8 @@ router.post('/importpresta', async function (req, res, next) {
       category: 'mechanic',
       categoryName: 'Mécanique',
       note: 4.9,
-      nbeval: 124
+      nbeval: 124,
+      tags: ["mécanique", "17", "controle technique", "controle", "technique", "paris", "ème"]
     },
     {
       images: 'https://res.cloudinary.com/dktfcexev/image/upload/v1652779424/FindedApp/miniatest7_jodpum.jpg',
@@ -84,7 +88,8 @@ router.post('/importpresta', async function (req, res, next) {
       category: 'relooking',
       categoryName: 'Maquillage',
       note: 4.9,
-      nbeval: 322
+      nbeval: 322,
+      tags: ["maquillage", "16", "esthetique", "estheticienne", "paris", "ème"]
     },
     {
       images: 'https://res.cloudinary.com/dktfcexev/image/upload/v1652817649/FindedApp/miniatest13_cjgakt.jpg',
@@ -99,7 +104,8 @@ router.post('/importpresta', async function (req, res, next) {
       category: 'relooking',
       categoryName: 'Maquillage',
       note: 4.8,
-      nbeval: 145
+      nbeval: 145,
+      tags: ["maquillage", "17", "esthetique", "estheticienne", "paris", "ème"]
     },
     {
       images: 'https://res.cloudinary.com/dktfcexev/image/upload/v1652779424/FindedApp/miniatest6_miijlx.jpg',
@@ -114,7 +120,8 @@ router.post('/importpresta', async function (req, res, next) {
       category: 'massage-des-pieds',
       categoryName: 'Pédicure',
       note: 4.7,
-      nbeval: 35
+      nbeval: 35,
+      tags: ["maquillage", "16", "esthetique", "estheticienne", "paris", "ème"]
     },
     {
       images: 'https://res.cloudinary.com/dktfcexev/image/upload/v1652779424/FindedApp/miniatest3_aumalt.jpg',
@@ -129,7 +136,8 @@ router.post('/importpresta', async function (req, res, next) {
       category: 'mother',
       categoryName: 'Baby-Sitting',
       note: 4.9,
-      nbeval: 421
+      nbeval: 421,
+      tags: ["baby-sitting", "17", "baby-sitter", "garde", "enfant", "paris", "ème"]
     },
     {
       images: 'https://res.cloudinary.com/dktfcexev/image/upload/v1652817537/FindedApp/miniatest12_mkau8t.jpg',
@@ -144,7 +152,8 @@ router.post('/importpresta', async function (req, res, next) {
       category: 'mother',
       categoryName: 'Baby-Sitting',
       note: 4.9,
-      nbeval: 130
+      nbeval: 130,
+      tags: ["baby-sitting", "16", "baby-sitter", "garde", "enfant", "paris", "ème"]
     },
     {
       images: 'https://res.cloudinary.com/dktfcexev/image/upload/v1652779424/FindedApp/miniatest5_nnjibb.jpg',
@@ -159,7 +168,8 @@ router.post('/importpresta', async function (req, res, next) {
       category: 'massage',
       categoryName: 'Massage',
       note: 4.7,
-      nbeval: 659
+      nbeval: 659,
+      tags: ["massage", "15", "luxe", "bien-etre", "paris", "ème"]
     },
     {
       images: 'https://res.cloudinary.com/dktfcexev/image/upload/v1652817471/FindedApp/miniatest11_epcvzs.jpg',
@@ -174,7 +184,8 @@ router.post('/importpresta', async function (req, res, next) {
       category: 'massage',
       categoryName: 'Massage',
       note: 4.4,
-      nbeval: 875
+      nbeval: 875,
+      tags: ["massage", "17", "bien-etre", "paris", "ème"]
     },
     {
       images: 'https://res.cloudinary.com/dktfcexev/image/upload/v1652779424/FindedApp/miniatest4_yoqnq9.jpg',
@@ -189,7 +200,8 @@ router.post('/importpresta', async function (req, res, next) {
       category: 'trou-de-serrure',
       categoryName: 'Serrurier',
       note: 4.9,
-      nbeval: 127
+      nbeval: 127,
+      tags: ["serrurier", "16", "ouverture", "porte", "paris", "ème"]
     },
     {
       images: 'https://res.cloudinary.com/dktfcexev/image/upload/v1652817694/FindedApp/miniatest14_e0pfqz.jpg',
@@ -204,7 +216,8 @@ router.post('/importpresta', async function (req, res, next) {
       category: 'trou-de-serrure',
       categoryName: 'Serrurier',
       note: 4.8,
-      nbeval: 245
+      nbeval: 245,
+      tags: ["serrurier", "15", "ouverture", "porte", "paris", "ème"]
     },
     {
       images: 'https://res.cloudinary.com/dktfcexev/image/upload/v1652818114/FindedApp/miniatest15_tfbogj.jpg',
@@ -219,7 +232,8 @@ router.post('/importpresta', async function (req, res, next) {
       category: 'haircut',
       categoryName: 'Coiffeur',
       note: 4.6,
-      nbeval: 147
+      nbeval: 147,
+      tags: ["coiffeur", "17", "couleur", "coupe", "brushing", "enfant", "paris", "ème"]
     },
     {
       images: 'https://res.cloudinary.com/dktfcexev/image/upload/v1652818114/FindedApp/miniatest16_vid5f1.jpg',
@@ -234,7 +248,8 @@ router.post('/importpresta', async function (req, res, next) {
       category: 'haircut',
       categoryName: 'Coiffeur',
       note: 4.9,
-      nbeval: 342
+      nbeval: 342,
+      tags: ["coiffeur", "8", "couleur", "coupe", "brushing", "enfant", "paris", "ème"]
     },
     {
       images: 'https://res.cloudinary.com/dktfcexev/image/upload/v1652818114/FindedApp/miniatest17_pohp90.jpg',
@@ -249,7 +264,8 @@ router.post('/importpresta', async function (req, res, next) {
       category: 'peinture',
       categoryName: 'Peinture',
       note: 4.6,
-      nbeval: 87
+      nbeval: 87,
+      tags: ["coiffeur", "17", "couleur", "coupe", "brushing", "paris", "ème"]
     },
   ]
 
@@ -267,7 +283,8 @@ router.post('/importpresta', async function (req, res, next) {
       category: fakeTableau[i].category,
       categoryName: fakeTableau[i].categoryName,
       note: fakeTableau[i].note,
-      nbeval: fakeTableau[i].nbeval
+      nbeval: fakeTableau[i].nbeval,
+      tags: fakeTableau[i].tags,
     });
 
     var prestatairesSave = await newPrestataire.save();

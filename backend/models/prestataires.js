@@ -18,6 +18,7 @@ const prestatairesSchema = mongoose.Schema({
     // isAvailable: Boolean,
     note: Number,
     nbeval: Number,
+    tags: Array,
 })
 
 const prestatairesModel = mongoose.model('prestataires', prestatairesSchema)
