@@ -1,7 +1,8 @@
 import React, {useState} from 'react';
-import { View, useWindowDimensions, Text, StyleSheet, ScrollView, TouchableWithoutFeedback, TextInput} from 'react-native';
+import { View, useWindowDimensions, Text, StyleSheet, ScrollView, TouchableWithoutFeedback, TextInput, Image} from 'react-native';
 import { TabView, TabBar } from 'react-native-tab-view';
 import { Button, Overlay } from 'react-native-elements';
+import { Card } from '@rneui/themed';
 
 
 import { Ionicons } from '@expo/vector-icons';
@@ -306,6 +307,8 @@ const FirstRoute = (props) => {
                 <Text style={styles.infos}>{item.name}</Text>
                 <Text style={styles.infos}>{item.job}</Text>
               </View>
+
+    
             </View>
 
             <View>
@@ -518,7 +521,7 @@ export default function Reservations(props) {
             </View>
             <View style={{display:'flex', alignItems:'center'}}>
               <AntDesign name="calendar" size={150} color="#3DA787" />
-              <Text style={{color: '#7241DB', fontWeight: 'bold',fontStyle: 'italic',textAlign: 'center',fontSize: 20,}}>Finded</Text>
+              <Text style={{color: '#7241DB', fontWeight: 'bold',fontStyle: 'italic',textAlign: 'center',fontSize: 20}}>Finded </Text>
               <Text style={{fontSize:20, marginVertical:20}}>Vos réservations apparaîtront ici</Text>
             </View>
         
