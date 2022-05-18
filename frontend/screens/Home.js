@@ -18,7 +18,7 @@ import { connect } from 'react-redux'
 import Listing from '../components/Listing'
 
 // Config IP pour connexion avec le backend
-const ip = "192.168.10.148"
+const ip = "192.168.10.155"
 
 // Debut de la fonction Home qui gere toute la page HOME
 function Home(props) {
@@ -207,7 +207,7 @@ function Home(props) {
             {Categories.map((element, i) => {
               return (
                 <TouchableWithoutFeedback key={i} onPress={() => { props.navigation.navigate('Categories', { name: element.name }) }}>
-                  <View style={styles.categorieswidget}>
+                  <View style={styles.categorieswidget} >
 
                     <Image
                       rounded
@@ -294,6 +294,12 @@ function mapDispatchToProps(dispatch) {
       dispatch({
         type: 'addPrestataire',
         prestataires
+      })
+    },
+    selectPresta: function (name) {
+      dispatch({
+        type: 'selectPrestataire',
+        name
       })
     }
   }

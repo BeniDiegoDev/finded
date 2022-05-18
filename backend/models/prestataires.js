@@ -1,5 +1,10 @@
 const mongoose = require('mongoose')
 
+const prestaSchema = new mongoose.Schema({
+    name: String,
+    prix: Number,
+})
+
 const prestatairesSchema = mongoose.Schema({
     images: String,
     name: String,
@@ -10,7 +15,7 @@ const prestatairesSchema = mongoose.Schema({
     zipcode: String,
     city: String,
     phoneNumber: String,
-    // prestation: prestaSchema,
+    prestation: prestaSchema,
     category: String,
     categoryName: String,
     // feedback: feedbackSchema,
@@ -18,6 +23,7 @@ const prestatairesSchema = mongoose.Schema({
     // isAvailable: Boolean,
     note: Number,
     nbeval: Number,
+    tags: Array,
 })
 
 const prestatairesModel = mongoose.model('prestataires', prestatairesSchema)

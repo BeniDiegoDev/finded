@@ -8,13 +8,17 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { SearchBar, Avatar, Card } from '@rneui/themed';
 import { Button } from '@rneui/base'
 
+// Import de la connexion avec Redux
+import { connect } from 'react-redux'
+
 // Import des icones 
 import { Ionicons } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
 import { Divider, Tab } from 'react-native-elements';
+import Listing from '../components/Listing'
 
-export default function Prestataire(props) {
+function Prestataire(props) {
 
     let services = [
       {
@@ -69,6 +73,9 @@ export default function Prestataire(props) {
     ];
 
     const [compteur, setCompteur] = useState(0);
+
+    let listingFilter = props.preStataires.filter(elem => elem.name === props.selectPresta)
+    console.log(listingFilter)
  
     var listServices = services.map((item, index) => {
           const [state, setState] = useState(false);
@@ -81,6 +88,7 @@ export default function Prestataire(props) {
             setState(!state);
             
           }
+
         return (
             <View style={styles.containerList} key={index}>
                 <View style={styles.container}>
@@ -115,25 +123,28 @@ export default function Prestataire(props) {
         </View>
       )});
 
+      console.log(listingFilter[0].prestation)
+
       return (
         <View style={{flex:1, backgroundColor:'#fff'}}>
-
-            <Image source={require('../assets/coiffeur.jpeg')} style={{width:'100%', height:'25%'}} />
+            <Image 
+            style={styles.topImage}
+            source={{ uri : listingFilter[0].images }} />
 
             <View style={styles.data_container}>
 
                 <View style={{marginLeft:20}}>
                     <Text style={styles.title}>
-                        Barber Street 59th
+                        {listingFilter[0].name}
                     </Text>
                     <Text style={styles.text}>
-                        134th Street, New York, NY 10001
+                    {listingFilter[0].address}
                     </Text>
                 </View>
 
                 <View style={styles.data_container2}>
                     <Text style={{fontSize:20, fontWeight:'bold', marginLeft:10}}>
-                        4.5
+                    {listingFilter[0].note}
                     </Text>
                     <Ionicons name="md-star" size={20} color="#F5B642" style={{marginLeft:10}} />
                 </View>
@@ -149,7 +160,7 @@ export default function Prestataire(props) {
               </Text>
 
               <Text style={styles.Text}>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit amet, consectetur adipiscing elit. Sit amet
+              {listingFilter[0].description}
               </Text>
 
               <Text style={styles.title}>
@@ -235,4 +246,18 @@ export default function Prestataire(props) {
             justifyContent:'space-between',
             marginBottom:10
         },
+        topImage:{
+            width: '100%',
+            height: 200,
+        }
     });
+
+    function mapStateToProps(state) {
+      return { preStataires: state.prestataires,
+               selectPresta: state.selectPresta, }
+    }
+
+    export default connect(
+      mapStateToProps,
+      null
+    )(Prestataire);
