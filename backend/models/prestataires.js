@@ -1,10 +1,5 @@
 const mongoose = require('mongoose')
 
-// const prestaSchema = new mongoose.Schema({
-//     name: String,
-//     prix: Number,
-// })
-
 const prestatairesSchema = mongoose.Schema({
     images: String,
     name: String,
