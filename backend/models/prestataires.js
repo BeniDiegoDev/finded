@@ -13,7 +13,7 @@ const prestatairesSchema = mongoose.Schema({
     prestation: Array,
     category: String,
     categoryName: String,
-    // feedback: feedbackSchema,
+    feedback: Array,
     // reservations: reservSchema,
     // isAvailable: Boolean,
     note: Number,
