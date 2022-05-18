@@ -25,7 +25,7 @@ router.post('/importpresta', async function (req, res, next) {
       categoryName: 'Mécanique',
       note: 4.9,
       nbeval: 92,
-      prestation: [{name: 'Réparation de véhicule', prix: '50'}, {name: 'Réparation de moto', prix: '30'}, {name: 'Réparation de voiture', prix: '100'}, {name: 'Réparation de camion', prix: '150'}],
+      prestation: [{name: 'Réparation de véhicule', prix: 50}, {name: 'Réparation de moto', prix: 30}, {name: 'Réparation de voiture', prix: 100}, {name: 'Réparation de camion', prix: 150}],
       tags: ["mécanique", "montparnasse", "controle technique", "controle", "technique", "paris"]
     },
     {
@@ -42,7 +42,7 @@ router.post('/importpresta', async function (req, res, next) {
       categoryName: 'Mécanique',
       note: 4.5,
       nbeval: 34,
-      prestation: [{name: 'Réparation de véhicule', prix: '50'}, {name: 'Réparation de moto', prix: '30'}, {name: 'Réparation de voiture', prix: '100'}, {name: 'Réparation de camion', prix: '150'}],
+      prestation: [{name: 'Réparation de véhicule', prix: 50}, {name: 'Réparation de moto', prix: 30}, {name: 'Réparation de voiture', prix: 100}, {name: 'Réparation de camion', prix: 150}],
       tags: ["mécanique", "16", "controle technique", "controle", "technique", "paris"]
     },
     {
@@ -59,7 +59,7 @@ router.post('/importpresta', async function (req, res, next) {
       categoryName: 'Mécanique',
       note: 4.8,
       nbeval: 244,
-      prestation: [{name: 'Réparation de véhicule', prix: '50'}, {name: 'Réparation de moto', prix: '30'}, {name: 'Réparation de voiture', prix: '100'}, {name: 'Réparation de camion', prix: '150'}],
+      prestation: [{name: 'Réparation de véhicule', prix: 50}, {name: 'Réparation de moto', prix: 30}, {name: 'Réparation de voiture', prix: 100}, {name: 'Réparation de camion', prix: 150}],
       tags: ["mécanique", "17", "controle technique", "controle", "technique", "paris", "ème"]
     },
     {
@@ -76,7 +76,7 @@ router.post('/importpresta', async function (req, res, next) {
       categoryName: 'Mécanique',
       note: 4.9,
       nbeval: 124,
-      prestation: [{name: 'Réparation de véhicule', prix: '50'}, {name: 'Réparation de moto', prix: '30'}, {name: 'Réparation de voiture', prix: '100'}, {name: 'Réparation de camion', prix: '150'}],
+      prestation: [{name: 'Réparation de véhicule', prix: 50}, {name: 'Réparation de moto', prix: 30}, {name: 'Réparation de voiture', prix: 100}, {name: 'Réparation de camion', prix: 150}],
       tags: ["mécanique", "17", "controle technique", "controle", "technique", "paris", "ème"]
     },
     {
@@ -93,7 +93,7 @@ router.post('/importpresta', async function (req, res, next) {
       categoryName: 'Maquillage',
       note: 4.9,
       nbeval: 322,
-      prestation: [{name: 'Femme - Epilation intégrale', prix: '50'}, {name: 'Femme - Séance UV', prix: '30'}, {name: 'Homme - Epilation du torse', prix: '100'}, {name: 'Femme - Epilation des sourcils', prix: '150'}],
+      prestation: [{name: 'Femme - Epilation intégrale', prix: 50}, {name: 'Femme - Séance UV', prix: 30}, {name: 'Homme - Epilation du torse', prix: 100}, {name: 'Femme - Epilation des sourcils', prix: 150}],
       tags: ["maquillage", "16", "esthetique", "estheticienne", "paris", "ème"]
     },
     {
@@ -110,7 +110,7 @@ router.post('/importpresta', async function (req, res, next) {
       categoryName: 'Maquillage',
       note: 4.8,
       nbeval: 145,
-      prestation: [{name: 'Femme - Maquillage fantasy', prix: '50'}, {name: 'Femme - Maquillage 1h', prix: '30'}],
+      prestation: [{name: 'Femme - Maquillage fantasy', prix: 50}, {name: 'Femme - Maquillage 1h', prix: 30}],
       tags: ["maquillage", "17", "esthetique", "estheticienne", "paris", "ème"]
     },
     {
@@ -127,7 +127,7 @@ router.post('/importpresta', async function (req, res, next) {
       categoryName: 'Pédicure',
       note: 4.7,
       nbeval: 35,
-      prestation: [{name: 'Massage des pieds', prix: '50'}, {name: 'Massage des cheveux', prix: '30'}, {name: 'Massage des mains', prix: '100'}, {name: 'Massage du visage', prix: '150'}],
+      prestation: [{name: 'Massage des pieds', prix: 50}, {name: 'Massage des cheveux', prix: 30}, {name: 'Massage des mains', prix: 100}, {name: 'Massage du visage', prix: 150}],
       tags: ["maquillage", "16", "esthetique", "estheticienne", "paris", "ème"]
     },
     {
@@ -144,7 +144,7 @@ router.post('/importpresta', async function (req, res, next) {
       categoryName: 'Baby-Sitting',
       note: 4.9,
       nbeval: 421,
-      prestation: [{name: "Garde d'enfants - 1h", prix: '50'}, {name: "Récupérer l'enfant à l'école", prix: '30'}, {name: "Garde d'enfants - 2h", prix: '100'}, {name: "Garde d'enfants - Soirée", prix: '150'}],
+      prestation: [{name: "Garde d'enfants - 1h", prix: 50}, {name: "Récupérer l'enfant à l'école", prix: 30}, {name: "Garde d'enfants - 2h", prix: 100}, {name: "Garde d'enfants - Soirée", prix: 150}],
       tags: ["baby-sitting", "17", "baby-sitter", "garde", "enfant", "paris", "ème"]
     },
     {
@@ -161,7 +161,7 @@ router.post('/importpresta', async function (req, res, next) {
       categoryName: 'Baby-Sitting',
       note: 4.9,
       nbeval: 130,
-      prestation: [{name: "Garde d'enfants - 1h", prix: '50'}, {name: "Récupérer l'enfant à l'école", prix: '30'}, {name: "Garde d'enfants - 2h", prix: '100'}, {name: "Garde d'enfants - Soirée", prix: '150'}],
+      prestation: [{name: "Garde d'enfants - 1h", prix: 50}, {name: "Récupérer l'enfant à l'école", prix: 30}, {name: "Garde d'enfants - 2h", prix: 100}, {name: "Garde d'enfants - Soirée", prix: 150}],
       tags: ["baby-sitting", "16", "baby-sitter", "garde", "enfant", "paris", "ème"]
     },
     {
@@ -178,7 +178,7 @@ router.post('/importpresta', async function (req, res, next) {
       categoryName: 'Massage',
       note: 4.7,
       nbeval: 659,
-      prestation: [{name: "Massage des pieds", prix: '50'}, {name: "Massage des cheveux", prix: '30'}, {name: "Massage des mains", prix: '100'}, {name: "Massage du visage", prix: '150'}],
+      prestation: [{name: "Massage des pieds", prix: 50}, {name: "Massage des cheveux", prix: 30}, {name: "Massage des mains", prix: 100}, {name: "Massage du visage", prix: 150}],
       tags: ["massage", "15", "luxe", "bien-etre", "paris", "ème"]
     },
     {
@@ -195,7 +195,7 @@ router.post('/importpresta', async function (req, res, next) {
       categoryName: 'Massage',
       note: 4.4,
       nbeval: 875,
-      prestation: [{name: "Massage des pieds", prix: '50'}, {name: "Massage des cheveux", prix: '30'}, {name: "Massage des mains", prix: '100'}, {name: "Massage du visage", prix: '150'}],
+      prestation: [{name: "Massage des pieds", prix: 50}, {name: "Massage des cheveux", prix: 30}, {name: "Massage des mains", prix: 100}, {name: "Massage du visage", prix: 150}],
       tags: ["massage", "17", "bien-etre", "paris", "ème"]
     },
     {
@@ -212,7 +212,7 @@ router.post('/importpresta', async function (req, res, next) {
       categoryName: 'Serrurier',
       note: 4.9,
       nbeval: 127,
-      prestation: [{name: "Trou de serrure", prix: '50'}, {name: "Serrure de porte", prix: '30'}, {name: "Serrure de fenêtre", prix: '100'}, {name: "Serrure de garage", prix: '150'}],
+      prestation: [{name: "Trou de serrure", prix: 50}, {name: "Serrure de porte", prix: 30}, {name: "Serrure de fenêtre", prix: 100}, {name: "Serrure de garage", prix: 150}],
       tags: ["serrurier", "16", "ouverture", "porte", "paris", "ème"]
     },
     {
@@ -229,7 +229,7 @@ router.post('/importpresta', async function (req, res, next) {
       categoryName: 'Serrurier',
       note: 4.8,
       nbeval: 245,
-      prestation: [{name: "Trou de serrure", prix: '50'}, {name: "Serrure de porte", prix: '30'}, {name: "Serrure de fenêtre", prix: '100'}, {name: "Serrure de garage", prix: '150'}],
+      prestation: [{name: "Trou de serrure", prix: 50}, {name: "Serrure de porte", prix: 30}, {name: "Serrure de fenêtre", prix: 100}, {name: "Serrure de garage", prix: 150}],
       tags: ["serrurier", "15", "ouverture", "porte", "paris", "ème"]
     },
     {
@@ -246,7 +246,7 @@ router.post('/importpresta', async function (req, res, next) {
       categoryName: 'Coiffeur',
       note: 4.6,
       nbeval: 147,
-      prestation: [{name: "Coiffeur - 1h", prix: '50'}, {name: "Coiffeur - 2h", prix: '30'}, {name: "Coiffeur - Soirée", prix: '100'}, {name: "Coiffeur - Nuit", prix: '150'}],
+      prestation: [{name: "Coiffeur - 1h", prix: 50}, {name: "Coiffeur - 2h", prix: 30}, {name: "Coiffeur - Soirée", prix: 100}, {name: "Coiffeur - Nuit", prix: 150}],
       tags: ["coiffeur", "17", "couleur", "coupe", "brushing", "enfant", "paris", "ème"]
     },
     {
@@ -263,7 +263,7 @@ router.post('/importpresta', async function (req, res, next) {
       categoryName: 'Coiffeur',
       note: 4.9,
       nbeval: 342,
-      prestation: [{name: "Coiffeur - 1h", prix: '50'}, {name: "Coiffeur - 2h", prix: '30'}, {name: "Coiffeur - Soirée", prix: '100'}, {name: "Coiffeur - Nuit", prix: '150'}],
+      prestation: [{name: "Coiffeur - 1h", prix: 50}, {name: "Coiffeur - 2h", prix: 30}, {name: "Coiffeur - Soirée", prix: 100}, {name: "Coiffeur - Nuit", prix: 150}],
       tags: ["coiffeur", "8", "couleur", "coupe", "brushing", "enfant", "paris", "ème"]
     },
     {
@@ -280,7 +280,7 @@ router.post('/importpresta', async function (req, res, next) {
       categoryName: 'Peinture',
       note: 4.6,
       nbeval: 87,
-      prestation: [{name: "Peinture de maison", prix: '50'}, {name: "Peinture de bureau", prix: '30'}, {name: "Peinture de salon", prix: '100'}, {name: "Peinture de cuisine", prix: '150'}],
+      prestation: [{name: "Peinture de maison", prix: 50}, {name: "Peinture de bureau", prix: 30}, {name: "Peinture de salon", prix: 100}, {name: "Peinture de cuisine", prix: 150}],
       tags: ["coiffeur", "17", "couleur", "coupe", "brushing", "paris", "ème"]
     },
   ]
