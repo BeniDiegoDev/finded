@@ -1,9 +1,9 @@
 const mongoose = require('mongoose')
 
-const prestaSchema = new mongoose.Schema({
-    name: String,
-    prix: Number,
-})
+// const prestaSchema = new mongoose.Schema({
+//     name: String,
+//     prix: Number,
+// })
 
 const prestatairesSchema = mongoose.Schema({
     images: String,
@@ -15,7 +15,7 @@ const prestatairesSchema = mongoose.Schema({
     zipcode: String,
     city: String,
     phoneNumber: String,
-    prestation: prestaSchema,
+    prestation: Array,
     category: String,
     categoryName: String,
     feedback: Array,
