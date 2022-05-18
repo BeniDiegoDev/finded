@@ -36,7 +36,7 @@ function Search(props) {
   let listing = props.preStataires.map((element, i) => {
     // console.log(element.tags)
     for (let j = 0; j < recherche.length; j++) {
-      if (element.tags.includes(recherche[j]) || search === "") {
+      if (element.tags.includes(recherche[j]) || element.tags.includes(recherche[j]) || search === "") {
         return (
           <TouchableWithoutFeedback key={i} onPress={() => { props.navigation.navigate('Prestataire') }}>
             <Listing navigation={props.navigation} name={element.name} number={element.number} images={element.images} address={element.address} zipcode={element.zipcode} city={element.city} note={element.note} nbeval={element.nbeval} />

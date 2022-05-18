@@ -38,6 +38,7 @@ import Messages from './screens/ProfilPages/Messages';
 import Favoris from './screens/ProfilPages/Favoris';
 import Help from './screens/ProfilPages/Help';
 import Conversation from './screens/ProfilPages/Conversation';
+import MentionsLegales from './screens/ProfilPages/MentionsLegales';
 
 const HomeStack = createStackNavigator();
 
@@ -96,6 +97,7 @@ function ProfilStackScreen() {
       <ProfilStack.Screen name="Favoris" component={Favoris} />
       <ProfilStack.Screen name="Help" component={Help} />
       <ProfilStack.Screen name='Conversation' component={Conversation} />
+      <ProfilStack.Screen name='MentionsLegales' component={MentionsLegales} />
     </ProfilStack.Navigator>
   );
 }
