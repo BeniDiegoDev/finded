@@ -47,13 +47,13 @@ const userSchema = new mongoose.Schema({
     minLength: 16,
   },
   reservations: {
-
+    type: String,
   },
   messages: {
-
+    type: String,
   },
   conversations: {
-
+    type: String,
   },
   phoneNumber: {
     type: String,
