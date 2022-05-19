@@ -6,7 +6,7 @@ import { FontAwesome } from '@expo/vector-icons';
 
 export default function Profil(props) {
 
-  const [isLogged, setIsLogged] = useState(true);
+  const [isLogged, setIsLogged] = useState(false);
 
   let categories = [
     {
@@ -87,9 +87,9 @@ export default function Profil(props) {
             </View>
             <View>
               <Text style={{fontSize:16, marginBottom:60}}>Connectez-vous pour réserver votre prochaine prestation.</Text>
-              <Button title="S'identifier"></Button>
+              <Button title="S'identifier" onPress={() => {props.navigation.navigate('Signin')}}></Button>
               <Text style={{marginTop:60}}>Pas encore membre ?</Text>
-              <Text style={{marginTop:15, color:'#7241DB', fontWeight:'bold'}}>S'inscrire</Text>
+              <Text style={{marginTop:15, color:'#7241DB', fontWeight:'bold'}} onPress={() => {props.navigation.navigate('Signup')}}>S'inscrire</Text>
             </View>
         </View>
       </View>

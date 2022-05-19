@@ -42,6 +42,8 @@ import Help from './screens/ProfilPages/Help';
 import Conversation from './screens/ProfilPages/Conversation';
 import MentionsLegales from './screens/ProfilPages/MentionsLegales';
 import Map from './screens/Map';
+import Signin from './screens/Signin';
+import Signup from './screens/Signup';
 
 const HomeStack = createStackNavigator();
 
@@ -102,8 +104,27 @@ function ProfilStackScreen() {
       <ProfilStack.Screen name="Help" component={Help} />
       <ProfilStack.Screen name='Conversation' component={Conversation} />
       <ProfilStack.Screen name='MentionsLegales' component={MentionsLegales} />
+      <ProfilStack.Screen name='Signup' component={SignupStackScreen} />
+      <ProfilStack.Screen name='Signin' component={SigninStackScreen} />
     </ProfilStack.Navigator>
   );
+}
+
+const SignupStack = createStackNavigator();
+function SignupStackScreen() {
+  return(
+    <SignupStack.Navigator screenOptions={{ headerShown: false }}>
+      <SignupStack.Screen name="Signup" component={Signup} />
+    </SignupStack.Navigator>
+  )
+}
+const SigninStack = createStackNavigator();
+function SigninStackScreen() {
+  return(
+    <SigninStack.Navigator screenOptions={{ headerShown: false }}>
+      <SigninStack.Screen name="Signin" component={Signin} />
+    </SigninStack.Navigator>
+  )
 }
 
 const Tab = createBottomTabNavigator();
