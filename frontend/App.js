@@ -41,6 +41,8 @@ import Favoris from './screens/ProfilPages/Favoris';
 import Help from './screens/ProfilPages/Help';
 import Conversation from './screens/ProfilPages/Conversation';
 import MentionsLegales from './screens/ProfilPages/MentionsLegales';
+import Signin from './screens/Signin';
+import Signup from './screens/Signup';
 
 const HomeStack = createStackNavigator();
 
@@ -76,11 +78,13 @@ function ReservationStackScreen() {
 }
 
 const PrestationStack = createStackNavigator();
+
 function PrestationStackScreen() {
   return (
     <PrestationStack.Navigator screenOptions={{ headerShown: false }}>
       <PrestationStack.Screen name="Prestataire" component={Prestataire} />
       <PrestationStack.Screen name="DatePicker" component={DatePicker} />
+      <PrestationStack.Screen name='UserStack' component={UserStackScreen} />
     </PrestationStack.Navigator>
   );
 }
@@ -100,6 +104,8 @@ function ProfilStackScreen() {
       <ProfilStack.Screen name="Help" component={Help} />
       <ProfilStack.Screen name='Conversation' component={Conversation} />
       <ProfilStack.Screen name='MentionsLegales' component={MentionsLegales} />
+      <ProfilStack.Screen name='SignIn' component={Signin} />
+      <ProfilStack.Screen name='SignUp' component={Signup} />
     </ProfilStack.Navigator>
   );
 }

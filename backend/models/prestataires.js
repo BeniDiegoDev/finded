@@ -1,10 +1,5 @@
 const mongoose = require('mongoose')
 
-<<<<<<< HEAD
-
-
-=======
->>>>>>> 7116b08ef600719f59a4eabb6b951247736d7412
 const prestatairesSchema = mongoose.Schema({
     images: String,
     name: String,
