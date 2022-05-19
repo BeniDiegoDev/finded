@@ -39,6 +39,10 @@ const userSchema = new mongoose.Schema({
     required: true,
   },
   address: String,
+  number: String,
+  street: String,
+  ZIP: String,
+  city: String,
   password: {
     type: String,
     minLength: 8,
