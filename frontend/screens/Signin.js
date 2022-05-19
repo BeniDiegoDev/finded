@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { View, Button, StyleSheet } from "react-native";
-import { Input, Button } from "react-native-elements";
+import { View, StyleSheet } from "react-native";
+import { Input, Button, Text } from "react-native-elements";
 import Icon from "react-native-vector-icons/FontAwesome";
+import { Ionicons } from '@expo/vector-icons';
 
 import { connect } from "react-redux";
 
-export function Signin() {
+export default function Signin() {
   const [userEmail, setUserEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -107,12 +108,12 @@ const styles = StyleSheet.create({
   },
 });
 //A GERER AVEC TOKEN
-function mapDispatchToProps(dispatch) {
-  return {
-    onSubmitCreateAccount: function (account) {
-      dispatch({ type: "saveAccount", account: account });
-    },
-  };
-}
+// function mapDispatchToProps(dispatch) {
+//   return {
+//     onSubmitCreateAccount: function (account) {
+//       dispatch({ type: "saveAccount", account: account });
+//     },
+//   };
+// }
 
-export default connect(null, mapDispatchToProps)(Signin);
+// export default connect(null, mapDispatchToProps)(Signin);
