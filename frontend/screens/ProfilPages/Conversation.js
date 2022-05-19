@@ -23,7 +23,7 @@ export default function Conversation(props) {
             name: 'Florus Melanson',
             avatar: 'https://placeimg.com/140/140/any',
           },
-        },
+        }
       ])
     }, [])
   
@@ -48,6 +48,7 @@ export default function Conversation(props) {
                 user={{
                 _id: 1,
                 }}
+                
             />
         </>
     )

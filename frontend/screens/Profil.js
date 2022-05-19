@@ -50,6 +50,7 @@ export default function Profil(props) {
               size={70}
               title="PN"
               source={{ uri: 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg' }}
+              onPress={() => props.navigation.navigate('SignUp')}
             />
             <ListItem.Content>
               <ListItem.Title style={{marginVertical:2, fontSize:20}}>Prénom Nom</ListItem.Title>
@@ -73,7 +74,7 @@ export default function Profil(props) {
           <ListItem>
             <ListItem.Content style={{display:'flex', flexDirection:'row', justifyContent:'space-between'}}>
               <ListItem.Title onPress={() => {props.navigation.navigate('MentionsLegales')}} style={{marginVertical:2,fontSize:15 }}>Mentions Légales</ListItem.Title>
-              <ListItem.Title style={{marginVertical:2, fontSize:15, color:'red'}}>Déconnexion</ListItem.Title>
+              <ListItem.Title onPress={() => props.navigation.navigate('SignIn')} style={{marginVertical:2, fontSize:15, color:'red'}}>Déconnexion</ListItem.Title>
             </ListItem.Content>
           </ListItem>
      </View>
