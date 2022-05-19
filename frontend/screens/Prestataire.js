@@ -8,32 +8,17 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { SearchBar, Avatar, Card } from '@rneui/themed';
 import { Button } from '@rneui/base'
 
+// Import de la connexion avec Redux
+import { connect } from 'react-redux'
+
 // Import des icones 
 import { Ionicons } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
 import { Divider, Tab } from 'react-native-elements';
+import Listing from '../components/Listing'
 
-export default function Prestataire(props) {
-
-    let services = [
-      {
-        name : "Homme - Coupe de cheveux",
-        price : '15€',
-      },
-      {
-        name : "Homme - Coupe de cheveux + Barbe",
-        price : '20€',
-      },
-      {
-        name : "Femme - Coupe de cheveux",
-        price : '35€',
-      },
-      {
-        name : "Femme - Couleur",
-        price : '45€',
-      }
-    ];
+function Prestataire(props) {
 
     let avis = [
       {
@@ -69,24 +54,31 @@ export default function Prestataire(props) {
     ];
 
     const [compteur, setCompteur] = useState(0);
+    const [presta, setPresta] = useState([]);
+
+    let listingFilter = props.preStataires.filter(elem => elem.name === props.selectPresta)
+
  
-    var listServices = services.map((item, index) => {
+    var listServices = listingFilter[0].prestation.map((item, index) => {
           const [state, setState] = useState(false);
           var onClick = () => {
             if(state === false){
               setCompteur(compteur + 1);
+              setPresta([...presta, item]);
             }else{
               setCompteur(compteur - 1);
+              setPresta(presta.filter(elem => elem.name !== item.name));
             }
             setState(!state);
             
           }
+
         return (
             <View style={styles.containerList} key={index}>
                 <View style={styles.container}>
                     <Text style={styles.Text}>{item.name}</Text>
                     <View style={{flexDirection:'row', alignItems:'center'}}>
-                      <Text style={[styles.Text,{marginRight:5}]}>{item.price}</Text>
+                      <Text style={[styles.Text,{marginRight:5}]}>{item.prix}€</Text>
                       {state?<Feather name="minus-circle" size={24} color="#7241DB" onPress={()=>onClick()} />:
                       <Entypo name="circle-with-plus" size={24} color="#7241DB" onPress={()=>onClick()} />}
                     </View>
@@ -94,7 +86,9 @@ export default function Prestataire(props) {
                 <Divider style={{ backgroundColor: '#7241DB' }} />
             </View>
         )});
-    
+   
+
+      
     var listAvis = avis.map((item, index) => {
       return(
         <View style={{width:'100%'}} key={index}>
@@ -117,23 +111,24 @@ export default function Prestataire(props) {
 
       return (
         <View style={{flex:1, backgroundColor:'#fff'}}>
-
-            <Image source={require('../assets/coiffeur.jpeg')} style={{width:'100%', height:'25%'}} />
+            <Image 
+            style={styles.topImage}
+            source={{ uri : listingFilter[0].images }} />
 
             <View style={styles.data_container}>
 
                 <View style={{marginLeft:20}}>
                     <Text style={styles.title}>
-                        Barber Street 59th
+                        {listingFilter[0].name}
                     </Text>
                     <Text style={styles.text}>
-                        134th Street, New York, NY 10001
+                    {listingFilter[0].address}
                     </Text>
                 </View>
 
                 <View style={styles.data_container2}>
                     <Text style={{fontSize:20, fontWeight:'bold', marginLeft:10}}>
-                        4.5
+                    {listingFilter[0].note}
                     </Text>
                     <Ionicons name="md-star" size={20} color="#F5B642" style={{marginLeft:10}} />
                 </View>
@@ -149,7 +144,7 @@ export default function Prestataire(props) {
               </Text>
 
               <Text style={styles.Text}>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit amet, consectetur adipiscing elit. Sit amet
+              {listingFilter[0].description}
               </Text>
 
               <Text style={styles.title}>
@@ -167,12 +162,12 @@ export default function Prestataire(props) {
                         backgroundColor: '#7241DB',
                         borderColor: '#7241DB',
                         borderWidth: 1,
-                      }} radius="20" onPress={() => { props.navigation.navigate('DatePicker') }}>
+                      }} radius="20" onPress={() => { props.navigation.navigate('DatePicker'),props.addPrestation(presta) }}>
                           <Text style={{color:"white"}}>
                             Valider
                           </Text>
                       </Button>:
-                      <Button buttonStyle={{
+                      <Button disabled disabledStyle={{backgroundColor:'white'}} buttonStyle={{
                         backgroundColor: 'white',
                         borderColor: '#7241DB',
                         borderWidth: 1,
@@ -235,4 +230,28 @@ export default function Prestataire(props) {
             justifyContent:'space-between',
             marginBottom:10
         },
+        topImage:{
+            width: '100%',
+            height: 200,
+        }
     });
+
+    function mapStateToProps(state) {
+      return { preStataires: state.prestataires,
+               selectPresta: state.selectPresta, }
+    }
+
+    function mapDispatchToProps(dispatch) {
+      return {
+        addPrestation: function (prestation) {
+          dispatch({
+            type: 'addPrestation',
+            prestation
+          })
+    }}}
+    
+
+    export default connect(
+      mapStateToProps,
+      mapDispatchToProps
+    )(Prestataire);

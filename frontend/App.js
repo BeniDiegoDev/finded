@@ -19,8 +19,10 @@ import { Provider } from 'react-redux';
 import { createStore, combineReducers } from 'redux';
 
 import prestataires from './reducers/prestataires';
+import selectPresta from './reducers/selectPresta';
+import listPrestations from './reducers/listPrestations';
 
-const store = createStore(combineReducers({ prestataires }));
+const store = createStore(combineReducers({ prestataires, selectPresta, listPrestations }));
 
 import Home from './screens/Home';
 import Prestataire from './screens/Prestataire';
@@ -37,8 +39,8 @@ import Cards from './screens/ProfilPages/Cards';
 import Messages from './screens/ProfilPages/Messages';
 import Favoris from './screens/ProfilPages/Favoris';
 import Help from './screens/ProfilPages/Help';
-import Signup from './screens/Signup';
-import Signin from './screens/Signin';
+import Conversation from './screens/ProfilPages/Conversation';
+import MentionsLegales from './screens/ProfilPages/MentionsLegales';
 
 const HomeStack = createStackNavigator();
 
@@ -96,36 +98,10 @@ function ProfilStackScreen() {
       <ProfilStack.Screen name="Messages" component={Messages} />
       <ProfilStack.Screen name="Favoris" component={Favoris} />
       <ProfilStack.Screen name="Help" component={Help} />
-      <ProfilStack.Screen name="Signup" component={SignupStackScreen} />
-      <ProfilStack.Screen name="Signin" component={SigninStackScreen} />
+      <ProfilStack.Screen name='Conversation' component={Conversation} />
+      <ProfilStack.Screen name='MentionsLegales' component={MentionsLegales} />
     </ProfilStack.Navigator>
   );
-}
-
-// const LoginStack = createStackNavigator();
-// function LoginStackScreen() {
-//   return(
-//     <LoginStack.Navigator screenOptions={{ headerShown: false }}>
-//       <LoginStack.Screen name="Signup" component={Signup} />
-//       <LoginStack.Screen name="Signin" component={Signin} />
-//     </LoginStack.Navigator>
-//   )
-// }
-const SignupStack = createStackNavigator();
-function SignupStackScreen() {
-  return(
-    <SignupStack.Navigator screenOptions={{ headerShown: false }}>
-      <SignupStack.Screen name="Signup" component={Signup} />
-    </SignupStack.Navigator>
-  )
-}
-const SigninStack = createStackNavigator();
-function SigninStackScreen() {
-  return(
-    <SigninStack.Navigator screenOptions={{ headerShown: false }}>
-      <SigninStack.Screen name="Signin" component={Signin} />
-    </SigninStack.Navigator>
-  )
 }
 
 const Tab = createBottomTabNavigator();

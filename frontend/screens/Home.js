@@ -14,16 +14,29 @@ import * as Location from 'expo-location';
 // Import de la connexion avec Redux
 import { connect } from 'react-redux'
 
-// Config IP pour connexion avec le backend
-const ip = "192.168.10.157"
+// Import components
+import Listing from '../components/Listing'
 
+// Config IP pour connexion avec le backend
+const ip = "192.168.10.179"
+
+// Debut de la fonction Home qui gere toute la page HOME
 function Home(props) {
 
+  // Necessaire pour la barre de recherche
   const [search, setSearch] = useState("");
+  const [viewSearch, setViewSearch] = useState(false)
+
   const updateSearch = (search) => {
     setSearch(search);
+    if (search == "") {
+      setViewSearch(false)
+    } else {
+      setViewSearch(true)
+    }
   };
 
+  // Envoi en dur des categories
   var Categories = [
     { image: require('../assets/categories/mechanic.png'), color: '#3DA787', name: 'Mécanique' },
     { image: require('../assets/categories/haircut.png'), color: '#7241DB', name: 'Coiffeur' },
@@ -34,21 +47,32 @@ function Home(props) {
     { image: require('../assets/categories/relooking.png'), color: '#3DA787', name: 'Maquillage' },
     { image: require('../assets/categories/trou-de-serrure.png'), color: '#7241DB', name: 'Serrurier' },
   ]
-
+  
+  // Necessaire pour la Geo Localisation
   const [location, setLocation] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
-
+  
+  // Affichage selon statut de la Geo Localisation
+  let geoloc = 'Géolocalisation en cours..';
+  
+  if (errorMsg) {
+    geoloc = errorMsg;
+  } else if (location) {
+    geoloc = location;
+  }
+  
+  // Recuperation des informations Prestataires en BDD
   useEffect(() => {
     async function loadData() {
       let prestataireInBdd = await fetch(`http://${ip}:3000/recuppresta`)
       let responsePresta = await prestataireInBdd.json()
 
       props.updateReducer(responsePresta.prestataires)
-
     }
     loadData()
   }, []);
 
+  // Recuperation du nom de la ville via Geo Localisation du mobile et transformer par l'API OpenWeatherApp en nom de ville grace aux coords
   useEffect(() => {
     (async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();
@@ -62,143 +86,176 @@ function Home(props) {
       let latitude = JSON.parse(location.coords.latitude)
       let longitude = JSON.parse(location.coords.longitude)
 
-      // console.log('latitude :', latitude, 'longitude :', longitude)
-
       var cityName = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=0c815b9455235455a301668a56c67b18`)
 
       let response = await cityName.json()
-
-      // console.log(response.name)
 
       setLocation(response.name)
 
     })();
   }, []);
 
-  // console.log("je suis le console du front " + props.prestataires)
+  let recherche = search.split(" ")
 
+  // Listing pour la barre de recherche
+  let listingSearch = props.preStataires.map((element, i) => {
+    for (let j = 0; j < recherche.length; j++) {
+      // console.log(search)
+      if (recherche[j] == element.city || recherche[j] == element.zipcode || recherche[j] == element.categoryName || search === "") {
+        return (
+            <Listing key={i} navigation={props.navigation} name={element.name} number={element.number} images={element.images} address={element.address} zipcode={element.zipcode} city={element.city} note={element.note} nbeval={element.nbeval} />
+        )
+      }
+    }
+  })
 
+  // Filtre appliqué pour n'afficher que les fiches avec une note superieur à 4.9
+  let listingFilter = props.preStataires.filter(elem => elem.note >= 4.9)
 
-  let geoloc = 'Géolocalisation en cours..';
+  // Affichage grace au resultat du filtre
+  let listing = listingFilter.map((element, i) => {
+    return (
+      <Listing key={i} id={props.id} navigation={props.navigation} name={element.name} number={element.number} images={element.images} address={element.address} zipcode={element.zipcode} city={element.city} note={element.note} nbeval={element.nbeval} />
+    )
+  })
 
-  if (errorMsg) {
-    geoloc = errorMsg;
-  } else if (location) {
-    geoloc = location;
-  }
+  // Partie visuel de la page HOME
+  if (search != "") {
+    return (
+      <View style={styles.container}>
 
-  return (
-    <View style={styles.container}>
-
-      <View style={styles.finded}>
-        <Text style={{
-          color: '#7241DB',
-          fontWeight: 'bold',
-          fontStyle: 'italic',
-          textAlign: 'center',
-          fontSize: 20,
-        }}>Finded</Text>
-      </View>
-
-      <View style={styles.topsearchbar}>
-        <View style={{ flexDirection: 'row', alignItems: 'center', marginLeft: 10 }}>
-          <Ionicons name='location' size={32} color='#3DA787' />
-          <Text style={{ fontWeight: 'bold', marginLeft: 10, fontSize: 17 }}>{geoloc}</Text>
+        <View style={styles.finded}>
+          <Text style={{
+            color: '#7241DB',
+            fontWeight: 'bold',
+            fontStyle: 'italic',
+            textAlign: 'center',
+            fontSize: 20,
+          }}>Finded</Text>
         </View>
-        <View style={{ marginRight: 10 }}>
-          <Button
-            buttonStyle={{ borderColor: "#7241DB" }}
-            titleStyle={{ color: '#7241DB', fontSize: 17 }}
-            title="Autour de vous"
-            type="outline"
-            containerStyle={{ marginLeft: 20, }}
+
+        <View style={styles.topsearchbar}>
+          <View style={{ flexDirection: 'row', alignItems: 'center', marginLeft: 10 }}>
+            <Ionicons name='location' size={32} color='#3DA787' />
+            <Text style={{ fontWeight: 'bold', marginLeft: 10, fontSize: 17 }}>{geoloc}</Text>
+          </View>
+          <View style={{ marginRight: 10 }}>
+            <Button
+              buttonStyle={{ borderColor: "#7241DB", borderRadius: 10, borderWidth: 1 }}
+              titleStyle={{ color: '#7241DB', fontSize: 17 }}
+              title="Autour de vous"
+              type="outline"
+              containerStyle={{ marginLeft: 20, }}
+              onPress={() => { setSearch(location) }}
+            />
+          </View>
+        </View>
+
+        <View style={styles.searchbar}>
+          <SearchBar
+            placeholder="Rechercher..."
+            onChangeText={updateSearch}
+            value={search}
+            lightTheme="true"
+            containerStyle={{ backgroundColor: 'white', borderTopColor: 'white', borderBottomColor: 'white' }}
+            leftIconContainerStyle={{ backgroundColor: 'white' }}
+            inputStyle={{ backgroundColor: 'white' }}
+            inputContainerStyle={{ backgroundColor: 'white', borderWidth: 1, borderRadius: 10, borderBottomWidth: 1 }}
           />
         </View>
-      </View>
 
-      <View style={styles.searchbar}>
-        <SearchBar
-          placeholder="Recherche"
-          onChangeText={updateSearch}
-          value={search}
-          lightTheme="true"
-          containerStyle={{ backgroundColor: 'white', borderTopColor: 'white', borderBottomColor: 'white' }}
-          leftIconContainerStyle={{ backgroundColor: 'white' }}
-          inputStyle={{ backgroundColor: 'white' }}
-          inputContainerStyle={{ backgroundColor: 'white', borderWidth: 1, borderRadius: 10, borderBottomWidth: 1 }}
-        />
-      </View>
+        <ScrollView style={{ width: '100%' }} showsVerticalScrollIndicator={false} >
+          {listingSearch}
+        </ScrollView >
 
-      <View style={styles.categoriestop}>
-        <Text style={{ paddingLeft: 15, fontSize: 30 }}>Catégories</Text>
-        <Text onPress={() => { props.navigation.navigate('AllCategories') }} style={{ paddingRight: 15, fontWeight: 'bold', fontSize: 17 }}>Voir tout <Ionicons name='chevron-forward' size={15} color='black' /></Text>
-      </View>
+       </View> 
+    );
+  } else {
+    return (
+      <View style={styles.container}>
 
-      <View style={styles.categories}>
-        <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-          {Categories.map((element, i) => {
-            return (
-              <TouchableWithoutFeedback key={i} onPress={() => { props.navigation.navigate('Categories') }}>
-                <View style={styles.categorieswidget}>
+        <View style={styles.finded}>
+          <Text style={{
+            color: '#7241DB',
+            fontWeight: 'bold',
+            fontStyle: 'italic',
+            textAlign: 'center',
+            fontSize: 20,
+          }}>Finded</Text>
+        </View>
 
-                  <Image
-                    rounded
-                    backgroundColor={element.color}
-                    style={{ borderRadius: 50, height: 90, width: 90, marginBottom: 10, borderColor: 'black', borderWidth: 3 }}
-                    source={element.image}
-                  />
-                  <Text style={{ textAlign: 'center', fontSize: 17 }}>{element.name}</Text>
-                </View>
-              </TouchableWithoutFeedback>
-            )
-          })
-          }
-        </ScrollView>
-      </View>
+        <View style={styles.topsearchbar}>
+          <View style={{ flexDirection: 'row', alignItems: 'center', marginLeft: 10 }}>
+            <Ionicons name='location' size={32} color='#3DA787' />
+            <Text style={{ fontWeight: 'bold', marginLeft: 10, fontSize: 17 }}>{geoloc}</Text>
+          </View>
+          <View style={{ marginRight: 10 }}>
+            <Button
+              buttonStyle={{ borderColor: "#7241DB", borderRadius: 10, borderWidth: 1 }}
+              titleStyle={{ color: '#7241DB', fontSize: 17 }}
+              title="Autour de vous"
+              type="outline"
+              containerStyle={{ marginLeft: 20, }}
+              onPress={() => { setSearch(location) }}
+            />
+          </View>
+        </View>
 
-      <View style={styles.categoriestext}>
-        <Text style={{ marginLeft: 15, fontWeight: 'bold', fontSize: 20 }}>Prestataires populaires</Text>
-      </View>
+        <View style={styles.searchbar}>
+          <SearchBar
+            placeholder="Rechercher..."
+            onChangeText={updateSearch}
+            value={search}
+            lightTheme="true"
+            containerStyle={{ backgroundColor: 'white', borderTopColor: 'white', borderBottomColor: 'white' }}
+            leftIconContainerStyle={{ backgroundColor: 'white' }}
+            inputStyle={{ backgroundColor: 'white' }}
+            inputContainerStyle={{ backgroundColor: 'white', borderWidth: 1, borderRadius: 10, borderBottomWidth: 1 }}
+          />
+        </View>
 
-      <ScrollView style={{ width: '100%' }} showsVerticalScrollIndicator={false} >
-        {props.preStataires.map((element, i) => {
-          console.log(element.images)
-          return (
-            <TouchableWithoutFeedback key={i} onPress={() => { props.navigation.navigate('Prestataire') }}>
-              <Card
-                containerStyle={{ padding: 0, borderRadius: 10 }}>
-                <View style={{ flexDirection: 'row' }} >
-                  <Image
-                    style={{ borderTopLeftRadius: 10, borderBottomLeftRadius: 10, height: 100, width: 100 }}
-                    source={{ uri: element.images }}
-                  />
-                  <View style={{ marginLeft: 15, justifyContent: 'center', minWidth: '65%' }}>
-                    <Text style={styles.fontsize}>{element.name}</Text>
-                    <Text >{element.number} {element.address}</Text>
-                    <Text >{element.zipcode} {element.city}</Text>
-                    <View style={{ flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center' }}>
-                      <Text style={{ fontSize: 17, fontWeight: 'bold', marginLeft: 10 }}>{element.note}</Text>
-                      <Ionicons name="md-star" size={17} color="#F5B642" style={{ marginLeft: 10 }} />
-                    </View>
+        <View style={styles.categoriestop}>
+          <Text style={{ paddingLeft: 15, fontSize: 30 }}>Catégories</Text>
+          <Text onPress={() => { props.navigation.navigate('AllCategories') }} style={{ paddingRight: 15, fontWeight: 'bold', fontSize: 17 }}>Voir tout <Ionicons name='chevron-forward' size={15} color='black' /></Text>
+        </View>
+
+        <View style={styles.categories}>
+          <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+            {Categories.map((element, i) => {
+              return (
+                <TouchableWithoutFeedback key={i} onPress={() => { props.navigation.navigate('Categories', { name: element.name }) }}>
+                  <View style={styles.categorieswidget} >
+
+                    <Image
+                      rounded
+                      backgroundColor={element.color}
+                      style={{ borderRadius: 50, height: 70, width: 70, marginBottom: 10, borderColor: 'black', borderWidth: 3 }}
+                      source={element.image}
+                    />
+                    <Text style={{ textAlign: 'center' }}>{element.name}</Text>
                   </View>
-                </View>
-              </Card>
-            </TouchableWithoutFeedback>
-          )
-        })
-        }
-      </ScrollView >
+                </TouchableWithoutFeedback>
+              )
+            })
+            }
+          </ScrollView>
+        </View>
 
-    </View>
+        <View style={styles.categoriestext}>
+          <Text style={{ marginLeft: 15, fontWeight: 'bold', fontSize: 20 }}>Prestataires populaires</Text>
+        </View>
 
+        <ScrollView style={{ width: '100%' }} showsVerticalScrollIndicator={false} >
+          {listing}
+        </ScrollView >
 
-  );
+      </View>
+    )
+  }
 }
 
+// Style appliqué
 const styles = StyleSheet.create({
-  fontsize: {
-    fontSize: 17,
-  },
   container: {
     backgroundColor: 'white',
     flex: 1,
@@ -238,14 +295,16 @@ const styles = StyleSheet.create({
     width: '100%',
     paddingRight: 15,
     paddingTop: 15,
-    paddingBottom: 5,
+    paddingBottom: 10,
   },
 });
 
+//
 function mapStateToProps(state) {
   return { preStataires: state.prestataires, }
 }
 
+//
 function mapDispatchToProps(dispatch) {
   return {
     updateReducer: function (prestataires) {
@@ -253,11 +312,18 @@ function mapDispatchToProps(dispatch) {
         type: 'addPrestataire',
         prestataires
       })
+    },
+    selectPresta: function (name) {
+      dispatch({
+        type: 'selectPrestataire',
+        name
+      })
     }
   }
 
 }
 
+//
 export default connect(
   mapStateToProps,
   mapDispatchToProps

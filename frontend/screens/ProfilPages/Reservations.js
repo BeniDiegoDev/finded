@@ -1,11 +1,18 @@
 import React, {useState} from 'react';
-import { View, useWindowDimensions, Text, StyleSheet, ScrollView, TouchableWithoutFeedback, TextInput} from 'react-native';
+import { View, useWindowDimensions, Text, StyleSheet, ScrollView, TouchableWithoutFeedback, TextInput, Image} from 'react-native';
 import { TabView, TabBar } from 'react-native-tab-view';
 import { Button, Overlay } from 'react-native-elements';
+import { Card } from '@rneui/themed';
 
 
 import { Ionicons } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
+
+// Import components
+import Listing from '../../components/Listing'
+
+// Import de la connexion avec Redux
+import { connect } from 'react-redux'
 
 
 
@@ -289,28 +296,56 @@ const FirstRoute = (props) => {
     setVisible(!visible);
   };
 
+
+  
   let listEnCours = props.EnCours.map((item, index) => {
     return(
+
       <TouchableWithoutFeedback onPress={toggleOverlay} key={index}>
-          <View key={index} style={{display:'flex', flexDirection:'row', justifyContent:'space-between', alignItems:'center', paddingVertical:20, borderBottomWidth:1, borderColor:'grey'}}>
-            <View style={{display:'flex', flexDirection:'row', alignItems:'center'}}>
-              <View style={{display:'flex', flexDirection:'column', alignItems:'center', marginRight:20}}>
-                <AntDesign name="calendar" size={35} color="#7241DB" style={{marginBottom:10}} />
-                <Text style={styles.infos}>{item.hour}</Text>
-                <Text style={styles.infos}>{item.date}</Text>
-                <Text style={styles.infos}>{item.year}</Text>
+          <View key={index} style={{display:'flex', flexDirection:'column', paddingVertical:20, borderBottomWidth:0.2, borderColor:'grey'}}>
+            
+              <View style={{display:'flex', flexDirection:'row', justifyContent:'space-between'}}>
+                <View style={{display:'flex', flexDirection:'row'}}>
+                  <Text style={[styles.infos, {marginHorizontal:5}]}>{item.hour}</Text>
+                  <Text style={[styles.infos, {marginHorizontal:5}]}>{item.date}</Text>
+                  <Text style={[styles.infos, {marginHorizontal:5}]}>{item.year}</Text>
+                </View>
+                <View>
+                  <Text style={styles.infos}>{item.price}</Text>
+                </View>
+              </View>
+            
+            
+
+              <View style={{marginTop:20}}>
+                <Card id={props.id} navigation={props.navigation} name={props.name} number={props.number} images={props.images} address={props.address} zipcode={props.zipcode} city={props.city} note={props.note} nbeval={props.nbeval}
+                  containerStyle={{ padding: 0, borderRadius: 10, marginTop: 0, marginBottom: 10 }}>
+                  <View style={{ flexDirection: 'row' }} >
+                      <Image
+                          style={{ borderTopLeftRadius: 10, borderBottomLeftRadius: 10, height: 120, width: 120 }}
+                          source={{ uri: props.images }}
+                      />
+                      <View style={{ marginLeft: 15, justifyContent: 'center', minWidth: '60%' }}>
+                          <Text style={{ fontSize: 17 }}>{props.name}</Text>
+                          <Text >{props.number} {props.address}</Text>
+                          <Text >{props.zipcode} {props.city}</Text>
+                          <View style={{ flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center', marginTop: 10 }}>
+                              <Text style={{ fontSize: 10}}>({props.nbeval} Avis) </Text><Text style={{ fontSize: 17, fontWeight: 'bold'}}> {props.note} <Ionicons name="md-star" size={17} color="#F5B642" /></Text>
+                          </View>
+                      </View>
+                  </View>
+                </Card>
               </View>
 
               <View>
-                <Text style={styles.infos}>{item.nature}</Text>
-                <Text style={styles.infos}>{item.name}</Text>
-                <Text style={styles.infos}>{item.job}</Text>
+                <Text style={styles.infos}>Prestation 1</Text>
+                <Text style={styles.infos}>Prestation 2</Text>
               </View>
-            </View>
 
-            <View>
-              <Text style={styles.infos}>{item.price}</Text>
-            </View>
+    
+         
+
+          
 
             <Overlay isVisible={visible} onBackdropPress={toggleOverlay}>
               <View style={{display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center', padding:20}}>
@@ -352,24 +387,39 @@ const SecondRoute = (props) => {
   let listTerminees = props.Terminees.map((item, index) => {
     return(  
       <TouchableWithoutFeedback onPress={toggleOverlay} key={index}>
-      <View key={index} style={{display:'flex', flexDirection:'row', justifyContent:'space-between', alignItems:'center', paddingVertical:20, borderBottomWidth:1, borderColor:'grey'}}>
-            <View style={{display:'flex', flexDirection:'row', alignItems:'center'}}>
-              <View style={{display:'flex', flexDirection:'column', alignItems:'center', marginRight:20}}>
-                <AntDesign name="calendar" size={35} color="green" style={{marginBottom:10}}/>
-                <Text style={styles.infos}>{item.hour}</Text>
-                <Text style={styles.infos}>{item.date}</Text>
-                <Text style={styles.infos}>{item.year}</Text>
+      <View key={index} style={{display:'flex', flexDirection:'column', paddingVertical:20, borderBottomWidth:0.2, borderColor:'grey'}}>
+            
+            <View style={{display:'flex', flexDirection:'row', justifyContent:'space-between'}}>
+              <View style={{display:'flex', flexDirection:'row'}}>
+                <Text style={[styles.infos, {marginHorizontal:5}]}>{item.hour}</Text>
+                <Text style={[styles.infos, {marginHorizontal:5}]}>{item.date}</Text>
+                <Text style={[styles.infos, {marginHorizontal:5}]}>{item.year}</Text>
               </View>
-
               <View>
-                <Text style={styles.infos}>{item.nature}</Text>
-                <Text style={styles.infos}>{item.name}</Text>
-                <Text style={styles.infos}>{item.job}</Text>
+                <Text style={styles.infos}>{item.price}</Text>
               </View>
             </View>
+          
+          
 
-            <View>
-              <Text style={styles.infos}>{item.price}</Text>
+            <View style={{marginTop:20}}>
+              <Card id={props.id} navigation={props.navigation} name={props.name} number={props.number} images={props.images} address={props.address} zipcode={props.zipcode} city={props.city} note={props.note} nbeval={props.nbeval}
+                containerStyle={{ padding: 0, borderRadius: 10, marginTop: 0, marginBottom: 10 }}>
+                <View style={{ flexDirection: 'row' }} >
+                    <Image
+                        style={{ borderTopLeftRadius: 10, borderBottomLeftRadius: 10, height: 120, width: 120 }}
+                        source={{ uri: props.images }}
+                    />
+                    <View style={{ marginLeft: 15, justifyContent: 'center', minWidth: '60%' }}>
+                        <Text style={{ fontSize: 17 }}>{props.name}</Text>
+                        <Text >{props.number} {props.address}</Text>
+                        <Text >{props.zipcode} {props.city}</Text>
+                        <View style={{ flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center', marginTop: 10 }}>
+                            <Text style={{ fontSize: 10}}>({props.nbeval} Avis) </Text><Text style={{ fontSize: 17, fontWeight: 'bold'}}> {props.note} <Ionicons name="md-star" size={17} color="#F5B642" /></Text>
+                        </View>
+                    </View>
+                </View>
+              </Card>
             </View>
 
             <Overlay isVisible={visible} onBackdropPress={toggleOverlay}>
@@ -416,26 +466,41 @@ const ThirdRoute = (props) => {
 
   let listAnnulees = props.Annulees.map((item, index) => {
     return(
-      <View key={index} style={{display:'flex', flexDirection:'row', justifyContent:'space-between', alignItems:'center', paddingVertical:20, borderBottomWidth:1, borderColor:'grey'}}>
-            <View style={{display:'flex', flexDirection:'row', alignItems:'center'}}>
-              <View style={{display:'flex', flexDirection:'column', alignItems:'center', marginRight:20}}>
-                <AntDesign name="calendar" size={35} color="red" style={{marginBottom:10}}/>
-                <Text style={styles.infos}>{item.hour}</Text>
-                <Text style={styles.infos}>{item.date}</Text>
-                <Text style={styles.infos}>{item.year}</Text>
+      <View key={index} style={{display:'flex', flexDirection:'column', paddingVertical:20, borderBottomWidth:0.2, borderColor:'grey'}}>
+            
+              <View style={{display:'flex', flexDirection:'row', justifyContent:'space-between'}}>
+                <View style={{display:'flex', flexDirection:'row'}}>
+                  <Text style={[styles.infos, {marginHorizontal:5}]}>{item.hour}</Text>
+                  <Text style={[styles.infos, {marginHorizontal:5}]}>{item.date}</Text>
+                  <Text style={[styles.infos, {marginHorizontal:5}]}>{item.year}</Text>
+                </View>
+                <View>
+                  <Text style={styles.infos}>{item.price}</Text>
+                </View>
               </View>
+            
+            
 
-              <View>
-                <Text style={styles.infos}>{item.nature}</Text>
-                <Text style={styles.infos}>{item.name}</Text>
-                <Text style={styles.infos}>{item.job}</Text>
+              <View style={{marginTop:20}}>
+                <Card id={props.id} navigation={props.navigation} name={props.name} number={props.number} images={props.images} address={props.address} zipcode={props.zipcode} city={props.city} note={props.note} nbeval={props.nbeval}
+                  containerStyle={{ padding: 0, borderRadius: 10, marginTop: 0, marginBottom: 10 }}>
+                  <View style={{ flexDirection: 'row' }} >
+                      <Image
+                          style={{ borderTopLeftRadius: 10, borderBottomLeftRadius: 10, height: 120, width: 120 }}
+                          source={{ uri: props.images }}
+                      />
+                      <View style={{ marginLeft: 15, justifyContent: 'center', minWidth: '60%' }}>
+                          <Text style={{ fontSize: 17 }}>{props.name}</Text>
+                          <Text >{props.number} {props.address}</Text>
+                          <Text >{props.zipcode} {props.city}</Text>
+                          <View style={{ flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center', marginTop: 10 }}>
+                              <Text style={{ fontSize: 10}}>({props.nbeval} Avis) </Text><Text style={{ fontSize: 17, fontWeight: 'bold'}}> {props.note} <Ionicons name="md-star" size={17} color="#F5B642" /></Text>
+                          </View>
+                      </View>
+                  </View>
+                </Card>
               </View>
-            </View>
-
-            <View>
-              <Text style={styles.infos}>{item.price}</Text>
-            </View>
-          </View>
+      </View>
     )
   })
 
@@ -450,7 +515,7 @@ const ThirdRoute = (props) => {
 }
  
 
-export default function Reservations(props) {
+function Reservations(props) {
 
   const [isLogged, setIsLogged] = useState(true);
 
@@ -494,7 +559,7 @@ export default function Reservations(props) {
     
       <View style={styles.container}>
         <View style={{marginVertical:40, display:'flex', flexDirection:'row'}}>
-            <Text style={{fontSize:30, paddingHorizontal:10}}><Ionicons onPress={() => { props.navigation.goBack(null)}} name="chevron-back" size={30} color="black"/> Mes réservations</Text>
+            <Text style={{fontSize:30, paddingHorizontal:10}}><Ionicons onPress={() => { props.navigation.goBack()}} name="chevron-back" size={30} color="black"/> Mes réservations</Text>
         </View> 
         <TabView
           renderTabBar={renderTabBar}
@@ -518,7 +583,7 @@ export default function Reservations(props) {
             </View>
             <View style={{display:'flex', alignItems:'center'}}>
               <AntDesign name="calendar" size={150} color="#3DA787" />
-              <Text style={{color: '#7241DB', fontWeight: 'bold',fontStyle: 'italic',textAlign: 'center',fontSize: 20,}}>Finded</Text>
+              <Text style={{color: '#7241DB', fontWeight: 'bold',fontStyle: 'italic',textAlign: 'center',fontSize: 20}}>Finded </Text>
               <Text style={{fontSize:20, marginVertical:20}}>Vos réservations apparaîtront ici</Text>
             </View>
         
@@ -547,3 +612,12 @@ const styles = StyleSheet.create({
   }
 
 });
+
+function mapStateToProps(state) {
+  return { preStataires: state.prestataires, }
+}
+
+export default connect(
+  mapStateToProps,
+  null
+)(Reservations);
