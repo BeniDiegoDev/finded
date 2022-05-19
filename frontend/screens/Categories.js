@@ -26,16 +26,22 @@ function Categories(props) {
       setViewSearch(true)
     }
   };
-  
+
   let recherche = search.split(" ")
 
   // Listing pour la barre de recherche
   let listingSearch = props.preStataires.map((element, i) => {
     for (let j = 0; j < recherche.length; j++) {
       // console.log(search)
-      if (recherche[j] == element.city || recherche[j] == element.zipcode || recherche[j] == element.categoryName || search === "") {
+      if (
+        props.route.params.name == element.categoryName && element.city.toLowerCase().includes(search.toLowerCase()) ||
+        props.route.params.name == element.categoryName && element.name.toLowerCase().includes(search.toLowerCase()) ||
+        props.route.params.name == element.categoryName && search.toLowerCase() == element.zipcode ||
+        props.route.params.name == element.categoryName && element.address.toLowerCase().includes(search.toLowerCase()) ||
+        props.route.params.name == element.categoryName && search.toLowerCase() == element.number + " " + element.address.toLowerCase() ||
+        search === "") {
         return (
-            <Listing key={i} navigation={props.navigation} name={element.name} number={element.number} images={element.images} address={element.address} zipcode={element.zipcode} city={element.city} note={element.note} nbeval={element.nbeval} />
+          <Listing key={i} navigation={props.navigation} name={element.name} number={element.number} images={element.images} address={element.address} zipcode={element.zipcode} city={element.city} note={element.note} nbeval={element.nbeval} />
         )
       }
     }
@@ -45,12 +51,12 @@ function Categories(props) {
 
   let listing = listingFilter.map((element, i) => {
     return (
-        <Listing key={i} navigation={props.navigation} name={element.name} number={element.number} images={element.images} address={element.address} zipcode={element.zipcode} city={element.city} note={element.note} nbeval={element.nbeval} />
+      <Listing key={i} navigation={props.navigation} name={element.name} number={element.number} images={element.images} address={element.address} zipcode={element.zipcode} city={element.city} note={element.note} nbeval={element.nbeval} />
     )
   })
 
   // Recupere les infos du clique
-  // console.log(props.route.params.name)
+  console.log(props.route.params.name)
 
   if (search != "") {
     return (

@@ -18,7 +18,7 @@ import { connect } from 'react-redux'
 import Listing from '../components/Listing'
 
 // Config IP pour connexion avec le backend
-const ip = "192.168.10.179"
+const ip = "192.168.10.174"
 
 // Debut de la fonction Home qui gere toute la page HOME
 function Home(props) {
@@ -47,20 +47,20 @@ function Home(props) {
     { image: require('../assets/categories/relooking.png'), color: '#3DA787', name: 'Maquillage' },
     { image: require('../assets/categories/trou-de-serrure.png'), color: '#7241DB', name: 'Serrurier' },
   ]
-  
+
   // Necessaire pour la Geo Localisation
   const [location, setLocation] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
-  
+
   // Affichage selon statut de la Geo Localisation
   let geoloc = 'Géolocalisation en cours..';
-  
+
   if (errorMsg) {
     geoloc = errorMsg;
   } else if (location) {
     geoloc = location;
   }
-  
+
   // Recuperation des informations Prestataires en BDD
   useEffect(() => {
     async function loadData() {
@@ -86,6 +86,8 @@ function Home(props) {
       let latitude = JSON.parse(location.coords.latitude)
       let longitude = JSON.parse(location.coords.longitude)
 
+      console.log("geoloc = "+latitude+" + "+longitude)
+
       var cityName = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=0c815b9455235455a301668a56c67b18`)
 
       let response = await cityName.json()
@@ -99,13 +101,22 @@ function Home(props) {
 
   // Listing pour la barre de recherche
   let listingSearch = props.preStataires.map((element, i) => {
-    for (let j = 0; j < recherche.length; j++) {
-      // console.log(search)
-      if (recherche[j] == element.city || recherche[j] == element.zipcode || recherche[j] == element.categoryName || search === "") {
-        return (
-            <Listing key={i} navigation={props.navigation} name={element.name} number={element.number} images={element.images} address={element.address} zipcode={element.zipcode} city={element.city} note={element.note} nbeval={element.nbeval} />
-        )
-      }
+    if (
+      element.name.toLowerCase().includes(search.toLowerCase()) ||
+      element.address.toLowerCase().includes(search.toLowerCase()) ||
+      element.categoryName.toLowerCase().includes(search.toLowerCase()) ||
+      search.toLowerCase() == element.city.toLowerCase() ||
+      search.toLowerCase() == element.zipcode.toLowerCase() ||
+      search.toLowerCase() == element.categoryName.toLowerCase() + " " + element.city.toLowerCase() ||
+      search.toLowerCase() == element.categoryName.toLowerCase() + " " + element.zipcode ||
+      search.toLowerCase() == element.name.toLowerCase() ||
+      search.toLowerCase() == element.number + " " + element.address.toLowerCase() ||
+      search.toLowerCase() == element.number + " " + element.address.toLowerCase() + " " + element.zipcode ||
+      search.toLowerCase() == element.address.toLowerCase() + " " + element.zipcode ||
+      search === "") {
+      return (
+        <Listing key={i} navigation={props.navigation} name={element.name} number={element.number} images={element.images} address={element.address} zipcode={element.zipcode} city={element.city} note={element.note} nbeval={element.nbeval} />
+      )
     }
   })
 
@@ -168,7 +179,7 @@ function Home(props) {
           {listingSearch}
         </ScrollView >
 
-       </View> 
+      </View>
     );
   } else {
     return (

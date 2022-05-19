@@ -41,6 +41,7 @@ import Favoris from './screens/ProfilPages/Favoris';
 import Help from './screens/ProfilPages/Help';
 import Conversation from './screens/ProfilPages/Conversation';
 import MentionsLegales from './screens/ProfilPages/MentionsLegales';
+import Map from './screens/Map';
 
 const HomeStack = createStackNavigator();
 
@@ -51,6 +52,7 @@ function HomeStackScreen() {
       <HomeStack.Screen name="Prestataire" component={PrestationStackScreen} />
       <HomeStack.Screen name="AllCategories" component={AllCategories} />
       <HomeStack.Screen name="Categories" component={Categories} />
+      <HomeStack.Screen name="Map" component={Map} />
     </HomeStack.Navigator>
   );
 }

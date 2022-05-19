@@ -26,17 +26,26 @@ function Search(props) {
       setViewSearch(true)
     }
   };
-
   
   let recherche = search.split(" ")
   
   let listing = props.preStataires.map((element, i) => {
-    for (let j = 0; j < recherche.length; j++) {
-      if (recherche[j] == element.city || recherche[j] == element.zipcode || recherche[j] == element.categoryName || search === "") {
-        return (
-            <Listing key={i} navigation={props.navigation} name={element.name} number={element.number} images={element.images} address={element.address} zipcode={element.zipcode} city={element.city} note={element.note} nbeval={element.nbeval} />
-        )
-      }
+    if (
+      element.name.toLowerCase().includes(search.toLowerCase()) ||
+      element.address.toLowerCase().includes(search.toLowerCase()) ||
+      element.categoryName.toLowerCase().includes(search.toLowerCase()) ||
+      search.toLowerCase() == element.city.toLowerCase() ||
+      search.toLowerCase() == element.zipcode.toLowerCase() ||
+      search.toLowerCase() == element.categoryName.toLowerCase() + " " + element.city.toLowerCase() ||
+      search.toLowerCase() == element.categoryName.toLowerCase() + " " + element.zipcode ||
+      search.toLowerCase() == element.name.toLowerCase() ||
+      search.toLowerCase() == element.number + " " + element.address.toLowerCase() ||
+      search.toLowerCase() == element.number + " " + element.address.toLowerCase() + " " + element.zipcode ||
+      search.toLowerCase() == element.address.toLowerCase() + " " + element.zipcode ||
+      search === "") {
+      return (
+        <Listing key={i} navigation={props.navigation} name={element.name} number={element.number} images={element.images} address={element.address} zipcode={element.zipcode} city={element.city} note={element.note} nbeval={element.nbeval} />
+      )
     }
   })
   
