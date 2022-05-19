@@ -3,9 +3,10 @@ var router = express.Router();
 
 // Import du cryptage des mots de passe
 // var uid2 = require('uid2')
-// var bcrypt = require('bcrypt');
+var bcrypt = require('bcrypt');
 
 var prestatairesModel = require('../models/prestataires')
+var userModel = require('../models/usersModel')
 
 // Force fake upload préstataire
 router.post('/importpresta', async function (req, res, next) {
@@ -317,6 +318,8 @@ router.post('/importpresta', async function (req, res, next) {
       note: fakeTableau[i].note,
       nbeval: fakeTableau[i].nbeval,
       prestation: fakeTableau[i].prestation,
+      lat: fakeTableau[i].lat,
+      lon: fakeTableau[i].lon,
     });
 
     var prestatairesSave = await newPrestataire.save();

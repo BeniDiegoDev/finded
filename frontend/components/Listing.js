@@ -25,7 +25,7 @@ function Listing(props) {
                         style={{ borderTopLeftRadius: 10, borderBottomLeftRadius: 10, height: 120, width: 120 }}
                         source={{ uri: props.images }}
                     />
-                    <View style={{ marginLeft: 15, justifyContent: 'center', minWidth: '60%' }}>
+                    <View style={{ marginLeft: 15, justifyContent: 'center', minWidth: '60%', maxWidth: '60%' }}>
                         <Text style={{ fontSize: 17 }}>{props.name}</Text>
                         <Text >{props.number} {props.address}</Text>
                         <Text >{props.zipcode} {props.city}</Text>
@@ -50,5 +50,6 @@ function mapDispatchToProps(dispatch) {
     }
   
   }
+  
   export default connect(null, mapDispatchToProps)(Listing)
 

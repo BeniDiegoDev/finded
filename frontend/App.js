@@ -22,14 +22,16 @@ import prestataires from './reducers/prestataires';
 import selectPresta from './reducers/selectPresta';
 import listPrestations from './reducers/listPrestations';
 import infoUser from './reducers/infoUser';
+import location from './reducers/location';
 
-const store = createStore(combineReducers({ prestataires, selectPresta, listPrestations, infoUser }));
+const store = createStore(combineReducers({ prestataires, selectPresta, listPrestations, location, infoUser }));
 
 import Home from './screens/Home';
 import Prestataire from './screens/Prestataire';
 import AllCategories from './screens/AllCategories';
 import Categories from './screens/Categories';
 import Search from './screens/Search';
+import Map from './screens/Map';
 import Reservation from './screens/ProfilPages/Reservations';
 import Profil from './screens/Profil';
 import DatePicker from './screens/DatePicker';
@@ -54,6 +56,7 @@ function HomeStackScreen() {
       <HomeStack.Screen name="Prestataire" component={PrestationStackScreen} />
       <HomeStack.Screen name="AllCategories" component={AllCategories} />
       <HomeStack.Screen name="Categories" component={Categories} />
+      <HomeStack.Screen name="Map" component={Map} />
     </HomeStack.Navigator>
   );
 }
@@ -108,6 +111,23 @@ function ProfilStackScreen() {
       <ProfilStack.Screen name='SignUp' component={Signup} />
     </ProfilStack.Navigator>
   );
+}
+
+const SignupStack = createStackNavigator();
+function SignupStackScreen() {
+  return(
+    <SignupStack.Navigator screenOptions={{ headerShown: false }}>
+      <SignupStack.Screen name="Signup" component={Signup} />
+    </SignupStack.Navigator>
+  )
+}
+const SigninStack = createStackNavigator();
+function SigninStackScreen() {
+  return(
+    <SigninStack.Navigator screenOptions={{ headerShown: false }}>
+      <SigninStack.Screen name="Signin" component={Signin} />
+    </SigninStack.Navigator>
+  )
 }
 
 const Tab = createBottomTabNavigator();

@@ -18,7 +18,11 @@ import { connect } from 'react-redux'
 import Listing from '../components/Listing'
 
 // Config IP pour connexion avec le backend
+<<<<<<< HEAD
 const ip = "192.168.10.112"
+=======
+const ip = "192.168.10.136"
+>>>>>>> 292614b4f6e7f86de2e05d4cb97aba6f30d4c5bb
 
 // Debut de la fonction Home qui gere toute la page HOME
 function Home(props) {
@@ -52,6 +56,9 @@ function Home(props) {
   const [location, setLocation] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
 
+  const [currrentLatitude, setCurrentLatitude] = useState(0);
+  const [currentLongitude, setCurrentLongitude] = useState(0);
+
   // Affichage selon statut de la Geo Localisation
   let geoloc = 'Géolocalisation en cours..';
 
@@ -67,7 +74,7 @@ function Home(props) {
       let prestataireInBdd = await fetch(`http://${ip}:3000/recuppresta`)
       let responsePresta = await prestataireInBdd.json()
 
-      props.updateReducer(responsePresta.prestataires)
+      props.addPrestataire(responsePresta.prestataires)
     }
     loadData()
   }, []);
@@ -83,10 +90,10 @@ function Home(props) {
 
       let location = await Location.getCurrentPositionAsync({});
 
-      let latitude = JSON.parse(location.coords.latitude)
-      let longitude = JSON.parse(location.coords.longitude)
+      props.addLocation(location.coords)
 
-      console.log("geoloc = "+latitude+" + "+longitude)
+      let latitude = location.coords.latitude
+      let longitude = location.coords.longitude
 
       var cityName = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=0c815b9455235455a301668a56c67b18`)
 
@@ -153,11 +160,18 @@ function Home(props) {
           <View style={{ marginRight: 10 }}>
             <Button
               buttonStyle={{ borderColor: "#7241DB", borderRadius: 10, borderWidth: 1 }}
-              titleStyle={{ color: '#7241DB', fontSize: 17 }}
-              title="Autour de vous"
+              titleStyle={{ color: '#7241DB', fontSize: 17, marginLeft: 5 }}
+              icon={
+                <Ionicons
+                  name="map-outline"
+                  size={20}
+                  color="#3DA787"
+                />
+              }
+              title="Autour de moi"
               type="outline"
               containerStyle={{ marginLeft: 20, }}
-              onPress={() => { setSearch(location) }}
+              onPress={() => { props.navigation.navigate('Map') }}
             />
           </View>
         </View>
@@ -203,11 +217,18 @@ function Home(props) {
           <View style={{ marginRight: 10 }}>
             <Button
               buttonStyle={{ borderColor: "#7241DB", borderRadius: 10, borderWidth: 1 }}
-              titleStyle={{ color: '#7241DB', fontSize: 17 }}
-              title="Autour de vous"
+              titleStyle={{ color: '#7241DB', fontSize: 17, marginLeft: 5 }}
+              icon={
+                <Ionicons
+                  name="map-outline"
+                  size={20}
+                  color="#3DA787"
+                />
+              }
+              title="Autour de moi"
               type="outline"
               containerStyle={{ marginLeft: 20, }}
-              onPress={() => { setSearch(location) }}
+              onPress={() => { props.navigation.navigate('Map') }}
             />
           </View>
         </View>
@@ -312,16 +333,22 @@ const styles = StyleSheet.create({
 
 //
 function mapStateToProps(state) {
-  return { preStataires: state.prestataires, }
+  return { preStataires: state.prestataires }
 }
 
 //
 function mapDispatchToProps(dispatch) {
   return {
-    updateReducer: function (prestataires) {
+    addPrestataire: function (prestataires) {
       dispatch({
         type: 'addPrestataire',
         prestataires
+      })
+    },
+    addLocation: function (location) {
+      dispatch({
+        type: 'addLocation',
+        location
       })
     },
     selectPresta: function (name) {
