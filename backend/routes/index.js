@@ -317,6 +317,8 @@ router.post('/importpresta', async function (req, res, next) {
       note: fakeTableau[i].note,
       nbeval: fakeTableau[i].nbeval,
       prestation: fakeTableau[i].prestation,
+      lat: fakeTableau[i].lat,
+      lon: fakeTableau[i].lon,
     });
 
     var prestatairesSave = await newPrestataire.save();
