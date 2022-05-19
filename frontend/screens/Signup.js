@@ -1,18 +1,47 @@
 import React, { useState, useEffect } from "react";
-import { View, StyleSheet, Text } from "react-native";
+import { View, StyleSheet, Text, Alert } from "react-native";
 import { Input, Button } from "react-native-elements";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { Ionicons } from '@expo/vector-icons';
 
 import { connect } from "react-redux";
 
-export default function Signup() {
+const ip = '192.168.10.153'
+
+export default function Signup(props) {
+
+  
+
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [userEmail, setUserEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [confirmPassWord, setConfirmPassWord] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
+  
+  const [isLogged, setIsLogged] = useState(false)
+
+  let addUser = async (firstName, lastName, userEmail, password, confirmPassword, phoneNumber) => {
+    
+    if( password === confirmPassword ) {
+    let response = await fetch(`http://${ip}:3000/users/sign-up`, {
+        method: 'POST',
+        headers: {'Content-Type':'application/x-www-form-urlencoded'},
+        body: `firstName=${firstName}&lastName=${lastName}&userEmail=${userEmail}&password=${password}&confirmPassword=${confirmPassword}&phoneNumber=${phoneNumber}`
+        });
+
+    let responseJson = await response.json();
+
+    if (responseJson.result === true) {
+      setIsLogged(true);
+      props.navigation.goBack();
+    }
+    } else {
+      Alert.alert("Attention","Les mots de passe ne correspondent pas");
+    }
+
+
+    }
 
   return (
     <View>
@@ -66,7 +95,7 @@ export default function Signup() {
         containerStyle={{ marginBottom: 25, width: "70%" }}
         inputStyle={{ marginLeft: 10 }}
         placeholder="Confirmer mot de passe"
-        onChangeText={(val) => setConfirmPassWord(val)}
+        onChangeText={(val) => setConfirmPassword(val)}
       />
       </View>
 
@@ -75,7 +104,7 @@ export default function Signup() {
         type="solid"
         buttonStyle={{ backgroundColor: "#009788" }}
         onPress={() => {
-          props.navigation.navigate("Signin");
+          addUser(firstName, lastName, userEmail, password, confirmPassword, phoneNumber);
         }}
       />
     </View>

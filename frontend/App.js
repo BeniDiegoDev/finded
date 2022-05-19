@@ -42,7 +42,8 @@ import Favoris from './screens/ProfilPages/Favoris';
 import Help from './screens/ProfilPages/Help';
 import Conversation from './screens/ProfilPages/Conversation';
 import MentionsLegales from './screens/ProfilPages/MentionsLegales';
-import Map from './screens/Map';
+import Signin from './screens/Signin';
+import Signup from './screens/Signup';
 
 const HomeStack = createStackNavigator();
 
@@ -53,7 +54,6 @@ function HomeStackScreen() {
       <HomeStack.Screen name="Prestataire" component={PrestationStackScreen} />
       <HomeStack.Screen name="AllCategories" component={AllCategories} />
       <HomeStack.Screen name="Categories" component={Categories} />
-      <HomeStack.Screen name="Map" component={Map} />
     </HomeStack.Navigator>
   );
 }
@@ -79,11 +79,13 @@ function ReservationStackScreen() {
 }
 
 const PrestationStack = createStackNavigator();
+
 function PrestationStackScreen() {
   return (
     <PrestationStack.Navigator screenOptions={{ headerShown: false }}>
       <PrestationStack.Screen name="Prestataire" component={Prestataire} />
       <PrestationStack.Screen name="DatePicker" component={DatePicker} />
+      <PrestationStack.Screen name='UserStack' component={UserStackScreen} />
     </PrestationStack.Navigator>
   );
 }
@@ -103,8 +105,27 @@ function ProfilStackScreen() {
       <ProfilStack.Screen name="Help" component={Help} />
       <ProfilStack.Screen name='Conversation' component={Conversation} />
       <ProfilStack.Screen name='MentionsLegales' component={MentionsLegales} />
+      <ProfilStack.Screen name='SignIn' component={Signin} />
+      <ProfilStack.Screen name='SignUp' component={Signup} />
     </ProfilStack.Navigator>
   );
+}
+
+const SignupStack = createStackNavigator();
+function SignupStackScreen() {
+  return(
+    <SignupStack.Navigator screenOptions={{ headerShown: false }}>
+      <SignupStack.Screen name="Signup" component={Signup} />
+    </SignupStack.Navigator>
+  )
+}
+const SigninStack = createStackNavigator();
+function SigninStackScreen() {
+  return(
+    <SigninStack.Navigator screenOptions={{ headerShown: false }}>
+      <SigninStack.Screen name="Signin" component={Signin} />
+    </SigninStack.Navigator>
+  )
 }
 
 const Tab = createBottomTabNavigator();
