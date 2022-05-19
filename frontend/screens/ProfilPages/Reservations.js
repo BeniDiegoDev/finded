@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { View, useWindowDimensions, Text, StyleSheet, ScrollView, TouchableWithoutFeedback, TextInput, Image} from 'react-native';
 import { TabView, TabBar } from 'react-native-tab-view';
 import { Button, Overlay } from 'react-native-elements';
@@ -516,8 +516,16 @@ const ThirdRoute = (props) => {
  
 
 function Reservations(props) {
+  const [isLogged, setIsLogged] = useState(false);
+  
 
-  const [isLogged, setIsLogged] = useState(true);
+  useEffect(() => {
+    if (props.user.token) {
+      setIsLogged(true);
+    } else {
+      setIsLogged(false);
+    }
+  }, [props.user.token]);
 
   const renderScene = ({ route }) => {
     switch (route.key) {
@@ -588,8 +596,8 @@ function Reservations(props) {
             </View>
         
         <View style={{display:'flex', alignItems:'center'}}>
-          <Text style={{marginBottom:20, color: '#7241DB', fontWeight:'bold', fontSize:15}}>S'identifier</Text>
-          <Text style={{marginBottom:20, color: '#7241DB', fontWeight:'bold', fontSize:15}}>Créer un compte</Text>
+          <Text onPress={() => props.navigation.navigate('SignIn')} style={{marginBottom:20, color: '#7241DB', fontWeight:'bold', fontSize:15}}>S'identifier</Text>
+          <Text onPress={() => props.navigation.navigate('SignUp')}style={{marginBottom:20, color: '#7241DB', fontWeight:'bold', fontSize:15}}>Créer un compte</Text>
         </View> 
       </View>
     );
@@ -614,7 +622,10 @@ const styles = StyleSheet.create({
 });
 
 function mapStateToProps(state) {
-  return { preStataires: state.prestataires, }
+  return { 
+    preStataires: state.prestataires,
+    user: state.infoUser
+  }
 }
 
 export default connect(

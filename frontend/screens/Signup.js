@@ -6,9 +6,9 @@ import { Ionicons } from '@expo/vector-icons';
 
 import { connect } from "react-redux";
 
-const ip = '192.168.10.153'
+const ip = '192.168.10.112'
 
-export default function Signup(props) {
+function Signup(props) {
 
   
 
@@ -18,8 +18,7 @@ export default function Signup(props) {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
-  
-  const [isLogged, setIsLogged] = useState(false)
+
 
   let addUser = async (firstName, lastName, userEmail, password, confirmPassword, phoneNumber) => {
     
@@ -33,8 +32,8 @@ export default function Signup(props) {
     let responseJson = await response.json();
 
     if (responseJson.result === true) {
-      setIsLogged(true);
-      props.navigation.goBack();
+      props.navigation.navigate('Home');
+      props.onSubmitCreateAccount(responseJson.saveUser);
     }
     } else {
       Alert.alert("Attention","Les mots de passe ne correspondent pas");
@@ -118,13 +117,22 @@ const styles = StyleSheet.create({
     paddingTop: 40,
   },
 });
-// PEUT ETRE A GERER AVEC TOKEN
-// function mapDispatchToProps(dispatch) {
-//   return {
-//     onSubmitCreateAccount: function (account) {
-//       dispatch({ type: "saveAccount", account: account });
-//     },
-//   };
-// }
 
-// export default connect(null, mapDispatchToProps)(Signup);
+function mapStateToProps(state) {
+  return { 
+    user: state.infoUser
+ }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    onSubmitCreateAccount: function (user) {
+      dispatch({ type: "createUser", user });
+    },
+  };
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Signup);

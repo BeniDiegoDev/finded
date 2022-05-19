@@ -64,13 +64,6 @@ router.delete("/delete-user", async function (req, res) {
 
 router.post("/sign-up", async function (req, res, next) {
 
-  console.log(req.body.firstName)
-  console.log(req.body.lastName)
-  console.log(req.body.userEmail)
-  console.log(req.body.phoneNumber)
-  console.log(req.body.phoneNumber.length)
-
-  console.log(req.body.password)
 
   hash = bcrypt.hashSync(req.body.password, 10);
 

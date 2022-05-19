@@ -1,12 +1,25 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { StyleSheet, View, Text, TouchableWithoutFeedback } from 'react-native';
 import { Avatar, ListItem, Divider, Button} from 'react-native-elements';
 import { Entypo } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
+import { connect } from 'react-redux';
 
-export default function Profil(props) {
+function Profil(props) {
 
-  const [isLogged, setIsLogged] = useState(true);
+  const [isLogged, setIsLogged] = useState(false);
+  
+
+  useEffect(() => {
+    if (props.user.token) {
+      setIsLogged(true);
+    }
+  }, [props.user.token]);
+
+  logout = () => {
+    props.onSubmitDisconnect(props.user);
+    setIsLogged(false);
+  }
 
   let categories = [
     {
@@ -50,7 +63,6 @@ export default function Profil(props) {
               size={70}
               title="PN"
               source={{ uri: 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg' }}
-              onPress={() => props.navigation.navigate('SignUp')}
             />
             <ListItem.Content>
               <ListItem.Title style={{marginVertical:2, fontSize:20}}>Prénom Nom</ListItem.Title>
@@ -74,7 +86,7 @@ export default function Profil(props) {
           <ListItem>
             <ListItem.Content style={{display:'flex', flexDirection:'row', justifyContent:'space-between'}}>
               <ListItem.Title onPress={() => {props.navigation.navigate('MentionsLegales')}} style={{marginVertical:2,fontSize:15 }}>Mentions Légales</ListItem.Title>
-              <ListItem.Title onPress={() => props.navigation.navigate('SignIn')} style={{marginVertical:2, fontSize:15, color:'red'}}>Déconnexion</ListItem.Title>
+              <ListItem.Title onPress={() => logout()} style={{marginVertical:2, fontSize:15, color:'red'}}>Déconnexion</ListItem.Title>
             </ListItem.Content>
           </ListItem>
      </View>
@@ -88,9 +100,9 @@ export default function Profil(props) {
             </View>
             <View>
               <Text style={{fontSize:16, marginBottom:60}}>Connectez-vous pour réserver votre prochaine prestation.</Text>
-              <Button title="S'identifier"></Button>
+              <Button onPress={() => props.navigation.navigate('SignIn')} title="S'identifier"></Button>
               <Text style={{marginTop:60}}>Pas encore membre ?</Text>
-              <Text style={{marginTop:15, color:'#7241DB', fontWeight:'bold'}}>S'inscrire</Text>
+              <Text onPress={() => props.navigation.navigate('SignUp')} style={{marginTop:15, color:'#7241DB', fontWeight:'bold'}}>S'inscrire</Text>
             </View>
         </View>
       </View>
@@ -108,4 +120,22 @@ export default function Profil(props) {
     }
 
   });
+
+  function mapStateToProps(state) {
+    return { 
+      user: state.infoUser
+   }
+  }
+
+ 
+  function mapDispatchToProps(dispatch) {
+    return {
+      onSubmitDisconnect: function (user) {
+        dispatch({type: 'disconnectUser',user})
+  }}}
+  
+  export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(Profil);
   

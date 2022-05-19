@@ -6,9 +6,9 @@ import { Ionicons } from '@expo/vector-icons';
 
 import { connect } from "react-redux";
 
-const ip = '192.168.10.153'
+const ip = '192.168.10.112'
 
-export default function Signin(props) {
+function Signin(props) {
   const [userEmail, setUserEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLogged, setIsLogged] = useState(false)
@@ -26,9 +26,9 @@ export default function Signin(props) {
     let responseJson = await response.json();
 
     if (responseJson.result === true) {
-      console.log(responseJson.user)
       setIsLogged(true);
-      props.navigation.goBack();
+      props.navigation.navigate('Home');
+      props.onSubmitConnectAccount(responseJson.user);
     }
     else {
       Alert.alert("Erreur", "Email ou mot de passe incorrect")
@@ -105,3 +105,21 @@ const styles = StyleSheet.create({
   },
 });
 
+function mapStateToProps(state) {
+  return { 
+    user: state.infoUser
+ }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    onSubmitConnectAccount: function (user) {
+      dispatch({ type: "connectUser", user });
+    },
+  };
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Signin);
