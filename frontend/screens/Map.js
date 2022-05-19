@@ -13,7 +13,19 @@ import { connect } from 'react-redux'
 // Import de la Map
 import MapView, { Marker } from 'react-native-maps';
 
+// Import components
+import Listing from '../components/Listing'
+
 function Map(props) {
+
+    let listingFilter = props.preStataires.filter(elem => elem.name == "CT Montparn")
+
+    // Affichage grace au resultat du filtre
+    let listing = listingFilter.map((element, i) => {
+      return (
+        <Listing key={i} id={props.id} navigation={props.navigation} name={element.name} number={element.number} images={element.images} address={element.address} zipcode={element.zipcode} city={element.city} note={element.note} nbeval={element.nbeval} />
+      )
+    })
 
     return (
         <View style={styles.container}>
@@ -47,7 +59,10 @@ function Map(props) {
                     )
                 })}
             </MapView>
-
+            
+            <View>
+                {listing}
+            </View>
         </View>
     )
 }

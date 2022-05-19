@@ -30,6 +30,7 @@ import Prestataire from './screens/Prestataire';
 import AllCategories from './screens/AllCategories';
 import Categories from './screens/Categories';
 import Search from './screens/Search';
+import Map from './screens/Map';
 import Reservation from './screens/ProfilPages/Reservations';
 import Profil from './screens/Profil';
 import DatePicker from './screens/DatePicker';
@@ -54,6 +55,7 @@ function HomeStackScreen() {
       <HomeStack.Screen name="Prestataire" component={PrestationStackScreen} />
       <HomeStack.Screen name="AllCategories" component={AllCategories} />
       <HomeStack.Screen name="Categories" component={Categories} />
+      <HomeStack.Screen name="Map" component={Map} />
     </HomeStack.Navigator>
   );
 }
@@ -85,7 +87,6 @@ function PrestationStackScreen() {
     <PrestationStack.Navigator screenOptions={{ headerShown: false }}>
       <PrestationStack.Screen name="Prestataire" component={Prestataire} />
       <PrestationStack.Screen name="DatePicker" component={DatePicker} />
-      <PrestationStack.Screen name='UserStack' component={UserStackScreen} />
     </PrestationStack.Navigator>
   );
 }
