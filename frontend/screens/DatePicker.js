@@ -12,15 +12,21 @@ import { Button } from '@rneui/base'
 import { Ionicons } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
+
 import { Divider, Tab } from 'react-native-elements';
+
 import CalendarPicker from 'react-native-calendar-picker';
+
+import { connect } from 'react-redux';
+
+// Import components
+import Listing from '../components/Listing'
 
 
 var moment = require('moment'); // require
 moment.locale ('fr');
 
-
-export default function App(props) {
+function DatePicker(props) {
     const [selectedStartDate, setSelectedStartDate] = useState(null)
   
     const startDate = selectedStartDate ? selectedStartDate.toString() : '';
@@ -64,44 +70,37 @@ export default function App(props) {
              setState(-1)
             }, [selectedStartDate]);
 
+    let listingFilter = props.preStataires.filter(elem => elem.name === props.selectPresta)
+    console.log(listingFilter)
+
+    var listPresta = props.listPrestations.map((item, index) => {
+        return(
+            <View key={index} style={styles.containerList}>
+                    <View style={styles.container}>
+                        <Text style={styles.Text}>{item.name}</Text>
+                        <View style={{flexDirection:'row', alignItems:'center'}}>
+                        <Text style={[styles.Text,{marginRight:5}]}>{item.prix}€</Text>
+                        </View>
+                    </View>
+                    <Divider style={{ backgroundColor: '#7241DB' }} />
+                </View>
+        )});
+
     return (
         <View style={{flex:1, backgroundColor:'white'}}>
             <View style={styles.header}>
                 <Text style={{ paddingRight: 15, fontSize: 30 }}><Ionicons name='chevron-back' size={30} color='black' onPress={() => { props.navigation.goBack(null) }}/> Choix du créneau</Text>
             </View>
             <ScrollView style={{ width: '100%' }} showsVerticalScrollIndicator={false} >
-            <Card
-            containerStyle={{ padding: 0, borderRadius: 10 }}>
-                <View style={{ flexDirection: 'row' }} >
-                    <Image
-                        style={{ borderTopLeftRadius: 10, borderBottomLeftRadius: 10, height: 100, width: 100 }}
-                        source={require('../assets/coiffeur.jpeg')}
-                    />
-                    <View style={{ marginLeft: 15, justifyContent: 'center', minWidth: '65%' }}>
-                        <Text style={styles.fontsize}>Barber Street 59th</Text>
-                        <Text >134th Street, New York, NY 10001</Text>
-                        <Text >New York</Text>
-                        <View style={{ flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center' }}>
-                        <Text style={{ fontSize: 17, fontWeight: 'bold', marginLeft: 10 }}>4.5</Text>
-                        <Ionicons name="md-star" size={17} color="#F5B642" style={{ marginLeft: 10 }} />
-                        </View>
-                    </View>
-                </View>
-            </Card>
+            <View style={{marginTop:20}}>
+                <Listing  name={listingFilter[0].name} images={listingFilter[0].images} address={listingFilter[0].address} zipcode={listingFilter[0].zipcode} city={listingFilter[0].city} note={listingFilter[0].note} nbeval={listingFilter[0].nbeval} />
+            </View>
             <View style={styles.container2}>
 
                 <Text style={styles.title}>
                     Prestation(s) selectionnée(s)
                 </Text>
-                <View style={styles.containerList}>
-                    <View style={styles.container}>
-                        <Text style={styles.Text}>Homme - Coupe de cheveux + Barbe</Text>
-                        <View style={{flexDirection:'row', alignItems:'center'}}>
-                        <Text style={[styles.Text,{marginRight:5}]}>25€</Text>
-                        </View>
-                    </View>
-                    <Divider style={{ backgroundColor: '#7241DB' }} />
-                </View>
+                {listPresta}
                 <Text style={[styles.title,{marginTop:10}]}>
                     Choisir une date
                 </Text>
@@ -184,3 +183,16 @@ export default function App(props) {
         },
   });
  
+
+  function mapStateToProps(state) {
+    return { preStataires: state.prestataires,
+             listPrestations: state.listPrestations,
+             selectPresta: state.selectPresta,
+              }
+  }
+
+
+  export default connect(
+    mapStateToProps,
+    null
+  )(DatePicker);

@@ -20,25 +20,6 @@ import Listing from '../components/Listing'
 
 function Prestataire(props) {
 
-    let services = [
-      {
-        name : "Homme - Coupe de cheveux",
-        price : '15€',
-      },
-      {
-        name : "Homme - Coupe de cheveux + Barbe",
-        price : '20€',
-      },
-      {
-        name : "Femme - Coupe de cheveux",
-        price : '35€',
-      },
-      {
-        name : "Femme - Couleur",
-        price : '45€',
-      }
-    ];
-
     let avis = [
       {
         name : "Pierre Richard",
@@ -73,17 +54,20 @@ function Prestataire(props) {
     ];
 
     const [compteur, setCompteur] = useState(0);
+    const [presta, setPresta] = useState([]);
 
     let listingFilter = props.preStataires.filter(elem => elem.name === props.selectPresta)
-    console.log(listingFilter)
+
  
-    var listServices = services.map((item, index) => {
+    var listServices = listingFilter[0].prestation.map((item, index) => {
           const [state, setState] = useState(false);
           var onClick = () => {
             if(state === false){
               setCompteur(compteur + 1);
+              setPresta([...presta, item]);
             }else{
               setCompteur(compteur - 1);
+              setPresta(presta.filter(elem => elem.name !== item.name));
             }
             setState(!state);
             
@@ -94,7 +78,7 @@ function Prestataire(props) {
                 <View style={styles.container}>
                     <Text style={styles.Text}>{item.name}</Text>
                     <View style={{flexDirection:'row', alignItems:'center'}}>
-                      <Text style={[styles.Text,{marginRight:5}]}>{item.price}</Text>
+                      <Text style={[styles.Text,{marginRight:5}]}>{item.prix}€</Text>
                       {state?<Feather name="minus-circle" size={24} color="#7241DB" onPress={()=>onClick()} />:
                       <Entypo name="circle-with-plus" size={24} color="#7241DB" onPress={()=>onClick()} />}
                     </View>
@@ -102,7 +86,9 @@ function Prestataire(props) {
                 <Divider style={{ backgroundColor: '#7241DB' }} />
             </View>
         )});
-    
+   
+
+      
     var listAvis = avis.map((item, index) => {
       return(
         <View style={{width:'100%'}} key={index}>
@@ -122,8 +108,6 @@ function Prestataire(props) {
           <Divider style={{ backgroundColor: '#7241DB' }} />
         </View>
       )});
-
-      console.log(listingFilter[0].prestation)
 
       return (
         <View style={{flex:1, backgroundColor:'#fff'}}>
@@ -178,12 +162,12 @@ function Prestataire(props) {
                         backgroundColor: '#7241DB',
                         borderColor: '#7241DB',
                         borderWidth: 1,
-                      }} radius="20" onPress={() => { props.navigation.navigate('DatePicker') }}>
+                      }} radius="20" onPress={() => { props.navigation.navigate('DatePicker'),props.addPrestation(presta) }}>
                           <Text style={{color:"white"}}>
                             Valider
                           </Text>
                       </Button>:
-                      <Button buttonStyle={{
+                      <Button disabled disabledStyle={{backgroundColor:'white'}} buttonStyle={{
                         backgroundColor: 'white',
                         borderColor: '#7241DB',
                         borderWidth: 1,
@@ -257,7 +241,17 @@ function Prestataire(props) {
                selectPresta: state.selectPresta, }
     }
 
+    function mapDispatchToProps(dispatch) {
+      return {
+        addPrestation: function (prestation) {
+          dispatch({
+            type: 'addPrestation',
+            prestation
+          })
+    }}}
+    
+
     export default connect(
       mapStateToProps,
-      null
+      mapDispatchToProps
     )(Prestataire);

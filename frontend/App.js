@@ -20,8 +20,9 @@ import { createStore, combineReducers } from 'redux';
 
 import prestataires from './reducers/prestataires';
 import selectPresta from './reducers/selectPresta';
+import listPrestations from './reducers/listPrestations';
 
-const store = createStore(combineReducers({ prestataires, selectPresta }));
+const store = createStore(combineReducers({ prestataires, selectPresta, listPrestations }));
 
 import Home from './screens/Home';
 import Prestataire from './screens/Prestataire';
