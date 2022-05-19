@@ -18,7 +18,7 @@ import { connect } from 'react-redux'
 import Listing from '../components/Listing'
 
 // Config IP pour connexion avec le backend
-const ip = "192.168.10.179"
+const ip = "192.168.10.171"
 
 // Debut de la fonction Home qui gere toute la page HOME
 function Home(props) {
@@ -313,15 +313,7 @@ function mapDispatchToProps(dispatch) {
         prestataires
       })
     },
-    selectPresta: function (name) {
-      dispatch({
-        type: 'selectPrestataire',
-        name
-      })
-    }
-  }
-
-}
+}}
 
 //
 export default connect(

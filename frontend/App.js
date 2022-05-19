@@ -21,8 +21,9 @@ import { createStore, combineReducers } from 'redux';
 import prestataires from './reducers/prestataires';
 import selectPresta from './reducers/selectPresta';
 import listPrestations from './reducers/listPrestations';
+import selectCreneau from './reducers/selectCreneau';
 
-const store = createStore(combineReducers({ prestataires, selectPresta, listPrestations }));
+const store = createStore(combineReducers({ prestataires, selectPresta, listPrestations, selectCreneau}));
 
 import Home from './screens/Home';
 import Prestataire from './screens/Prestataire';
@@ -32,6 +33,8 @@ import Search from './screens/Search';
 import Reservation from './screens/ProfilPages/Reservations';
 import Profil from './screens/Profil';
 import DatePicker from './screens/DatePicker';
+import DetailResa from './screens/DetailResa';
+import Paiement from './screens/Paiement';
 import EditProfil from './screens/ProfilPages/EditProfil';
 import Adresses from './screens/ProfilPages/Adresses';
 import Reservations from './screens/ProfilPages/Reservations';
@@ -81,6 +84,8 @@ function PrestationStackScreen() {
     <PrestationStack.Navigator screenOptions={{ headerShown: false }}>
       <PrestationStack.Screen name="Prestataire" component={Prestataire} />
       <PrestationStack.Screen name="DatePicker" component={DatePicker} />
+      <PrestationStack.Screen name="DetailResa" component={DetailResa} />
+      <PrestationStack.Screen name="Paiement" component={Paiement} />
     </PrestationStack.Navigator>
   );
 }

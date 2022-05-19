@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, ScrollView, Image, Text } from 'react-native';
+import { StyleSheet, View, ScrollView, Image,ImageBackground, Text } from 'react-native';
 
 // Import de SafeAreaView pour ne pas etre gené par la barre haute par defaut du telephone
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -58,7 +58,7 @@ function Prestataire(props) {
 
     let listingFilter = props.preStataires.filter(elem => elem.name === props.selectPresta)
 
- 
+
     var listServices = listingFilter[0].prestation.map((item, index) => {
           const [state, setState] = useState(false);
           var onClick = () => {
@@ -111,9 +111,13 @@ function Prestataire(props) {
 
       return (
         <View style={{flex:1, backgroundColor:'#fff'}}>
-            <Image 
+            <ImageBackground 
             style={styles.topImage}
-            source={{ uri : listingFilter[0].images }} />
+            source={{ uri : listingFilter[0].images }}>
+              <View style={styles.header}>
+                <Ionicons name='chevron-back' size={30} color='white' onPress={() => { props.navigation.goBack(null) }}/>
+              </View>
+            </ImageBackground>
 
             <View style={styles.data_container}>
 
@@ -203,6 +207,10 @@ function Prestataire(props) {
         marginTop:10,
         marginBottom:10,
       },
+      header:{
+        marginTop: 50,
+        marginLeft: 10,
+    },
       data_container2:{
         flexDirection:'row',
         marginRight:10,
