@@ -1,25 +1,21 @@
 import React, {useState, useEffect} from 'react';
 import { StyleSheet, View, Text, TouchableWithoutFeedback } from 'react-native';
-import { Avatar, ListItem, Divider, Button} from 'react-native-elements';
+import { Avatar, ListItem, Divider, Button, Overlay} from 'react-native-elements';
 import { Entypo } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
 import { connect } from 'react-redux';
 
 function Profil(props) {
 
-  const [isLogged, setIsLogged] = useState(false);
-  
-
-  useEffect(() => {
-    if (props.user.token) {
-      setIsLogged(true);
-    }
-  }, [props.user.token]);
 
   logout = () => {
     props.onSubmitDisconnect(props.user);
-    setIsLogged(false);
   }
+
+  const [visible, setVisible] = useState(false);
+  const toggleOverlay = () => {
+    setVisible(!visible);
+  };
 
   let categories = [
     {
@@ -54,18 +50,18 @@ function Profil(props) {
     }
   ];
 
-  if (isLogged === true) {
+  if (props.user.token) {
     return (
         <View style={{paddingTop:40, flex:1, backgroundColor:'#fff', display:'flex', flexDirection:'column', justifyContent:'space-between', paddingHorizontal:10}}>
           <ListItem>
             <Avatar
               rounded
               size={70}
-              title="PN"
+              title={props.user.firstName.charAt(0).toUpperCase() + props.user.lastName.charAt(0).toUpperCase()}
               source={{ uri: 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg' }}
             />
             <ListItem.Content>
-              <ListItem.Title style={{marginVertical:2, fontSize:20}}>Prénom Nom</ListItem.Title>
+              <ListItem.Title style={{marginVertical:2, fontSize:20}}>{props.user.firstName} {props.user.lastName}</ListItem.Title>
               <ListItem.Subtitle onPress={() => {props.navigation.navigate('EditProfil')}} style={{marginVertical:2, color:'grey'}} >Éditer mon profil</ListItem.Subtitle>
             </ListItem.Content>
           </ListItem>
@@ -86,9 +82,24 @@ function Profil(props) {
           <ListItem>
             <ListItem.Content style={{display:'flex', flexDirection:'row', justifyContent:'space-between'}}>
               <ListItem.Title onPress={() => {props.navigation.navigate('MentionsLegales')}} style={{marginVertical:2,fontSize:15 }}>Mentions Légales</ListItem.Title>
-              <ListItem.Title onPress={() => logout()} style={{marginVertical:2, fontSize:15, color:'red'}}>Déconnexion</ListItem.Title>
+              <ListItem.Title onPress={toggleOverlay} style={{marginVertical:2, fontSize:15, color:'red'}}>Déconnexion</ListItem.Title>
             </ListItem.Content>
           </ListItem>
+          <Overlay isVisible={visible} onBackdropPress={toggleOverlay}>
+              <View style={{display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center', padding:20}}>
+                <View style={{display:'flex', flexDirection:'row', marginVertical:20}}>
+                  <Text>Êtes-vous sur de vouloir vous déconnecter ?</Text>
+                </View>
+
+      
+
+                <View style={{display:'flex', flexDirection:'row', justifyContent:'space-around', marginTop:20}}>
+                  <Button onPress={() => logout()} title='Oui' buttonStyle={{width:90, marginHorizontal: 10, backgroundColor:'#3DA787'}} />
+                  <Button onPress={toggleOverlay} title='Non' buttonStyle={{width:90, marginHorizontal: 10, backgroundColor:'#3DA787'}} />
+                </View>
+
+              </View>
+            </Overlay>
      </View>
     );
   } else {
