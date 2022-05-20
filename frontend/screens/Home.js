@@ -61,7 +61,7 @@ function Home(props) {
   if (errorMsg) {
     geoloc = errorMsg;
   } else if (location) {
-    geoloc = location.slice(0, 10) + "...";
+    geoloc = location
   }
 
   // Recuperation des informations Prestataires en BDD
@@ -154,23 +154,7 @@ function Home(props) {
             <Ionicons name='location' size={32} color='#3DA787' />
             <Text style={{ fontWeight: 'bold', marginLeft: 10, fontSize: 17 }}>{geoloc}</Text>
           </View>
-          <View style={{ marginRight: 10 }}>
-            <Button
-              buttonStyle={{ borderColor: "#7241DB", borderRadius: 10, borderWidth: 1 }}
-              titleStyle={{ color: '#7241DB', fontSize: 17, marginLeft: 5 }}
-              icon={
-                <Ionicons
-                  name="map-outline"
-                  size={20}
-                  color="#3DA787"
-                />
-              }
-              title="Autour de moi"
-              type="outline"
-              containerStyle={{ marginLeft: 20, }}
-              onPress={() => { props.navigation.navigate('Map') }}
-            />
-          </View>
+          
         </View>
 
         <View style={styles.searchbar}>
@@ -211,23 +195,7 @@ function Home(props) {
             <Ionicons name='location' size={32} color='#3DA787' />
             <Text style={{ fontWeight: 'bold', marginLeft: 10, fontSize: 17 }}>{geoloc}</Text>
           </View>
-          <View style={{ marginRight: 10 }}>
-            <Button
-              buttonStyle={{ borderColor: "#7241DB", borderRadius: 10, borderWidth: 1 }}
-              titleStyle={{ color: '#7241DB', fontSize: 17, marginLeft: 5 }}
-              icon={
-                <Ionicons
-                  name="map-outline"
-                  size={20}
-                  color="#3DA787"
-                />
-              }
-              title="Autour de moi"
-              type="outline"
-              containerStyle={{ marginLeft: 20, }}
-              onPress={() => { props.navigation.navigate('Map') }}
-            />
-          </View>
+          
         </View>
 
         <View style={styles.searchbar}>
@@ -258,8 +226,9 @@ function Home(props) {
                     <Image
                       rounded
                       backgroundColor={element.color}
-                      style={{ borderRadius: 50, height: 70, width: 70, marginBottom: 10, borderColor: 'black', borderWidth: 3 }}
+                      style={{ borderRadius: 50, height: 70, width: 70, marginBottom: 10, borderColor: 'black', borderWidth: 3, }}
                       source={element.image}
+                      
                     />
                     <Text style={{ textAlign: 'center' }}>{element.name}</Text>
                   </View>
@@ -292,6 +261,7 @@ const styles = StyleSheet.create({
   },
   finded: {
     width: '100%',
+    marginVertical:10
   },
   topsearchbar: {
     width: '100%',

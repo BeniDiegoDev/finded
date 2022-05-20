@@ -58,10 +58,6 @@ function Map(props) {
     return (
         <View style={styles.container}>
 
-            <View style={{ paddingLeft: 10, paddingBottom: 10, paddingTop: 10 }}>
-                <Text style={{ paddingRight: 15, fontSize: 30 }}><Ionicons onPress={() => { props.navigation.goBack() }} name='chevron-back' size={30} color='black' /> Autour de moi</Text>
-            </View>
-
             <MapView style={styles.map}
                 initialRegion={{
                     latitude: props.locaTion.latitude,  // pour centrer la carte
