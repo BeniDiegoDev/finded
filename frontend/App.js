@@ -71,6 +71,9 @@ function SearchStackStackScreen() {
     <SearchStack.Navigator screenOptions={{ headerShown: false }}>
       <SearchStack.Screen name="Map" component={Map} />
       <SearchStack.Screen name="Prestataire" component={Prestataire} />
+      <SearchStack.Screen name="DatePicker" component={DatePicker} />
+      <SearchStack.Screen name="DetailResa" component={DetailResa} />
+      <SearchStack.Screen name="Paiement" component={Paiement} />
     </SearchStack.Navigator>
   );
 }
