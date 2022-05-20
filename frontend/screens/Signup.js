@@ -9,8 +9,6 @@ const ip = '192.168.10.169'
 
 function Signup(props) {
 
-  
-
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [userEmail, setUserEmail] = useState("");
