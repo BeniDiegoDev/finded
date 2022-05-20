@@ -26,49 +26,7 @@ import Listing from '../components/Listing'
 var moment = require('moment'); // require
 moment.locale ('fr');
 
-function DatePicker(props) {
-    const [selectedStartDate, setSelectedStartDate] = useState(null)
-  
-    const startDate = selectedStartDate ? selectedStartDate.toString() : '';
-    const maDate = new Date(startDate)  
-    const todayDate = new Date()
-
-    let slots = [ 
-                '10h - 11h',
-                '11h - 12h',
-                '12h - 13h',
-                '13h - 14h',
-                '14h - 15h',
-                '15h - 16h',
-                '16h - 17h',]
-    
-    const [state, setState] = useState(-1);
-    if( maDate.toLocaleDateString("fr")!=='Invalid Date'){
-        var listSlots = slots.map((slot,i) => {
-            
-            var onClick = () => {
-                setState(i);
-            }
-            
-            return (
-                <View key={i} style={{margin:5, width:'30%'}}>
-                    {state == i ? <Button buttonStyle={{ backgroundColor: '#7241DB'}} radius="20" onPress={()=>(slotsPress(i),onClick())}>{slot}</Button>:
-                    <Button radius="20" onPress={()=>(slotsPress(i),onClick())}>{slot}</Button>}
-                </View>
-            )});
-    }
-    const[slotSelected, setSlotSelected] = useState('');
-    var slotsPress = (i) => {
-        setSlotSelected(slots[i])
-  
-    }
-
- 
-
-     useEffect(() => {
-             setSlotSelected('')
-             setState(-1)
-            }, [selectedStartDate]);
+function DetailResa(props) {
 
     let listingFilter = props.preStataires.filter(elem => elem.name === props.selectPresta)
 
@@ -89,7 +47,7 @@ function DatePicker(props) {
     return (
         <View style={{flex:1, backgroundColor:'white'}}>
             <View style={styles.header}>
-                <Text style={{ paddingRight: 15, fontSize: 30 }}><Ionicons name='chevron-back' size={30} color='black' onPress={() => { props.navigation.goBack(null) }}/> Choix du créneau</Text>
+                <Text style={{ paddingRight: 15, fontSize: 30 }}><Ionicons name='chevron-back' size={30} color='black' onPress={() => { props.navigation.goBack(null) }}/> Détail de la réservation</Text>
             </View>
             <ScrollView style={{ width: '100%' }} showsVerticalScrollIndicator={false} >
             <View style={{marginTop:20}}>
@@ -102,35 +60,19 @@ function DatePicker(props) {
                 </Text>
                 {listPresta}
                 <Text style={[styles.title,{marginTop:10}]}>
-                    Choisir une date
+                    Date
                 </Text>
 
-                <CalendarPicker
-                onDateChange={(date) => setSelectedStartDate(date)}
-                showDayStragglers='true'
-                weekdays={['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim']}
-                months={['Janvier', 'Fevrier', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Decembre']}
-                previousTitle="Précedent"
-                nextTitle="Suivant"
-                todayBackgroundColor="#d3d3d3"
-                selectedDayColor="#7241DB"
-                minDate={todayDate}
-                />
-                <Text style={[styles.title,{marginTop:10}]}>
-                    { maDate.toLocaleDateString('fr')==='Invalid Date' ?null:'Choisir un créneau' }
-                </Text>
-                <View style={{width:'100%',flexDirection:'row', flexWrap:'wrap'}}>
-                {listSlots}
+                <View style={{flexDirection:'row', marginTop:10, justifyContent:'space-between', marginBottom:50}}>
+                <Entypo name="calendar" size={24} color="#7241DB" />
+                <Text style={{fontSize:20}}>{props.selectCreneau[0]}</Text>
+                <Text style={{fontSize:20}}>{props.selectCreneau[1]}</Text>
                 </View>
-                <View style={{marginLeft:0, marginTop:10, alignItems:'center'}}>
-                    <Text style={styles.title}> 
-                        { slotSelected==='' ?null:moment(maDate).format('LL') +' de ' + slotSelected}                   
-                    </Text> 
-                    <View style={{width:'50%', marginBottom:20}}>
-                    { slotSelected==='' ? null :<Button  buttonStyle={{ backgroundColor: '#7241DB'}} radius="20" onPress={() => { props.navigation.navigate('DetailResa'), props.addCreneau(moment(maDate).format('LL'), slotSelected) }}>Suivant</Button>}                   
+                <View style={{alignItems:'center'}}>
+                    <View style={{width:'50%'}}>
+                    <Button  buttonStyle={{ backgroundColor: '#7241DB'}} radius="20" onPress={() => { props.navigation.navigate('Paiement') }}>Confirmer</Button>
                     </View>
                 </View>
-
             </View>
             </ScrollView>
         </View>
@@ -187,21 +129,12 @@ function DatePicker(props) {
     return { preStataires: state.prestataires,
              listPrestations: state.listPrestations,
              selectPresta: state.selectPresta,
+             selectCreneau: state.selectCreneau,
               }
   }
-
-  function mapDispatchToProps(dispatch) {
-    return {
-      addCreneau: function (date, slot) {
-        dispatch({
-          type: 'addCreneau',
-          date : date,
-          slot : slot
-        })
-  }}}
 
 
   export default connect(
     mapStateToProps,
-    mapDispatchToProps
-  )(DatePicker);
+    null
+  )(DetailResa);

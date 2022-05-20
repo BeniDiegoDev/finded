@@ -56,7 +56,7 @@ function Categories(props) {
   })
 
   // Recupere les infos du clique
-  console.log(props.route.params.name)
+  // console.log(props.route.params.name)
 
   if (search != "") {
     return (

@@ -18,7 +18,11 @@ import { connect } from 'react-redux'
 import Listing from '../components/Listing'
 
 // Config IP pour connexion avec le backend
+<<<<<<< HEAD
 const ip = "192.168.10.153"
+=======
+const ip = "192.168.10.169"
+>>>>>>> 3bf96753bc41167509f1945b8e05a97b5a32d270
 
 // Debut de la fonction Home qui gere toute la page HOME
 function Home(props) {
