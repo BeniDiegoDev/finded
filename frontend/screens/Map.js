@@ -11,7 +11,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { connect } from 'react-redux'
 
 // Import de la Map
-import MapView, { Marker, OverlayComponent } from 'react-native-maps';
+import MapView, { Circle, Marker, OverlayComponent } from 'react-native-maps';
 
 // Import des picker
 import { Picker } from "@react-native-picker/picker";
@@ -24,8 +24,10 @@ function Map(props) {
     const [viewCard, setViewCard] = useState(false)
     const [prestaName, setPrestaName] = useState("")
     const [viewFilter, setViewFilter] = useState(true)
-    const [value, setValue] = useState(15)
+    const [value, setValue] = useState(1500)
     const [categorie, setCategorie] = useState("")
+
+    let valueRad = value/1000
 
     let listingFilter = props.preStataires.filter(elem => elem.name == prestaName)
 
@@ -67,6 +69,17 @@ function Map(props) {
                 }}
                 zoomEnabled={true}
             >
+                <Circle
+                    center={{
+                        latitude: props.locaTion.latitude,
+                        longitude: props.locaTion.longitude,
+                    }}
+                    radius={value}
+                    strokeWidth={3}
+                    strokeColor="rgba(61,167,135,0.70)"
+                    fillColor="rgba(61,167,135,0.2)"
+                />
+
                 <Marker coordinate={{ latitude: props.locaTion.latitude, longitude: props.locaTion.longitude }} title="Vous êtes ici" >
                     <Ionicons name='location' size={32} color='#7241DB' />
                 </Marker>
@@ -100,10 +113,9 @@ function Map(props) {
                         <Slider
                             value={value}
                             onValueChange={setValue}
-                            maximumValue={100}
-                            minimumValue={0}
-                            step={5}
-                            allowTouchTrack
+                            maximumValue={30000}
+                            minimumValue={500}
+                            step={500}
                             minimumTrackTintColor='#7241DB'
                             maximumTrackTintColor="#3DA787"
                             trackStyle={{ height: 5, backgroundColor: 'transparent' }}
@@ -114,7 +126,7 @@ function Map(props) {
                                 ),
                             }}
                         />
-                        <Text style={{ textAlign: 'right', marginTop: 10 }}>Rechercher {value} km autour de moi</Text>
+                        <Text style={{ textAlign: 'right', marginTop: 10 }}>Rechercher {valueRad} km autour de moi</Text>
                     </View>
                     <View style={{ width: '95%' }}>
                         <Picker
@@ -133,7 +145,7 @@ function Map(props) {
                             <Picker.Item label="Serrurier" value="Serrurier" />
                         </Picker>
                     </View>
-                    <Text style={{ fontSize: 17, marginBottom: 10, color: '#7241DB' }} onPress={() => { setCategorie(""), setValue(15) }} >Reinitialiser les filtres</Text>
+                    <Text style={{ fontSize: 17, marginBottom: 10, color: '#7241DB' }} onPress={() => { setCategorie(""), setValue(1500) }} >Reinitialiser les filtres</Text>
                 </View>
             }
 
