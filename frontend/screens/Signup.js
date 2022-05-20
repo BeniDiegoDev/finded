@@ -6,7 +6,7 @@ import { Ionicons } from '@expo/vector-icons';
 
 import { connect } from "react-redux";
 
-const ip = '192.168.1.17'
+const ip = '192.168.10.169'
 
 function Signup(props) {
 
