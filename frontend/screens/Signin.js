@@ -1,20 +1,44 @@
 import React, { useState } from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, Alert } from "react-native";
 import { Input, Button, Text } from "react-native-elements";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { Ionicons } from '@expo/vector-icons';
 
 import { connect } from "react-redux";
 
-export default function Signin() {
+const ip = '192.168.1.17'
+
+function Signin(props) {
   const [userEmail, setUserEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isLogged, setIsLogged] = useState(false)
 
-  const [isValide, setIsValide] = useState(false);
+  let signIn = async (userEmail, password) => {
 
-  if (isValide) {
-    setIsValide(isValide === true);
+    if( userEmail && password ) {
+
+    let response = await fetch(`http://${ip}:3000/users/sign-in`, {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: `userEmail=${userEmail}&password=${password}`
+    });
+
+    let responseJson = await response.json();
+
+    if (responseJson.result === true) {
+      setIsLogged(true);
+      props.navigation.navigate('Home');
+      props.onSubmitConnectAccount(responseJson.user);
+    }
+    else {
+      Alert.alert("Erreur", "Email ou mot de passe incorrect")
+    }
+  
+  } else {
+    Alert.alert("Attention","Veuillez remplir tous les champs")
   }
+  }
+
 
   return (
     <View>
@@ -48,45 +72,18 @@ export default function Signin() {
         onChangeText={(val) => setPassword(val)}
       />
 
-      {isValide ? (
-        <Button
-          buttonStyle={{
-            backgroundColor: "#7241DB",
-            borderColor: "#7241DB",
-            borderWidth: 1,
-          }}
-          radius="20"
-          onPress={() => {
-            props.navigation.navigate("Home");
-          }}
-        >
-          <Text style={{ color: "white" }}>Continuer</Text>
-        </Button>
-      ) : (
-        <Button
-          buttonStyle={{
-            backgroundColor: "white",
-            borderColor: "#7241DB",
-            borderWidth: 1,
-          }}
-          radius="20"
-        >
-          <Text style={{ color: "#7241DB" }}>Continuer</Text>
-        </Button>
-      )}
-
-      {/* <Button
+      <Button
         title="Continuer"
         type="solid"
         buttonStyle={{ backgroundColor: "#009788" }}
         onPress={() => {
-          props.navigation.navigate("Home");
+          signIn(userEmail, password);
         }}
-      /> */}
+      /> 
 
       <Text
         onPress={() => {
-          props.navigation.navigate("Signup");
+          props.navigation.navigate("SignUp");
         }}
         style={{ paddingRight: 15, fontWeight: "bold", fontSize: 17 }}
       >
@@ -107,13 +104,22 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
   },
 });
-//A GERER AVEC TOKEN
-// function mapDispatchToProps(dispatch) {
-//   return {
-//     onSubmitCreateAccount: function (account) {
-//       dispatch({ type: "saveAccount", account: account });
-//     },
-//   };
-// }
 
-// export default connect(null, mapDispatchToProps)(Signin);
+function mapStateToProps(state) {
+  return { 
+    user: state.infoUser
+ }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    onSubmitConnectAccount: function (user) {
+      dispatch({ type: "connectUser", user });
+    },
+  };
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Signin);

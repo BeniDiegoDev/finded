@@ -3,9 +3,10 @@ var router = express.Router();
 
 // Import du cryptage des mots de passe
 // var uid2 = require('uid2')
-// var bcrypt = require('bcrypt');
+var bcrypt = require('bcrypt');
 
 var prestatairesModel = require('../models/prestataires')
+var userModel = require('../models/usersModel')
 
 // Force fake upload préstataire
 router.post('/importpresta', async function (req, res, next) {
@@ -26,7 +27,8 @@ router.post('/importpresta', async function (req, res, next) {
       note: 4.9,
       nbeval: 92,
       prestation: [{name: 'Réparation de véhicule', prix: 50}, {name: 'Réparation de moto', prix: 30}, {name: 'Réparation de voiture', prix: 100}, {name: 'Réparation de camion', prix: 150}],
-      tags: ["mécanique", "montparnasse", "controle technique", "controle", "technique", "paris"]
+      lat : 47.887784,
+      lon : 2.4036855
     },
     {
       images: 'https://res.cloudinary.com/dktfcexev/image/upload/v1652817311/FindedApp/miniatest10_rtos46.jpg',
@@ -43,7 +45,8 @@ router.post('/importpresta', async function (req, res, next) {
       note: 4.5,
       nbeval: 34,
       prestation: [{name: 'Réparation de véhicule', prix: 50}, {name: 'Réparation de moto', prix: 30}, {name: 'Réparation de voiture', prix: 100}, {name: 'Réparation de camion', prix: 150}],
-      tags: ["mécanique", "16", "controle technique", "controle", "technique", "paris"]
+      lat : 47.987784,
+      lon : 2.1036855
     },
     {
       images: 'https://res.cloudinary.com/dktfcexev/image/upload/v1652817311/FindedApp/miniatest8_vdxlfi.jpg',
@@ -60,7 +63,8 @@ router.post('/importpresta', async function (req, res, next) {
       note: 4.8,
       nbeval: 244,
       prestation: [{name: 'Réparation de véhicule', prix: 50}, {name: 'Réparation de moto', prix: 30}, {name: 'Réparation de voiture', prix: 100}, {name: 'Réparation de camion', prix: 150}],
-      tags: ["mécanique", "17", "controle technique", "controle", "technique", "paris", "ème"]
+      lat : 48.887784,
+      lon : 3.4036855
     },
     {
       images: 'https://res.cloudinary.com/dktfcexev/image/upload/v1652817311/FindedApp/miniatest9_fimsh8.jpg',
@@ -77,7 +81,8 @@ router.post('/importpresta', async function (req, res, next) {
       note: 4.9,
       nbeval: 124,
       prestation: [{name: 'Réparation de véhicule', prix: 50}, {name: 'Réparation de moto', prix: 30}, {name: 'Réparation de voiture', prix: 100}, {name: 'Réparation de camion', prix: 150}],
-      tags: ["mécanique", "17", "controle technique", "controle", "technique", "paris", "ème"]
+      lat : 45.887784,
+      lon : 2.7036855
     },
     {
       images: 'https://res.cloudinary.com/dktfcexev/image/upload/v1652779424/FindedApp/miniatest7_jodpum.jpg',
@@ -94,7 +99,8 @@ router.post('/importpresta', async function (req, res, next) {
       note: 4.9,
       nbeval: 322,
       prestation: [{name: 'Femme - Epilation intégrale', prix: 50}, {name: 'Femme - Séance UV', prix: 30}, {name: 'Homme - Epilation du torse', prix: 100}, {name: 'Femme - Epilation des sourcils', prix: 150}],
-      tags: ["maquillage", "16", "esthetique", "estheticienne", "paris", "ème"]
+      lat : 47.787784,
+      lon : 2.5036855
     },
     {
       images: 'https://res.cloudinary.com/dktfcexev/image/upload/v1652817649/FindedApp/miniatest13_cjgakt.jpg',
@@ -111,7 +117,8 @@ router.post('/importpresta', async function (req, res, next) {
       note: 4.8,
       nbeval: 145,
       prestation: [{name: 'Femme - Maquillage fantasy', prix: 50}, {name: 'Femme - Maquillage 1h', prix: 30}],
-      tags: ["maquillage", "17", "esthetique", "estheticienne", "paris", "ème"]
+      lat : 49.887784,
+      lon : 1.9036855
     },
     {
       images: 'https://res.cloudinary.com/dktfcexev/image/upload/v1652779424/FindedApp/miniatest6_miijlx.jpg',
@@ -128,7 +135,8 @@ router.post('/importpresta', async function (req, res, next) {
       note: 4.7,
       nbeval: 35,
       prestation: [{name: 'Massage des pieds', prix: 50}, {name: 'Massage des cheveux', prix: 30}, {name: 'Massage des mains', prix: 100}, {name: 'Massage du visage', prix: 150}],
-      tags: ["maquillage", "16", "esthetique", "estheticienne", "paris", "ème"]
+      lat : 47.547784,
+      lon : 2.1036855
     },
     {
       images: 'https://res.cloudinary.com/dktfcexev/image/upload/v1652779424/FindedApp/miniatest3_aumalt.jpg',
@@ -145,7 +153,8 @@ router.post('/importpresta', async function (req, res, next) {
       note: 4.9,
       nbeval: 421,
       prestation: [{name: "Garde d'enfants - 1h", prix: 50}, {name: "Récupérer l'enfant à l'école", prix: 30}, {name: "Garde d'enfants - 2h", prix: 100}, {name: "Garde d'enfants - Soirée", prix: 150}],
-      tags: ["baby-sitting", "17", "baby-sitter", "garde", "enfant", "paris", "ème"]
+      lat : 47.187784,
+      lon : 2.1036855
     },
     {
       images: 'https://res.cloudinary.com/dktfcexev/image/upload/v1652817537/FindedApp/miniatest12_mkau8t.jpg',
@@ -162,7 +171,8 @@ router.post('/importpresta', async function (req, res, next) {
       note: 4.9,
       nbeval: 130,
       prestation: [{name: "Garde d'enfants - 1h", prix: 50}, {name: "Récupérer l'enfant à l'école", prix: 30}, {name: "Garde d'enfants - 2h", prix: 100}, {name: "Garde d'enfants - Soirée", prix: 150}],
-      tags: ["baby-sitting", "16", "baby-sitter", "garde", "enfant", "paris", "ème"]
+      lat : 48.887784,
+      lon : 3.4036855
     },
     {
       images: 'https://res.cloudinary.com/dktfcexev/image/upload/v1652779424/FindedApp/miniatest5_nnjibb.jpg',
@@ -179,7 +189,8 @@ router.post('/importpresta', async function (req, res, next) {
       note: 4.7,
       nbeval: 659,
       prestation: [{name: "Massage des pieds", prix: 50}, {name: "Massage des cheveux", prix: 30}, {name: "Massage des mains", prix: 100}, {name: "Massage du visage", prix: 150}],
-      tags: ["massage", "15", "luxe", "bien-etre", "paris", "ème"]
+      lat : 47.827784,
+      lon : 2.4936855
     },
     {
       images: 'https://res.cloudinary.com/dktfcexev/image/upload/v1652817471/FindedApp/miniatest11_epcvzs.jpg',
@@ -196,7 +207,8 @@ router.post('/importpresta', async function (req, res, next) {
       note: 4.4,
       nbeval: 875,
       prestation: [{name: "Massage des pieds", prix: 50}, {name: "Massage des cheveux", prix: 30}, {name: "Massage des mains", prix: 100}, {name: "Massage du visage", prix: 150}],
-      tags: ["massage", "17", "bien-etre", "paris", "ème"]
+      lat : 47.387784,
+      lon : 2.4936855
     },
     {
       images: 'https://res.cloudinary.com/dktfcexev/image/upload/v1652779424/FindedApp/miniatest4_yoqnq9.jpg',
@@ -213,7 +225,8 @@ router.post('/importpresta', async function (req, res, next) {
       note: 4.9,
       nbeval: 127,
       prestation: [{name: "Trou de serrure", prix: 50}, {name: "Serrure de porte", prix: 30}, {name: "Serrure de fenêtre", prix: 100}, {name: "Serrure de garage", prix: 150}],
-      tags: ["serrurier", "16", "ouverture", "porte", "paris", "ème"]
+      lat : 45.887784,
+      lon : 1.4036855
     },
     {
       images: 'https://res.cloudinary.com/dktfcexev/image/upload/v1652817694/FindedApp/miniatest14_e0pfqz.jpg',
@@ -230,7 +243,8 @@ router.post('/importpresta', async function (req, res, next) {
       note: 4.8,
       nbeval: 245,
       prestation: [{name: "Trou de serrure", prix: 50}, {name: "Serrure de porte", prix: 30}, {name: "Serrure de fenêtre", prix: 100}, {name: "Serrure de garage", prix: 150}],
-      tags: ["serrurier", "15", "ouverture", "porte", "paris", "ème"]
+      lat : 47.787784,
+      lon : 2.6036855
     },
     {
       images: 'https://res.cloudinary.com/dktfcexev/image/upload/v1652818114/FindedApp/miniatest15_tfbogj.jpg',
@@ -247,7 +261,8 @@ router.post('/importpresta', async function (req, res, next) {
       note: 4.6,
       nbeval: 147,
       prestation: [{name: "Coiffeur - 1h", prix: 50}, {name: "Coiffeur - 2h", prix: 30}, {name: "Coiffeur - Soirée", prix: 100}, {name: "Coiffeur - Nuit", prix: 150}],
-      tags: ["coiffeur", "17", "couleur", "coupe", "brushing", "enfant", "paris", "ème"]
+      lat : 47.987784,
+      lon : 2.5036855
     },
     {
       images: 'https://res.cloudinary.com/dktfcexev/image/upload/v1652818114/FindedApp/miniatest16_vid5f1.jpg',
@@ -264,7 +279,8 @@ router.post('/importpresta', async function (req, res, next) {
       note: 4.9,
       nbeval: 342,
       prestation: [{name: "Coiffeur - 1h", prix: 50}, {name: "Coiffeur - 2h", prix: 30}, {name: "Coiffeur - Soirée", prix: 100}, {name: "Coiffeur - Nuit", prix: 150}],
-      tags: ["coiffeur", "8", "couleur", "coupe", "brushing", "enfant", "paris", "ème"]
+      lat : 48.887784,
+      lon : 2.2036855
     },
     {
       images: 'https://res.cloudinary.com/dktfcexev/image/upload/v1652818114/FindedApp/miniatest17_pohp90.jpg',
@@ -281,7 +297,8 @@ router.post('/importpresta', async function (req, res, next) {
       note: 4.6,
       nbeval: 87,
       prestation: [{name: "Peinture de maison", prix: 50}, {name: "Peinture de bureau", prix: 30}, {name: "Peinture de salon", prix: 100}, {name: "Peinture de cuisine", prix: 150}],
-      tags: ["coiffeur", "17", "couleur", "coupe", "brushing", "paris", "ème"]
+      lat : 46.887784,
+      lon : 2.9036855
     },
   ]
 
@@ -301,7 +318,8 @@ router.post('/importpresta', async function (req, res, next) {
       note: fakeTableau[i].note,
       nbeval: fakeTableau[i].nbeval,
       prestation: fakeTableau[i].prestation,
-      tags: fakeTableau[i].tags,
+      lat: fakeTableau[i].lat,
+      lon: fakeTableau[i].lon,
     });
 
     var prestatairesSave = await newPrestataire.save();
@@ -319,5 +337,8 @@ router.get('/recuppresta', async function (req, res, next) {
 
   res.json({ prestataires })
 });
+
+
+
 
 module.exports = router;

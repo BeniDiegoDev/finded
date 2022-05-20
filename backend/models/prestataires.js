@@ -14,11 +14,12 @@ const prestatairesSchema = mongoose.Schema({
     category: String,
     categoryName: String,
     feedback: Array,
-    // reservations: reservSchema,
+    // reservations: Array,
     // isAvailable: Boolean,
     note: Number,
     nbeval: Number,
-    tags: Array,
+    lat: Number,
+    lon: Number,
 })
 
 const prestatairesModel = mongoose.model('prestataires', prestatairesSchema)

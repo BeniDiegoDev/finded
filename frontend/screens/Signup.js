@@ -1,18 +1,46 @@
 import React, { useState, useEffect } from "react";
-import { View, StyleSheet, Text } from "react-native";
+import { View, StyleSheet, Text, Alert } from "react-native";
 import { Input, Button } from "react-native-elements";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { Ionicons } from '@expo/vector-icons';
 
 import { connect } from "react-redux";
 
-export default function Signup() {
+const ip = '192.168.1.17'
+
+function Signup(props) {
+
+  
+
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [userEmail, setUserEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [confirmPassWord, setConfirmPassWord] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
+
+
+  let addUser = async (firstName, lastName, userEmail, password, confirmPassword, phoneNumber) => {
+    
+    if( password === confirmPassword ) {
+    let response = await fetch(`http://${ip}:3000/users/sign-up`, {
+        method: 'POST',
+        headers: {'Content-Type':'application/x-www-form-urlencoded'},
+        body: `firstName=${firstName}&lastName=${lastName}&userEmail=${userEmail}&password=${password}&confirmPassword=${confirmPassword}&phoneNumber=${phoneNumber}`
+        });
+
+    let responseJson = await response.json();
+
+    if (responseJson.result === true) {
+      props.navigation.navigate('Home');
+      props.onSubmitCreateAccount(responseJson.saveUser);
+    }
+    } else {
+      Alert.alert("Attention","Les mots de passe ne correspondent pas");
+    }
+
+
+    }
 
   return (
     <View>
@@ -66,7 +94,7 @@ export default function Signup() {
         containerStyle={{ marginBottom: 25, width: "70%" }}
         inputStyle={{ marginLeft: 10 }}
         placeholder="Confirmer mot de passe"
-        onChangeText={(val) => setConfirmPassWord(val)}
+        onChangeText={(val) => setConfirmPassword(val)}
       />
       </View>
 
@@ -75,7 +103,7 @@ export default function Signup() {
         type="solid"
         buttonStyle={{ backgroundColor: "#009788" }}
         onPress={() => {
-          props.navigation.navigate("Signin");
+          addUser(firstName, lastName, userEmail, password, confirmPassword, phoneNumber);
         }}
       />
     </View>
@@ -89,13 +117,22 @@ const styles = StyleSheet.create({
     paddingTop: 40,
   },
 });
-// PEUT ETRE A GERER AVEC TOKEN
-// function mapDispatchToProps(dispatch) {
-//   return {
-//     onSubmitCreateAccount: function (account) {
-//       dispatch({ type: "saveAccount", account: account });
-//     },
-//   };
-// }
 
-// export default connect(null, mapDispatchToProps)(Signup);
+function mapStateToProps(state) {
+  return { 
+    user: state.infoUser
+ }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    onSubmitCreateAccount: function (user) {
+      dispatch({ type: "createUser", user });
+    },
+  };
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Signup);
