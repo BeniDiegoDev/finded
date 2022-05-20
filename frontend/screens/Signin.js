@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { View, StyleSheet, Alert } from "react-native";
-import { Input, Button, Text } from "react-native-elements";
+import { Input, Text } from "react-native-elements";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { Ionicons } from '@expo/vector-icons';
+import { Button } from "@rneui/base";
 
 import { connect } from "react-redux";
 
@@ -38,9 +39,9 @@ function Signin(props) {
   }
 
   return (
-    <View>
+    <View style={styles.container}>
       <View
-        style={{ marginVertical: 40, display: "flex", flexDirection: "row" }}
+        style={{ marginBottom: 40, display: "flex", flexDirection: "row" }}
       >
         <Text style={{ fontSize: 30, paddingHorizontal: 20 }}>
           <Ionicons
@@ -54,38 +55,45 @@ function Signin(props) {
           Connexion
         </Text>
       </View>
+      <View
+        style={{
+          alignItems: "center",
+          width: "100%",
+        }}
+      >
       <Input
-        containerStyle={{ marginBottom: 25, width: "70%" }}
-        inputStyle={{ marginLeft: 10 }}
-        placeholder="Email"
-        leftIcon={<Icon name="user" size={24} color="#009788" />}
-        onChangeText={(val) => setUserEmail(val)}
-      />
-      <Input
-        containerStyle={{ marginBottom: 25, width: "70%" }}
-        inputStyle={{ marginLeft: 10 }}
-        placeholder="Mot de passe"
-        leftIcon={<Icon name="user" size={24} color="#009788" />}
-        onChangeText={(val) => setPassword(val)}
-      />
+          containerStyle={{ marginBottom: 25, width: "80%" }}
+          inputStyle={{ marginLeft: 10 }}
+          placeholder="Email"
+          leftIcon={<Icon name="user" size={24} color="grey" />}
+          onChangeText={(val) => setUserEmail(val)}
+        />
+        <Input
+          containerStyle={{ marginBottom: 25, width: "80%" }}
+          inputStyle={{ marginLeft: 10 }}
+          placeholder="Mot de passe"
+          leftIcon={<Icon name="key" size={24} color="grey" />}
+          onChangeText={(val) => setPassword(val)}
+        />
 
       <Button
         title="Continuer"
         type="solid"
-        buttonStyle={{ backgroundColor: "#009788" }}
+        buttonStyle={{ backgroundColor: "#7241DB", width: "100%"}}
+        radius="20"
         onPress={() => {
           signIn(userEmail, password);
         }}
       /> 
 
-      <Text
-        onPress={() => {
-          props.navigation.navigate("SignUp");
-        }}
-        style={{ paddingRight: 15, fontWeight: "bold", fontSize: 17 }}
-      >
-        Pas encore membre ? S'inscrire
-      </Text>
+        <Text style={{ marginTop: 60 }}>Pas encore membre ?</Text>
+        <Text
+          onPress={() => props.navigation.navigate("SignUp")}
+          style={{ marginTop: 15, color: "#7241DB", fontWeight: "bold" }}
+        >
+          S'inscrire
+        </Text>
+    </View>
     </View>
   );
 }
