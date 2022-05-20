@@ -80,6 +80,8 @@ function ReservationStackScreen() {
   return (
     <ReservationStack.Navigator screenOptions={{ headerShown: false }}>
       <ReservationStack.Screen name="Reservation" component={Reservation} />
+      <ReservationStack.Screen name='SignIn' component={Signin} />
+      <ReservationStack.Screen name='SignUp' component={Signup} />
     </ReservationStack.Navigator>
   );
 }
