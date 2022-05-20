@@ -18,7 +18,7 @@ import { connect } from 'react-redux'
 import Listing from '../components/Listing'
 
 // Config IP pour connexion avec le backend
-const ip = "192.168.10.169"
+const ip = "192.168.10.153"
 
 // Debut de la fonction Home qui gere toute la page HOME
 function Home(props) {
@@ -56,12 +56,12 @@ function Home(props) {
   const [currentLongitude, setCurrentLongitude] = useState(0);
 
   // Affichage selon statut de la Geo Localisation
-  let geoloc = 'Géolocalisation en cours..';
+  let geoloc = 'Recherche...';
 
   if (errorMsg) {
     geoloc = errorMsg;
   } else if (location) {
-    geoloc = location;
+    geoloc = location.slice(0, 10) + "...";
   }
 
   // Recuperation des informations Prestataires en BDD
