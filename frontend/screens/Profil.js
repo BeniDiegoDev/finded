@@ -57,11 +57,11 @@ function Profil(props) {
             <Avatar
               rounded
               size={70}
-              title="PN"
+              title={props.user.firstName.charAt(0).toUpperCase() + props.user.lastName.charAt(0).toUpperCase()}
               source={{ uri: 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg' }}
             />
             <ListItem.Content>
-              <ListItem.Title style={{marginVertical:2, fontSize:20}}>Prénom Nom</ListItem.Title>
+              <ListItem.Title style={{marginVertical:2, fontSize:20}}>{props.user.firstName} {props.user.lastName}</ListItem.Title>
               <ListItem.Subtitle onPress={() => {props.navigation.navigate('EditProfil')}} style={{marginVertical:2, color:'grey'}} >Éditer mon profil</ListItem.Subtitle>
             </ListItem.Content>
           </ListItem>
