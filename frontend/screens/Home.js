@@ -95,6 +95,7 @@ function Home(props) {
 
       let response = await cityName.json()
 
+      // console.log(response)
       setLocation(response.name)
 
     })();
