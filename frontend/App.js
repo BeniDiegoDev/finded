@@ -49,6 +49,7 @@ import Conversation from './screens/ProfilPages/Conversation';
 import MentionsLegales from './screens/ProfilPages/MentionsLegales';
 import Signin from './screens/Signin';
 import Signup from './screens/Signup';
+import Welcome from './screens/Welcome';
 
 const HomeStack = createStackNavigator();
 
@@ -60,6 +61,7 @@ function HomeStackScreen() {
       <HomeStack.Screen name="AllCategories" component={AllCategories} />
       <HomeStack.Screen name="Categories" component={Categories} />
       <HomeStack.Screen name="Map" component={Map} />
+      <HomeStack.Screen name="Welcome" component={Welcome} />
     </HomeStack.Navigator>
   );
 }
@@ -82,6 +84,7 @@ function ReservationStackScreen() {
       <ReservationStack.Screen name="Reservation" component={Reservation} />
       <ReservationStack.Screen name='SignIn' component={Signin} />
       <ReservationStack.Screen name='SignUp' component={Signup} />
+      <ReservationStack.Screen name="Welcome" component={Welcome} />
     </ReservationStack.Navigator>
   );
 }
@@ -95,6 +98,9 @@ function PrestationStackScreen() {
       <PrestationStack.Screen name="DatePicker" component={DatePicker} />
       <PrestationStack.Screen name="DetailResa" component={DetailResa} />
       <PrestationStack.Screen name="Paiement" component={Paiement} />
+      <PrestationStack.Screen name='SignIn' component={Signin} />
+      <PrestationStack.Screen name='SignUp' component={Signup} />
+      <PrestationStack.Screen name="Welcome" component={Welcome} />
     </PrestationStack.Navigator>
   );
 }
@@ -116,6 +122,7 @@ function ProfilStackScreen() {
       <ProfilStack.Screen name='MentionsLegales' component={MentionsLegales} />
       <ProfilStack.Screen name='SignIn' component={Signin} />
       <ProfilStack.Screen name='SignUp' component={Signup} />
+      <ProfilStack.Screen name="Welcome" component={Welcome} />
     </ProfilStack.Navigator>
   );
 }

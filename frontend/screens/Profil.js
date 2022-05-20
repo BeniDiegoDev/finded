@@ -4,6 +4,7 @@ import { Avatar, ListItem, Divider, Button, Overlay} from 'react-native-elements
 import { Entypo } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
 import { connect } from 'react-redux';
+import Welcome from '../screens/Welcome';
 
 function Profil(props) {
 
@@ -104,21 +105,8 @@ function Profil(props) {
     );
   } else {
     return (
-      <View style={{paddingTop:40, flex:1, backgroundColor:'#fff', paddingHorizontal:20, display:'flex', flexDirection:'column', justifyContent:'space-between'}}>
-        <View>
-            <View style={{marginVertical:100}}>
-              <Text style={{fontSize:35}}>Bienvenue !</Text>
-            </View>
-            <View>
-              <Text style={{fontSize:16, marginBottom:60}}>Connectez-vous pour réserver votre prochaine prestation.</Text>
-              <Button onPress={() => props.navigation.navigate('SignIn')} title="S'identifier"></Button>
-              <Text style={{marginTop:60}}>Pas encore membre ?</Text>
-              <Text onPress={() => props.navigation.navigate('SignUp')} style={{marginTop:15, color:'#7241DB', fontWeight:'bold'}}>S'inscrire</Text>
-            </View>
-        </View>
-      </View>
+      <Welcome navigation={props.navigation}/>
     );
-  
   }
 }
 
