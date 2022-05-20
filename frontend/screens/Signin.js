@@ -6,12 +6,13 @@ import { Ionicons } from '@expo/vector-icons';
 
 import { connect } from "react-redux";
 
-const ip = '192.168.10.112'
+const ip = '192.168.10.153'
 
 function Signin(props) {
   const [userEmail, setUserEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLogged, setIsLogged] = useState(false)
+
 
   let signIn = async (userEmail, password) => {
 
@@ -24,21 +25,17 @@ function Signin(props) {
     });
 
     let responseJson = await response.json();
-
-    if (responseJson.result === true) {
-      setIsLogged(true);
-      props.navigation.navigate('Home');
-      props.onSubmitConnectAccount(responseJson.user);
-    }
-    else {
-      Alert.alert("Erreur", "Email ou mot de passe incorrect")
-    }
-  
+      if (responseJson.result === true) {
+        setIsLogged(true);
+        props.navigation.navigate('Home');
+        props.onSubmitConnectAccount(responseJson.user);
+      } else {
+        Alert.alert("Erreur", "Email ou mot de passe incorrect")
+      }
   } else {
     Alert.alert("Attention","Veuillez remplir tous les champs")
   }
   }
-
 
   return (
     <View>

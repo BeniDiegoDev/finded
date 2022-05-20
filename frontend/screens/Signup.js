@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { View, StyleSheet, Text, Alert } from "react-native";
 import { Input, Button } from "react-native-elements";
-import Icon from "react-native-vector-icons/FontAwesome";
 import { Ionicons } from '@expo/vector-icons';
 
 import { connect } from "react-redux";
 
-const ip = '192.168.10.112'
+const ip = '192.168.10.153'
 
 function Signup(props) {
 
@@ -21,23 +20,37 @@ function Signup(props) {
 
 
   let addUser = async (firstName, lastName, userEmail, password, confirmPassword, phoneNumber) => {
-    
-    if( password === confirmPassword ) {
-    let response = await fetch(`http://${ip}:3000/users/sign-up`, {
-        method: 'POST',
-        headers: {'Content-Type':'application/x-www-form-urlencoded'},
-        body: `firstName=${firstName}&lastName=${lastName}&userEmail=${userEmail}&password=${password}&confirmPassword=${confirmPassword}&phoneNumber=${phoneNumber}`
-        });
+    if( firstName && lastName && userEmail && password && confirmPassword && phoneNumber ) {
+      if(phoneNumber.length === 10) {
+        if(password.length >= 8) {
+          if( password === confirmPassword ) {
+          let response = await fetch(`http://${ip}:3000/users/sign-up`, {
+              method: 'POST',
+              headers: {'Content-Type':'application/x-www-form-urlencoded'},
+              body: `firstName=${firstName}&lastName=${lastName}&userEmail=${userEmail}&password=${password}&confirmPassword=${confirmPassword}&phoneNumber=${phoneNumber}`
+              });
 
-    let responseJson = await response.json();
-
-    if (responseJson.result === true) {
-      props.navigation.navigate('Home');
-      props.onSubmitCreateAccount(responseJson.saveUser);
-    }
-    } else {
-      Alert.alert("Attention","Les mots de passe ne correspondent pas");
-    }
+          let responseJson = await response.json();
+          if (responseJson.error === true) {
+            Alert.alert("Erreur", "Email déjà existant")
+          } else {
+          if (responseJson.result === true) {
+            props.navigation.navigate('Home');
+            props.onSubmitCreateAccount(responseJson.saveUser);
+          }
+          }
+          } else {
+            Alert.alert("Attention","Les mots de passe ne correspondent pas");
+          }
+        } else {
+          Alert.alert("Attention","Le mot de passe doit contenir au moins 8 caractères");
+        }
+      } else {
+        Alert.alert("Attention","Veuillez entrer un numéro de téléphone valide");
+      }
+  } else {
+    Alert.alert("Attention","Veuillez remplir tous les champs");
+  }
 
 
     }

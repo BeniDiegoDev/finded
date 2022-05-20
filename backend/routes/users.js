@@ -14,7 +14,7 @@ router.post("/sign-in", async function (req, res, next) {
   var userEmail = req.body.userEmail;
   var password = req.body.password;
 
-  var user = await userModel.findOne({ userEmail: userEmail });
+  var user = await userModel.findOne({ email : userEmail });
   if (user) {
     if (bcrypt.compareSync(password, user.password)) {
       res.json({
@@ -34,32 +34,6 @@ router.post("/sign-in", async function (req, res, next) {
   }
 });
 
-router.get("/get-user/:token", async function (req, res) {
-  var result = false;
-  var user = await userModel.findOne({ token: req.params.token });
-
-  if (user !== null) {
-    result = true;
-  }
-
-  res.json({ result });
-});
-
-router.delete("/delete-user", async function (req, res) {
-  var result = false;
-  var user = await userModel.findOne({ token: req.body.token });
-
-  if (user !== null) {
-    user = user.filter((user) => user.email !== req.body.userEmail);
-
-    var userUpdated = await user.save();
-    if (userUpdated) {
-      result = true;
-    }
-  }
-
-  res.json({ result });
-});
 
 
 router.post("/sign-up", async function (req, res, next) {
@@ -67,11 +41,10 @@ router.post("/sign-up", async function (req, res, next) {
 
   hash = bcrypt.hashSync(req.body.password, 10);
 
-  var error = [];
-  var success = []; // DEMANDER
+  var error = false;
   var result = false;
-  var saveUser = null;
-  var token = null;
+
+
 
   var userIdentifiant = await userModel.findOne({
     email: req.body.userEmail,
@@ -80,32 +53,12 @@ router.post("/sign-up", async function (req, res, next) {
 
 
   if (userIdentifiant !== null) {
-    error.push(`E-mail ${userIdentifiant} déjà présent`);
+    error = true;
     console.log(`E-mail ${userIdentifiant} already exists`);
-    // res.send(`E-mail ${userIdentifiant} already exists`); POUR TEST POSTMAN ???
-    // return
   }
  
 
-  if (req.body.password.length < 8) {
-    // PEUT-ÊTRE AJOUTER D'AUTRES CONDITION ?
-    error.push("Mot de passe trop court");
-    console.log("password too short");
-  }
-  
-
-  if (
-    req.body.firstName == "" ||
-    req.body.lastName == "" ||
-    req.body.userEmail == "" ||
-    req.body.phoneNumber == "" ||
-    req.body.password == "" ||
-    req.body.confirmPassword == ""
-  ) {
-    error.push("champ(s) vide(s)");
-  }
-
-  if (error.length == 0) {
+  if (error === false) {
     var newUser = new userModel({
       accountType: req.body.accountType,
       firstName: req.body.firstName,
@@ -132,7 +85,7 @@ router.post("/sign-up", async function (req, res, next) {
     }
   }
 
-  res.json({ result, saveUser  });
+  res.json({ result, saveUser, error });
 });
 
 
