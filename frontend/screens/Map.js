@@ -121,7 +121,6 @@ function Map(props) {
                             selectedValue={categorie}
                             onValueChange={(value, index) => setCategorie(value)}
                             mode="dropdown"
-                            style={{}}
                         >
                             <Picker.Item label="Catégorie" value="" />
                             <Picker.Item label="Mécanique" value="Mécanique" />
