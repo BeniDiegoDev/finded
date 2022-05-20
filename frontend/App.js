@@ -72,6 +72,7 @@ function SearchStackStackScreen() {
   return (
     <SearchStack.Navigator screenOptions={{ headerShown: false }}>
       <SearchStack.Screen name="Map" component={Map} />
+      <SearchStack.Screen name="Prestataire" component={Prestataire} />
     </SearchStack.Navigator>
   );
 }
