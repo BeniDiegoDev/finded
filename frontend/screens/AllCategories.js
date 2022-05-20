@@ -105,7 +105,7 @@ function AllCategories(props) {
             {Categories.map((element, i) => {
               return (
                 <TouchableWithoutFeedback key={i} onPress={() => { props.navigation.navigate('Categories', { name: element.name }) }}>
-                  <View style={{ backgroundColor: element.color, alignItems: 'center', borderWidth: 3, marginVertical: 10, paddingVertical: 10, width: '45%', marginHorizontal: '2.5%' }}>
+                  <View style={{ backgroundColor: element.color, alignItems: 'center', marginVertical: 10, paddingVertical: 10, width: '45%', marginHorizontal: '2.5%', borderRadius:10, shadowColor:'black', shadowOffset:{width:0, height:4}, shadowOpacity:0.32, shadowRadius:5.46, elevation:5 }}>
                     <Image
                       style={{ height: 90, width: 90 }}
                       source={element.image}

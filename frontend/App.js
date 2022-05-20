@@ -69,7 +69,7 @@ const SearchStack = createStackNavigator();
 function SearchStackStackScreen() {
   return (
     <SearchStack.Navigator screenOptions={{ headerShown: false }}>
-      <SearchStack.Screen name="Search" component={Search} />
+      <SearchStack.Screen name="Map" component={Map} />
     </SearchStack.Navigator>
   );
 }
@@ -135,7 +135,7 @@ export default function App() {
               } else if (route.name === 'Reservation') {
                 iconName = 'calendar'
               } else if (route.name === 'Search') {
-                iconName = 'md-search'
+                iconName = 'map'
               } else if (route.name === 'Profil') {
                 iconName = 'person'
               }
