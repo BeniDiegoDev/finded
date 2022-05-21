@@ -32,7 +32,7 @@ function DetailResa(props) {
      if(props.user.token){
         props.navigation.navigate('Paiement');
      } else {
-        props.navigation.navigate('Welcome', {navigation: props.navigation});
+        props.navigation.navigate('SignIn', {navigation: props.navigation});
      }
     }
 

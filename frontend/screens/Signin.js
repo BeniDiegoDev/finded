@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import { View, StyleSheet, Alert } from "react-native";
 import { Input, Text } from "react-native-elements";
 import Icon from "react-native-vector-icons/FontAwesome";
-import { Ionicons } from '@expo/vector-icons';
+import { FontAwesome5 } from '@expo/vector-icons';
 import { Button } from "@rneui/base";
 
 import { connect } from "react-redux";
 
-const ip = '192.168.10.153'
+const ip = '192.168.0.22'
 
 function Signin(props) {
   const [userEmail, setUserEmail] = useState("");
@@ -41,19 +41,14 @@ function Signin(props) {
   return (
     <View style={styles.container}>
       <View
-        style={{ marginBottom: 40, display: "flex", flexDirection: "row" }}
+        style={{ marginBottom: 40, display: "flex", flexDirection: "row", justifyContent: "center" }}
       >
-        <Text style={{ fontSize: 30, paddingHorizontal: 20 }}>
-          <Ionicons
-            onPress={() => {
-              props.navigation.goBack(null);
-            }}
-            name="chevron-back"
-            size={30}
-            color="black"
-          />{" "}
-          Connexion
+        <Text style={{ fontSize: 30, marginTop: 40 }}>
+          Bienvenue !
         </Text>
+      </View>
+      <View style={{marginHorizontal:30, display:'flex', alignItems:'center' }}>
+              <Text style={{fontSize:16, marginBottom:60, textAlign:'center'}}>Connectez-vous pour réserver votre prochaine prestation.</Text>
       </View>
       <View
         style={{
@@ -69,10 +64,11 @@ function Signin(props) {
           onChangeText={(val) => setUserEmail(val)}
         />
         <Input
+          secureTextEntry={true}
           containerStyle={{ marginBottom: 25, width: "80%" }}
           inputStyle={{ marginLeft: 10 }}
           placeholder="Mot de passe"
-          leftIcon={<Icon name="key" size={24} color="grey" />}
+          leftIcon={<FontAwesome5 name="key" size={24} color="grey" />}
           onChangeText={(val) => setPassword(val)}
         />
 

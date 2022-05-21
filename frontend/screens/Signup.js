@@ -6,7 +6,7 @@ import { Button } from "@rneui/base";
 
 import { connect } from "react-redux";
 
-const ip = "192.168.10.153";
+const ip = "192.168.0.22";
 
 function Signup(props) {
   const [firstName, setFirstName] = useState("");
@@ -16,53 +16,46 @@ function Signup(props) {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
 
-  let addUser = async (
-    firstName,
-    lastName,
-    userEmail,
-    password,
-    confirmPassword,
-    phoneNumber
-  ) => {
-    if (
-      firstName &&
-      lastName &&
-      userEmail &&
-      password &&
-      confirmPassword &&
-      phoneNumber
-    ) {
-      if (phoneNumber.length === 10) {
-        if (password.length >= 8) {
-          if (password === confirmPassword) {
-            let response = await fetch(`http://${ip}:3000/users/sign-up`, {
-              method: "POST",
-              headers: { "Content-Type": "application/x-www-form-urlencoded" },
-              body: `firstName=${firstName}&lastName=${lastName}&userEmail=${userEmail}&password=${password}&confirmPassword=${confirmPassword}&phoneNumber=${phoneNumber}`,
-            });
+  let addUser = async (firstName,lastName,userEmail,password,confirmPassword,phoneNumber) => {
+    if (firstName &&lastName &&userEmail &&password &&confirmPassword &&phoneNumber) {
+      if (userEmail.includes("@") && userEmail.includes(".")) {
+        if (phoneNumber.length === 10) {
+          if (password.length >= 8) {
+            if (password === confirmPassword) {
+              let response = await fetch(`http://${ip}:3000/users/sign-up`, {
+                method: "POST",
+                headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                body: `firstName=${firstName}&lastName=${lastName}&userEmail=${userEmail}&password=${password}&confirmPassword=${confirmPassword}&phoneNumber=${phoneNumber}`,
+              });
 
-            let responseJson = await response.json();
-            if (responseJson.error === true) {
-              Alert.alert("Erreur", "Email déjà existant");
-            } else {
-              if (responseJson.result === true) {
-                props.navigation.navigate("Home");
-                props.onSubmitCreateAccount(responseJson.saveUser);
+              let responseJson = await response.json();
+              if (responseJson.error === true) {
+                Alert.alert("Erreur", "Email déjà existant");
+              } else {
+                if (responseJson.result === true) {
+                  props.navigation.navigate("Home");
+                  props.onSubmitCreateAccount(responseJson.saveUser);
+                }
               }
+            } else {
+              Alert.alert("Attention", "Les mots de passe ne correspondent pas");
             }
           } else {
-            Alert.alert("Attention", "Les mots de passe ne correspondent pas");
+            Alert.alert(
+              "Attention",
+              "Le mot de passe doit contenir au moins 8 caractères"
+            );
           }
         } else {
           Alert.alert(
             "Attention",
-            "Le mot de passe doit contenir au moins 8 caractères"
+            "Veuillez saisir un numéro de téléphone valide"
           );
         }
       } else {
         Alert.alert(
           "Attention",
-          "Veuillez entrer un numéro de téléphone valide"
+          "Veuillez saisir un email valide"
         );
       }
     } else {
@@ -121,12 +114,14 @@ function Signup(props) {
             onChangeText={(val) => setPhoneNumber(val)}
           />
           <Input
+            secureTextEntry={true}
             containerStyle={{ marginBottom: 25, width: "80%" }}
             inputStyle={{ marginLeft: 10 }}
             placeholder="Mot de passe"
             onChangeText={(val) => setPassword(val)}
           />
           <Input
+            secureTextEntry={true}
             containerStyle={{ marginBottom: 25, width: "80%" }}
             inputStyle={{ marginLeft: 10 }}
             placeholder="Confirmer mot de passe"

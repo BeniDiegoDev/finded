@@ -66,14 +66,16 @@ router.post("/sign-up", async function (req, res, next) {
       email: req.body.userEmail,
       password: hash,
       token: uid2(32),
-      creditCard: req.body.creditCard,
-      address: req.body.address ,
-      reservations: req.body.reservations ,
-      messages: req.body.messages ,
-      conversations: req.body.conversations ,
-      phoneNumber: req.body.phoneNumber ,
-      profilePicture: req.body.profilePicture,
-      note: req.body.note,
+
+
+      //creditCard: req.body.creditCard,
+      //address: req.body.address ,
+      //reservations: req.body.reservations ,
+      //messages: req.body.messages ,
+      //conversations: req.body.conversations ,
+      //phoneNumber: req.body.phoneNumber ,
+      //profilePicture: req.body.profilePicture,
+      //note: req.body.note,
     });
 
     var saveUser = await newUser.save();
@@ -88,5 +90,28 @@ router.post("/sign-up", async function (req, res, next) {
   res.json({ result, saveUser, error });
 });
 
+// Route en POST pour ajouter une réservation à un utilisateur
+router.post("/add-reservation", async function (req, res, next) {
 
+  var result = false;
+  var error = "Problème lors de l'ajout de la réservation";
+
+  var user = await userModel.updateOne({ token: req.body.token }, {
+    $push: { reservations: req.body.reservation },
+  });
+
+  if (user) {
+    result = true;
+    error = "Réservation ajoutée";
+  } else {
+    result = false;
+  }
+  
+  res.json({ result, error });
+});
+
+
+    
+
+  
 module.exports = router;

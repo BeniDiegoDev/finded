@@ -4,7 +4,7 @@ import { Avatar, ListItem, Divider, Button, Overlay} from 'react-native-elements
 import { Entypo } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
 import { connect } from 'react-redux';
-import Welcome from '../screens/Welcome';
+import Signin from '../screens/Signin';
 
 function Profil(props) {
 
@@ -20,32 +20,32 @@ function Profil(props) {
 
   let categories = [
     {
-      icon : <Entypo name="home" size={30} color="black" />,
+      icon : <Entypo name="home" size={30} color="#fff" style={{marginHorizontal:20}}/>,
       name : 'Mes adresses',
       url : 'Adresses'
     },
     {
-      icon : <FontAwesome name="calendar-check-o" size={30} color="black" />,
+      icon : <FontAwesome name="calendar-check-o" size={30} color="#fff" style={{marginHorizontal:20}}/>,
       name : 'Mes réservations',
       url : 'Reservations'
     },
     {
-      icon : <FontAwesome name="credit-card" size={30} color="black" />,
+      icon : <FontAwesome name="credit-card" size={30} color="#fff" style={{marginHorizontal:20}}/>,
       name : 'Mon Wallet',
       url : 'Cards'
     },
     {
-      icon : <Entypo name="mail" size={30} color="black" />,
+      icon : <Entypo name="mail" size={30} color="#fff" style={{marginHorizontal:20}}/>,
       name : 'Mes messages',
       url : 'Messages'
     },
     {
-      icon : <FontAwesome name="heart" size={30} color="black" />,
+      icon : <FontAwesome name="heart" size={30} color="#fff" style={{marginHorizontal:20}}/>,
       name : 'Mes favoris',
       url : 'Favoris'
     },
     {
-      icon : <Entypo name="help" size={30} color="black" />,
+      icon : <Entypo name="help" size={30} color="#fff" style={{marginHorizontal:20}}/>,
       name : 'Aide',
       url : 'Help'
     }
@@ -71,19 +71,19 @@ function Profil(props) {
       
           {categories.map((item, i) => (
             <TouchableWithoutFeedback key={i} onPress={() => { props.navigation.navigate(item.url)}}>
-              <ListItem style={{height:90, display:'flex', justifyContent:'center'}}>
+              <View style={styles.listItem}>
                 {item.icon}
-                <ListItem.Content>
-                  <ListItem.Title style={{marginVertical:2, fontSize:20}}>{item.name}</ListItem.Title>
-                </ListItem.Content>
-              </ListItem>
+                <View>
+                  <Text style={{fontSize:20, color: '#fff', fontWeight:'500'}}>{item.name}</Text>
+                </View>
+              </View>
             </TouchableWithoutFeedback>
           ))}
 
           <ListItem>
             <ListItem.Content style={{display:'flex', flexDirection:'row', justifyContent:'space-between'}}>
-              <ListItem.Title onPress={() => {props.navigation.navigate('MentionsLegales')}} style={{marginVertical:2,fontSize:15 }}>Mentions Légales</ListItem.Title>
-              <ListItem.Title onPress={toggleOverlay} style={{marginVertical:2, fontSize:15, color:'red'}}>Déconnexion</ListItem.Title>
+              <ListItem.Title onPress={() => {props.navigation.navigate('MentionsLegales')}} style={{fontSize:15 }}>Mentions Légales</ListItem.Title>
+              <ListItem.Title onPress={toggleOverlay} style={{fontSize:15, color:'red'}}>Déconnexion</ListItem.Title>
             </ListItem.Content>
           </ListItem>
           <Overlay isVisible={visible} onBackdropPress={toggleOverlay}>
@@ -95,7 +95,7 @@ function Profil(props) {
       
 
                 <View style={{display:'flex', flexDirection:'row', justifyContent:'space-around', marginTop:20}}>
-                  <Button onPress={() => logout()} title='Oui' buttonStyle={{width:90, marginHorizontal: 10, backgroundColor:'#3DA787'}} />
+                  <Button onPress={() => logout()} title='Oui' buttonStyle={{width:90, marginHorizontal: 10, backgroundColor:'#7241DB'}} />
                   <Button onPress={toggleOverlay} title='Non' buttonStyle={{width:90, marginHorizontal: 10, backgroundColor:'#3DA787'}} />
                 </View>
 
@@ -105,7 +105,7 @@ function Profil(props) {
     );
   } else {
     return (
-      <Welcome navigation={props.navigation}/>
+      <Signin navigation={props.navigation}/>
     );
   }
 }
@@ -116,6 +116,15 @@ function Profil(props) {
     avatar_container:{
       display:'flex',
       flexDirection:'row',
+    },
+    listItem:{
+      height:80,
+      display:'flex',
+      backgroundColor:'rgba(114, 65, 219, 0.6)',
+      flexDirection:'row',
+      borderRadius:10,
+      alignItems:'center',
+
     }
 
   });

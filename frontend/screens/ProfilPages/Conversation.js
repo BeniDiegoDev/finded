@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useEffect } from 'react'
-import { GiftedChat } from 'react-native-gifted-chat'
+import { Bubble, GiftedChat } from 'react-native-gifted-chat'
 import { Pressable, StyleSheet, Text, View} from 'react-native';
 
 // mise en place du webSocket
@@ -32,6 +32,34 @@ export default function Conversation(props) {
       socket.emit('sendMessage', {messages: messages})
     }, [])
 
+
+    let renderBubble = (props) => {
+      return (
+        <Bubble {...props} textStyle={{
+          right: {
+            color: 'white',
+          },
+          left: {
+            color: 'white',
+          }
+        }}
+        wrapperStyle={{
+          right: {
+            backgroundColor: '#3DA787',
+          },
+          left: {
+            backgroundColor: '#7241DB',
+          }
+        }}
+        />
+      )
+    }
+
+        
+     
+
+      
+
   
     // si le device est un android
 
@@ -41,15 +69,15 @@ export default function Conversation(props) {
             <Pressable onPress={() => { props.navigation.goBack(null) }}>
                 <Text style={styles.title_messages}><Ionicons name="chevron-back" size={30} color="black" onPress={() => { props.navigation.goBack(null)}}/> Nom prestataire</Text>
             </Pressable>
-            <GiftedChat
-                messages={messages}
-                onSend={messages => onSend(messages)}
-                placeholder="Votre message..."
-                user={{
-                _id: 1,
-                }}
-                
-            />
+              <GiftedChat               
+                  renderBubble={renderBubble}
+                  messages={messages}
+                  onSend={messages => onSend(messages)}
+                  placeholder="Votre message..."
+                  user={{
+                  _id: 1,
+                  }}
+              />
         </>
     )
     
@@ -63,6 +91,7 @@ export default function Conversation(props) {
         <Text style={styles.title_messages}><Ionicons name="chevron-back" size={30} color="black" onPress={() => { props.navigation.goBack(null)}}/> Nom prestataire</Text>
         </Pressable>
         <GiftedChat
+            renderBubble={renderBubble}
             messages={messages}
             onSend={messages => onSend(messages)}
             placeholder="Votre message..."
