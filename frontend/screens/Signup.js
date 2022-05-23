@@ -6,7 +6,7 @@ import { Button } from "@rneui/base";
 
 import { connect } from "react-redux";
 
-const ip = '192.168.10.124'
+const ip = "192.168.10.128";
 
 function Signup(props) {
   const [firstName, setFirstName] = useState("");
@@ -15,6 +15,7 @@ function Signup(props) {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
+
 
   let addUser = async (firstName,lastName,userEmail,password,confirmPassword,phoneNumber) => {
     if (firstName && lastName && userEmail && password && confirmPassword && phoneNumber) {
