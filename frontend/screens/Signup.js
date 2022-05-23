@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { View, StyleSheet, Text, Alert } from "react-native";
-import { Input, Button } from "react-native-elements";
-import { Ionicons } from '@expo/vector-icons';
+import { View, StyleSheet, Text, Alert, ScrollView,KeyboardAvoidingView } from "react-native";
+import { Input } from "react-native-elements";
+import { Ionicons } from "@expo/vector-icons";
+import { Button } from "@rneui/base";
 
 import { connect } from "react-redux";
 
-const ip = '192.168.10.153'
+const ip = "192.168.10.175";
 
 function Signup(props) {
-
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [userEmail, setUserEmail] = useState("");
@@ -16,47 +16,57 @@ function Signup(props) {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
 
-
-  let addUser = async (firstName, lastName, userEmail, password, confirmPassword, phoneNumber) => {
-    if( firstName && lastName && userEmail && password && confirmPassword && phoneNumber ) {
-      if(phoneNumber.length === 10) {
-        if(password.length >= 8) {
-          if( password === confirmPassword ) {
-          let response = await fetch(`http://${ip}:3000/users/sign-up`, {
-              method: 'POST',
-              headers: {'Content-Type':'application/x-www-form-urlencoded'},
-              body: `firstName=${firstName}&lastName=${lastName}&userEmail=${userEmail}&password=${password}&confirmPassword=${confirmPassword}&phoneNumber=${phoneNumber}`
+  let addUser = async (firstName,lastName,userEmail,password,confirmPassword,phoneNumber) => {
+    if (firstName &&lastName &&userEmail &&password &&confirmPassword &&phoneNumber) {
+      if (userEmail.includes("@") && userEmail.includes(".")) {
+        if (phoneNumber.length === 10) {
+          if (password.length >= 8) {
+            if (password === confirmPassword) {
+              let response = await fetch(`http://${ip}:3000/users/sign-up`, {
+                method: "POST",
+                headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                body: `firstName=${firstName}&lastName=${lastName}&userEmail=${userEmail}&password=${password}&confirmPassword=${confirmPassword}&phoneNumber=${phoneNumber}`,
               });
 
-          let responseJson = await response.json();
-          if (responseJson.error === true) {
-            Alert.alert("Erreur", "Email déjà existant")
+              let responseJson = await response.json();
+              if (responseJson.error === true) {
+                Alert.alert("Erreur", "Email déjà existant");
+              } else {
+                if (responseJson.result === true) {
+                  props.navigation.navigate("Home");
+                  props.onSubmitCreateAccount(responseJson.saveUser);
+                }
+              }
+            } else {
+              Alert.alert("Attention", "Les mots de passe ne correspondent pas");
+            }
           } else {
-          if (responseJson.result === true) {
-            props.navigation.navigate('Home');
-            props.onSubmitCreateAccount(responseJson.saveUser);
-          }
-          }
-          } else {
-            Alert.alert("Attention","Les mots de passe ne correspondent pas");
+            Alert.alert(
+              "Attention",
+              "Le mot de passe doit contenir au moins 8 caractères"
+            );
           }
         } else {
-          Alert.alert("Attention","Le mot de passe doit contenir au moins 8 caractères");
+          Alert.alert(
+            "Attention",
+            "Veuillez saisir un numéro de téléphone valide"
+          );
         }
       } else {
-        Alert.alert("Attention","Veuillez entrer un numéro de téléphone valide");
+        Alert.alert(
+          "Attention",
+          "Veuillez saisir un email valide"
+        );
       }
-  } else {
-    Alert.alert("Attention","Veuillez remplir tous les champs");
-  }
-
-
+    } else {
+      Alert.alert("Attention", "Veuillez remplir tous les champs");
     }
+  };
 
   return (
-    <View>
+    <View style={styles.container}>
       <View
-        style={{ marginVertical: 40, display: "flex", flexDirection: "row" }}
+        style={{ marginBottom:40, display: "flex", flexDirection: "row" }}
       >
         <Text style={{ fontSize: 30, paddingHorizontal: 20 }}>
           <Ionicons
@@ -70,54 +80,81 @@ function Signup(props) {
           Créer un compte
         </Text>
       </View>
-      <View>
-      <Input
-        containerStyle={{ marginBottom: 25, width: "70%" }}
-        inputStyle={{ marginLeft: 10 }}
-        placeholder="Prénom"
-        onChangeText={(val) => setFirstName(val)}
-      />
-      <Input
-        containerStyle={{ marginBottom: 25, width: "70%" }}
-        inputStyle={{ marginLeft: 10 }}
-        placeholder="Nom"
-        onChangeText={(val) => setLastName(val)}
-      />
-      <Input
-        containerStyle={{ marginBottom: 25, width: "70%" }}
-        inputStyle={{ marginLeft: 10 }}
-        placeholder="Email"
-        onChangeText={(val) => setUserEmail(val)}
-      />
-      <Input
-        containerStyle={{ marginBottom: 25, width: "70%" }}
-        inputStyle={{ marginLeft: 10 }}
-        placeholder="Numéro de tél"
-        onChangeText={(val) => setPhoneNumber(val)}
-      />
-      <Input
-        containerStyle={{ marginBottom: 25, width: "70%" }}
-        inputStyle={{ marginLeft: 10 }}
-        placeholder="Mot de passe"
-        onChangeText={(val) => setPassword(val)}
-      />
-      <Input
-        containerStyle={{ marginBottom: 25, width: "70%" }}
-        inputStyle={{ marginLeft: 10 }}
-        placeholder="Confirmer mot de passe"
-        onChangeText={(val) => setConfirmPassword(val)}
-      />
-      </View>
+      <ScrollView>
+        <View
+          style={{
+            alignItems: "center",
+            width: "100%"
+          }}
+        >
+          
+          <Input
+            containerStyle={{ marginBottom: 25, width: "80%" }}
+            inputStyle={{ marginLeft: 10 }}
+            placeholder="Prénom"
+            onChangeText={(val) => setFirstName(val)}
+          />
+          
+          <Input
+            containerStyle={{ marginBottom: 25, width: "80%" }}
+            inputStyle={{ marginLeft: 10 }}
+            placeholder="Nom"
+            onChangeText={(val) => setLastName(val)}
+          />
+          <Input
+            containerStyle={{ marginBottom: 25, width: "80%" }}
+            inputStyle={{ marginLeft: 10 }}
+            placeholder="Email"
+            onChangeText={(val) => setUserEmail(val)}
+          />
+          <Input
+            containerStyle={{ marginBottom: 25, width: "80%" }}
+            inputStyle={{ marginLeft: 10 }}
+            placeholder="Numéro de tél"
+            onChangeText={(val) => setPhoneNumber(val)}
+          />
+          <Input
+            secureTextEntry={true}
+            containerStyle={{ marginBottom: 25, width: "80%" }}
+            inputStyle={{ marginLeft: 10 }}
+            placeholder="Mot de passe"
+            onChangeText={(val) => setPassword(val)}
+          />
+          <Input
+            secureTextEntry={true}
+            containerStyle={{ marginBottom: 25, width: "80%" }}
+            inputStyle={{ marginLeft: 10 }}
+            placeholder="Confirmer mot de passe"
+            onChangeText={(val) => setConfirmPassword(val)}
+          />
+          
+          <View>
+            <Button
+              buttonStyle={{ backgroundColor: "#7241DB", width: "100%" }}
+              radius="20"
+              onPress={() => {
+                addUser(
+                  firstName,
+                  lastName,
+                  userEmail,
+                  password,
+                  confirmPassword,
+                  phoneNumber
+                );
+              }}
+            >
+              <Text style={{ color: "#fff", fontSize: 17 }}
+              >
+                Continuer
+              </Text>
+            </Button>
+            
+          </View>
 
-      <Button
-        title="Continuer"
-        type="solid"
-        buttonStyle={{ backgroundColor: "#009788" }}
-        onPress={() => {
-          addUser(firstName, lastName, userEmail, password, confirmPassword, phoneNumber);
-        }}
-      />
+        </View>
+      </ScrollView>
     </View>
+    
   );
 }
 
@@ -130,9 +167,9 @@ const styles = StyleSheet.create({
 });
 
 function mapStateToProps(state) {
-  return { 
-    user: state.infoUser
- }
+  return {
+    user: state.infoUser,
+  };
 }
 
 function mapDispatchToProps(dispatch) {
@@ -143,7 +180,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Signup);
+export default connect(mapStateToProps, mapDispatchToProps)(Signup);

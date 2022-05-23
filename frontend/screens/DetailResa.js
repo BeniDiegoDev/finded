@@ -28,6 +28,14 @@ moment.locale ('fr');
 
 function DetailResa(props) {
 
+   let nextPage = () => {
+     if(props.user.token){
+        props.navigation.navigate('Paiement');
+     } else {
+        props.navigation.navigate('SignIn', {navigation: props.navigation});
+     }
+    }
+
     let listingFilter = props.preStataires.filter(elem => elem.name === props.selectPresta)
 
 
@@ -43,6 +51,7 @@ function DetailResa(props) {
                     <Divider style={{ backgroundColor: '#7241DB' }} />
                 </View>
         )});
+
 
     return (
         <View style={{flex:1, backgroundColor:'white'}}>
@@ -70,7 +79,7 @@ function DetailResa(props) {
                 </View>
                 <View style={{alignItems:'center'}}>
                     <View style={{width:'50%'}}>
-                    <Button  buttonStyle={{ backgroundColor: '#7241DB'}} radius="20" onPress={() => { props.navigation.navigate('Paiement') }}>Confirmer</Button>
+                    <Button  buttonStyle={{ backgroundColor: '#7241DB'}} radius="20" onPress={() =>  nextPage()}>Confirmer</Button>
                     </View>
                 </View>
             </View>
@@ -130,6 +139,7 @@ function DetailResa(props) {
              listPrestations: state.listPrestations,
              selectPresta: state.selectPresta,
              selectCreneau: state.selectCreneau,
+             user: state.infoUser
               }
   }
 

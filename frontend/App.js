@@ -50,6 +50,7 @@ import MentionsLegales from './screens/ProfilPages/MentionsLegales';
 import Signin from './screens/Signin';
 import Signup from './screens/Signup';
 
+
 const HomeStack = createStackNavigator();
 
 function HomeStackScreen() {
@@ -71,6 +72,11 @@ function SearchStackStackScreen() {
     <SearchStack.Navigator screenOptions={{ headerShown: false }}>
       <SearchStack.Screen name="Map" component={Map} />
       <SearchStack.Screen name="Prestataire" component={Prestataire} />
+      <SearchStack.Screen name="DatePicker" component={DatePicker} />
+      <SearchStack.Screen name="DetailResa" component={DetailResa} />
+      <SearchStack.Screen name="Paiement" component={Paiement} />
+      <SearchStack.Screen name='SignIn' component={Signin} />
+      <SearchStack.Screen name='SignUp' component={Signup} />
     </SearchStack.Navigator>
   );
 }
@@ -96,6 +102,8 @@ function PrestationStackScreen() {
       <PrestationStack.Screen name="DatePicker" component={DatePicker} />
       <PrestationStack.Screen name="DetailResa" component={DetailResa} />
       <PrestationStack.Screen name="Paiement" component={Paiement} />
+      <PrestationStack.Screen name='SignIn' component={Signin} />
+      <PrestationStack.Screen name='SignUp' component={Signup} />
     </PrestationStack.Navigator>
   );
 }

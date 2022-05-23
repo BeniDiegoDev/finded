@@ -330,6 +330,28 @@ router.post('/importpresta', async function (req, res, next) {
   res.json({ prestatairesSave });
 });
 
+
+router.post('/add-reservation', async function (req, res, next) {
+
+  var token = req.body.token
+  var searchUser = await userModel.findOne({token: token})
+  if(searchUser){  
+      var reservation = {
+              date: req.body.date,
+              horaire: req.body.horaire,
+              prix: req.body.prix,
+              name: req.body.name,
+              status: "En cours",
+          }
+      searchUser.reservations.push(reservation)
+      let saveUser = await searchUser.save()
+      res.send('true')
+    }else{
+      res.send('false')
+    }
+  }
+  )
+
 // Force récupération des données
 router.get('/recuppresta', async function (req, res, next) {
 

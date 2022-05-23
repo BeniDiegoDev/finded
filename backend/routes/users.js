@@ -40,63 +40,63 @@ router.post("/sign-up", async function (req, res, next) {
 
   // var fakeTableau = [
   //   {
-  //     date: 'Lundi 15 avril',
+  //     date: '15/04/2022',
   //     heure: '10h-11h',
   //     price: 50,
   //     prestataires: 'CT Montparn',
   //     status: 'Terminée',
   //   },
   //   {
-  //     date: 'Mardi 23 mars',
+  //     date: '23/03/2022',
   //     heure: '16h-17h',
   //     price: 150,
   //     prestataires: "Coif'Tignasse",
   //     status: 'Terminée',
   //   },
   //   {
-  //     date: 'Samedi 28 mai',
+  //     date: '28/05/2022',
   //     heure: '16h-17h',
   //     price: 150,
   //     prestataires: 'Massage des Beauxjours',
   //     status: 'Annulée',
   //   },
   //   {
-  //     date: 'Vendredi 4 août',
+  //     date: '04/08/2022',
   //     heure: '16h-17h',
   //     price: 150,
   //     prestataires: 'Serrurier du sentier',
   //     status: 'Annulée',
   //   },
   //   {
-  //     date: 'Jeudi 10 juillet',
+  //     date: '10/07/2022',
   //     heure: '16h-17h',
   //     price: 150,
   //     prestataires: 'Baby Green',
   //     status: 'En cours',
   //   },
   //   {
-  //     date: 'Mercredi 15 juillet',
+  //     date: '15/07/2022',
   //     heure: '16h-17h',
   //     price: 150,
   //     prestataires: 'Beauty People',
   //     status: 'En cours',
   //   },
   //   {
-  //     date: 'Samedi 21 juillet',
+  //     date: '21/07/2022',
   //     heure: '16h-17h',
   //     price: 150,
   //     prestataires: 'Deblok Serrurier',
   //     status: 'En cours',
   //   },
   //   {
-  //     date: 'Lundi 26 août',
+  //     date: '26/08/2022',
   //     heure: '16h-17h',
   //     price: 150,
   //     prestataires: "Koif'Tif",
   //     status: 'En cours',
   //   },
   //   {
-  //     date: 'Vendredi 3 septembre',
+  //     date: '03/09/2022',
   //     heure: '16h-17h',
   //     price: 150,
   //     prestataires: 'Estheticienne Beauté',
@@ -104,16 +104,16 @@ router.post("/sign-up", async function (req, res, next) {
   //   }
   // ]
 
+  // var newReservation = []
   // for(let i=0; i<fakeTableau.length; i++){
-  //   var newReservation = {
+  //   newReservation.push( {
   //                     date: fakeTableau[i].date,
   //                     heure: fakeTableau[i].heure,
   //                     price: fakeTableau[i].price,
   //                     prestataires: fakeTableau[i].prestataires,
   //                     status: fakeTableau[i].status,
-  //   };
+  //   });
   // }
-
 
   hash = bcrypt.hashSync(req.body.password, 10);
 
@@ -144,7 +144,7 @@ router.post("/sign-up", async function (req, res, next) {
       token: uid2(32),
       creditCard: req.body.creditCard,
       address: req.body.address ,
-      //reservations: newReservation,
+      reservations: newReservation,
       messages: req.body.messages ,
       conversations: req.body.conversations ,
       phoneNumber: req.body.phoneNumber ,
@@ -164,5 +164,28 @@ router.post("/sign-up", async function (req, res, next) {
   res.json({ result, saveUser, error });
 });
 
+// Route en POST pour ajouter une réservation à un utilisateur
+router.post("/add-reservation", async function (req, res, next) {
 
+  var result = false;
+  var error = "Problème lors de l'ajout de la réservation";
+
+  var user = await userModel.updateOne({ token: req.body.token }, {
+    $push: { reservations: req.body.reservation },
+  });
+
+  if (user) {
+    result = true;
+    error = "Réservation ajoutée";
+  } else {
+    result = false;
+  }
+  
+  res.json({ result, error });
+});
+
+
+    
+
+  
 module.exports = router;
