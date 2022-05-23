@@ -66,7 +66,7 @@ function EditProfil(props) {
           <Overlay isVisible={visible} onBackdropPress={toggleOverlay} overlayStyle={{borderRadius:20}}>
               <View style={{display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center', padding:20}}>
                 <View style={{display:'flex', flexDirection:'row', marginVertical:20}}>
-                  <Text style={{fontSize:'17'}}>Modification du numéro de téléphone</Text>
+                  <Text style={{fontSize:17}}>Modification du numéro de téléphone</Text>
                 </View>
                 <View>
                   <TextInput 
@@ -76,8 +76,8 @@ function EditProfil(props) {
                 </View>
 
                 <View style={{display:'flex', flexDirection:'row', justifyContent:'space-around', marginTop:20}}>
-                  <Button onPress={() => modifyPhoneNumber(phoneNumber)} title='Valider' buttonStyle={{width:90, marginHorizontal: 10, backgroundColor:'#7241DB', borderRadius:20}} />
                   <Button onPress={toggleOverlay} title='Annuler' buttonStyle={{width:90, marginHorizontal: 10, backgroundColor:'#3DA787', borderRadius:20}} />
+                  <Button onPress={() => modifyPhoneNumber(phoneNumber)} title='Valider' buttonStyle={{width:90, marginHorizontal: 10, backgroundColor:'#7241DB', borderRadius:20}} />
                 </View>
 
               </View>
