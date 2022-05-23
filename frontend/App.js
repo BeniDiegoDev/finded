@@ -87,12 +87,12 @@ function ReservationStackScreen() {
   return (
     <ReservationStack.Navigator screenOptions={{ headerShown: false }}>
       <ReservationStack.Screen name="Reservation" component={Reservation} />
-      <ReservationStack.Screen name='SignIn' component={Signin} />
-      <ReservationStack.Screen name='SignUp' component={Signup} />
       <ReservationStack.Screen name="Prestataire" component={Prestataire} />
       <ReservationStack.Screen name="DatePicker" component={DatePicker} />
       <ReservationStack.Screen name="DetailResa" component={DetailResa} />
       <ReservationStack.Screen name="Paiement" component={Paiement} />
+      <ReservationStack.Screen name='SignIn' component={Signin} />
+      <ReservationStack.Screen name='SignUp' component={Signup} />
     </ReservationStack.Navigator>
   );
 }

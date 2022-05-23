@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, ScrollView, Image, Text, TouchableWithoutFeedback } from 'react-native';
 
 // Import de la barre de recherche
-import { SearchBar, Card } from '@rneui/themed';
-import { Button } from '@rneui/base'
+import { SearchBar } from '@rneui/themed';
 
 // Import des icones
 import { Ionicons } from '@expo/vector-icons';
@@ -18,7 +17,7 @@ import { connect } from 'react-redux'
 import Listing from '../components/Listing'
 
 // Config IP pour connexion avec le backend
-const ip = "192.168.10.128"
+const ip = "192.168.1.14"
 
 // Debut de la fonction Home qui gere toute la page HOME
 function Home(props) {

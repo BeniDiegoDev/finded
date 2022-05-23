@@ -14,7 +14,7 @@ import Listing from '../../components/Listing'
 import { connect } from 'react-redux'
 
 // Config IP pour connexion avec le backend
-const ip = "192.168.10.128"
+const ip = "192.168.1.14"
 
 
 
