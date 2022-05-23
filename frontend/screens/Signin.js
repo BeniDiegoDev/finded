@@ -7,7 +7,11 @@ import { Button } from "@rneui/base";
 
 import { connect } from "react-redux";
 
+<<<<<<< HEAD
 const ip = '192.168.10.175'
+=======
+const ip = '192.168.10.124'
+>>>>>>> 31f2b7a8536c93d3ca1c0db6cff26ac1643f8d81
 
 function Signin(props) {
   const [userEmail, setUserEmail] = useState("");

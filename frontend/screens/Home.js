@@ -84,7 +84,9 @@ function Home(props) {
         return;
       }
 
-      let location = await Location.getCurrentPositionAsync({});
+      let location = await Location.getCurrentPositionAsync({
+        enableHighAccuracy: true,
+      });
 
       props.addLocation(location.coords)
 

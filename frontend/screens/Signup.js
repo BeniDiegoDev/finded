@@ -17,7 +17,7 @@ function Signup(props) {
   const [phoneNumber, setPhoneNumber] = useState("");
 
   let addUser = async (firstName,lastName,userEmail,password,confirmPassword,phoneNumber) => {
-    if (firstName &&lastName &&userEmail &&password &&confirmPassword &&phoneNumber) {
+    if (firstName && lastName && userEmail && password && confirmPassword && phoneNumber) {
       if (userEmail.includes("@") && userEmail.includes(".")) {
         if (phoneNumber.length === 10) {
           if (password.length >= 8) {

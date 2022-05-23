@@ -19,6 +19,8 @@ import { Picker } from "@react-native-picker/picker";
 // Import components
 import Listing from '../components/Listing'
 
+var haversine = require("haversine-distance");
+
 function Map(props) {
 
     const [viewCard, setViewCard] = useState(false)
@@ -29,34 +31,43 @@ function Map(props) {
 
     let valueRad = value/1000
 
+    // User geoloc
+    var point1 = { lat: props.locaTion.latitude, lng: props.locaTion.longitude }
+    
+    // Point a filtrer
+    var point2
+
+    var resultMarkerRad = []
+    
+    //Second point in your haversine calculation
+    for (let i=0; i<props.preStataires.length; i++){
+        point2 = { lat: props.preStataires[i].lat, lng: props.preStataires[i].lon }
+
+        var haversine_m = haversine(point1, point2); //Results in meters (default)
+        var haversine_km = haversine_m / 1000; //Results in kilometers
+
+        if(haversine_km < valueRad){
+            resultMarkerRad.push(props.preStataires[i].name)
+        }
+
+    }
+    
     let listingFilter = props.preStataires.filter(elem => elem.name == prestaName)
 
-    let filterList = props.preStataires.filter(elem => elem.categoryName == categorie || "" == categorie )
-
-    console.log(categorie)
-
-    // Affichage grace au resultat du filtre
+    let filterList = props.preStataires.filter(elem => ( elem.categoryName == categorie || "" == categorie ) && resultMarkerRad.includes(elem.name))
+    
     let listing = listingFilter.map((element, i) => {
         return (
             <Listing key={i} id={props.id} navigation={props.navigation} name={element.name} number={element.number} images={element.images} address={element.address} zipcode={element.zipcode} city={element.city} note={element.note} nbeval={element.nbeval} />
-        )
+            )
     })
 
     function onTouchMarker(name) {
         setPrestaName(name)
-        setViewCard(!viewCard)
+        setViewCard(true)
+        setViewFilter(true)
     }
-
-    // const updateSearch = (search) => {
-    //     setSearch(search);
-    //     if (search == "") {
-    //       setViewSearch(false)
-    //     } else {
-    //       setViewSearch(true)
-    //     }
-    //   };
-
-
+    
     return (
         <View style={styles.container}>
 
@@ -76,8 +87,8 @@ function Map(props) {
                     }}
                     radius={value}
                     strokeWidth={3}
-                    strokeColor="rgba(61,167,135,0.70)"
-                    fillColor="rgba(61,167,135,0.2)"
+                    strokeColor="rgba(61,167,135,0.3)"
+                    fillColor="rgba(61,167,135,0.15)"
                 />
 
                 <Marker coordinate={{ latitude: props.locaTion.latitude, longitude: props.locaTion.longitude }} title="Vous êtes ici" >
@@ -97,13 +108,13 @@ function Map(props) {
 
             {viewFilter ?
                 <TouchableWithoutFeedback onPress={() => { setViewCard(false), setViewFilter(false) }} >
-                    <View style={{ position: 'absolute', alignItems: 'center', justifyContent: 'center', top: '14%', right: 20, backgroundColor: 'white', width: 50, height: 50, borderRadius: 10, borderWidth: 2 }}>
+                    <View style={{ position: 'absolute', alignItems: 'center', justifyContent: 'center', top: 100, right: 20, backgroundColor: 'white', width: 50, height: 50, borderRadius: 10,  shadowColor:'black', shadowOffset:{width:0, height:4}, shadowOpacity:0.32, shadowRadius:5.46, elevation:5 }}>
                         <Ionicons name="ellipsis-horizontal-outline" size={32} color='#3DA787' />
                     </View>
                 </TouchableWithoutFeedback>
                 :
-                <View style={{ position: 'absolute', alignItems: "center", justifyContent: 'space-between', top: '14%', right: 20, backgroundColor: 'white', width: 300, height: 370, borderRadius: 10, borderWidth: 2 }}>
-                    <View style={{ width: '100%', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginTop: 5, paddingLeft: 10, paddingRight: 5 }}>
+                <View style={{ position: 'absolute', alignItems: "center", justifyContent: 'space-between', top: 100, right: 20, backgroundColor: 'white', width: 300, height: 370, borderRadius: 10,  shadowColor:'black', shadowOffset:{width:0, height:4}, shadowOpacity:0.32, shadowRadius:5.46, elevation:5 }}>
+                    <View style={{ width: '100%', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginTop: 5, paddingLeft: 15, paddingRight: 5 }}>
                         <Text style={{ fontSize: 17}}>Filtrer autour de vous :</Text>
                         <TouchableWithoutFeedback onPress={() => { setViewFilter(true) }} >
                             <Ionicons name='close-outline' size={32} color='#3DA787' />
@@ -113,7 +124,7 @@ function Map(props) {
                         <Slider
                             value={value}
                             onValueChange={setValue}
-                            maximumValue={30000}
+                            maximumValue={20000}
                             minimumValue={500}
                             step={500}
                             minimumTrackTintColor='#7241DB'
@@ -150,7 +161,12 @@ function Map(props) {
             }
 
             {viewCard ?
-                <View style={{ position: 'absolute', bottom: 0, paddingLeft: 10, paddingBottom: 10, paddingTop: 10 }} >
+                <View style={{ position: 'absolute', bottom: 10, alignItems: 'flex-end' }} >
+                    <TouchableWithoutFeedback onPress={() => { setViewCard(false) }} >
+                        <View style={{ backgroundColor: 'white', width: 35, height: 35, borderRadius: 50, justifyContent: 'center', alignItems: 'center', marginRight: 15, marginBottom: 5 }}>
+                            <Ionicons name='close-outline' size={32} color='#7241DB' />
+                        </View>
+                    </TouchableWithoutFeedback>
                     {listing}
                 </View>
                 :
