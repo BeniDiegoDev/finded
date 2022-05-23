@@ -360,9 +360,15 @@ router.post('/add-reservation', async function (req, res, next) {
               prix: req.body.prix,
               name: req.body.name,
               status: "En cours",
+              prestations: req.body.listPresta,
           }
       searchUser.reservations.push(reservation)
       let saveUser = await searchUser.save()
+      var searchPrestataire = await prestatairesModel.findOne({name: token})
+
+
+
+
       res.send('true')
     }else{
       res.send('false')
