@@ -40,6 +40,11 @@ function Map(props) {
         )
     })
 
+    function onTouchMarker(name) {
+        setPrestaName(name)
+        setViewCard(!viewCard)
+    }
+
     // const updateSearch = (search) => {
     //     setSearch(search);
     //     if (search == "") {
@@ -53,10 +58,6 @@ function Map(props) {
     return (
         <View style={styles.container}>
 
-            <View style={{ paddingLeft: 10, paddingBottom: 10, paddingTop: 10 }}>
-                <Text style={{ paddingRight: 15, fontSize: 30 }}><Ionicons onPress={() => { props.navigation.goBack() }} name='chevron-back' size={30} color='black' /> Autour de moi</Text>
-            </View>
-
             <MapView style={styles.map}
                 initialRegion={{
                     latitude: props.locaTion.latitude,  // pour centrer la carte
@@ -65,7 +66,6 @@ function Map(props) {
                     longitudeDelta: 0.0421,
                 }}
                 zoomEnabled={true}
-                onPress={() => {setViewCard(false), setPrestaName("")}}
             >
                 <Marker coordinate={{ latitude: props.locaTion.latitude, longitude: props.locaTion.longitude }} title="Vous êtes ici" >
                     <Ionicons name='location' size={32} color='#7241DB' />
@@ -73,7 +73,7 @@ function Map(props) {
 
                 {filterList.map((element, i) => {
                     return (
-                        <Marker key={i} coordinate={{ latitude: element.lat, longitude: element.lon }} title={element.name} onPress={() => {setPrestaName(element.name), setViewCard(true)}}>                      
+                        <Marker key={i} coordinate={{ latitude: element.lat, longitude: element.lon }} title={element.name} onPress={() => onTouchMarker(element.name) }>                      
                             <Ionicons name='location' size={32} color='#3DA787' />
                         </Marker>
                     )
@@ -89,7 +89,7 @@ function Map(props) {
                     </View>
                 </TouchableWithoutFeedback>
                 :
-                <View style={{ position: 'absolute', alignItems: "center", justifyContent: 'space-between', top: '14%', right: 20, backgroundColor: 'white', width: 300, height: 250, borderRadius: 10, borderWidth: 2 }}>
+                <View style={{ position: 'absolute', alignItems: "center", justifyContent: 'space-between', top: '14%', right: 20, backgroundColor: 'white', width: 300, height: 370, borderRadius: 10, borderWidth: 2 }}>
                     <View style={{ width: '100%', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginTop: 5, paddingLeft: 10, paddingRight: 5 }}>
                         <Text style={{ fontSize: 17}}>Filtrer autour de vous :</Text>
                         <TouchableWithoutFeedback onPress={() => { setViewFilter(true) }} >

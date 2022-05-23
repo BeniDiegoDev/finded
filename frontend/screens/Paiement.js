@@ -43,7 +43,7 @@ function Paiement(props) {
                     <Button  buttonStyle={{ backgroundColor: '#7241DB'}} radius="20" onPress={() => {toggleOverlay() }}>Payer</Button>
                     </View>
                 </View>
-                <Overlay overlayStyle={[{backgroundColor: 'white', height:'30%', borderRadius:'20%', width:'70%'}]} isVisible={visible} onBackdropPress={() => props.navigation.navigate('Home')}>
+                <Overlay overlayStyle={[{backgroundColor: 'white', height:'30%', borderRadius:20 , width:'70%'}]} isVisible={visible} onBackdropPress={() => props.navigation.navigate('Home')}>
                     
                     <View style={{alignItems:'center', justifyContent:'space-between'}}>
 
@@ -52,7 +52,7 @@ function Paiement(props) {
                             Votre réservation a été validée.
                         </Text>
                         
-                        <LottieView style={{width:'30%'}} source={require('../assets/confirmation.json')} autoPlay='true' loop='false' />
+                        <LottieView style={{width:'30%'}} source={require('../assets/confirmation.json')} autoPlay='true' />
                         <View style={{margin:20, flexDirection:'row'}}>
                         <Button
                         buttonStyle={{marginRight:20}}

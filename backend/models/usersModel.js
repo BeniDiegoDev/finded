@@ -13,10 +13,10 @@ const creditSchema = mongoose.Schema({
   CVV: String,
 });
 const reservSchema = mongoose.Schema({
-  date: Date,
+  date: String,
   price: Number,
-  prestataires: { type: mongoose.Schema.Types.ObjectId, ref: "prestataires" },
-
+  prestataires: String,
+  status: String,
 });
 const messagesSchema = mongoose.Schema({
   date: Date,
@@ -30,25 +30,10 @@ const conversSchema = mongoose.Schema({
 const userSchema = new mongoose.Schema({
   token: String,
   accountType: String,
-  firstName: {
-    type: String,
-    required: true,
-  },
-  lastName: {
-    type: String,
-    required: true,
-  },
-  email: {
-    type: String,
-    unique: true,
-    required: true,
-  },
-  
-  password: {
-    type: String,
-    minLength: 8,
-    required: true,
-  },
+  firstName: String,
+  lastName: String,
+  email: String,
+  password: String,
 
   creditCard: {
     type: String,
@@ -61,12 +46,7 @@ const userSchema = new mongoose.Schema({
   reservations: reservSchema,
   // messages: messagesSchema,
   // conversations: conversSchema,
-  phoneNumber: {
-    type: String,
-    required: false,
-    minLength: 10,
-    unique: true,
-  },
+  phoneNumber: String,
   profilePicture: String,
   note: String,
 });

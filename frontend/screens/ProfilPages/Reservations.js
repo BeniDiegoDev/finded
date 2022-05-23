@@ -516,16 +516,7 @@ const ThirdRoute = (props) => {
  
 
 function Reservations(props) {
-  const [isLogged, setIsLogged] = useState(false);
-  
-
-  useEffect(() => {
-    if (props.user.token) {
-      setIsLogged(true);
-    } else {
-      setIsLogged(false);
-    }
-  }, [props.user.token]);
+ 
 
   const renderScene = ({ route }) => {
     switch (route.key) {
@@ -561,7 +552,7 @@ function Reservations(props) {
   );
 
 
-  if (isLogged === true) {
+  if (props.user.token) {
 
   return (
     

@@ -69,7 +69,8 @@ const SearchStack = createStackNavigator();
 function SearchStackStackScreen() {
   return (
     <SearchStack.Navigator screenOptions={{ headerShown: false }}>
-      <SearchStack.Screen name="Search" component={Search} />
+      <SearchStack.Screen name="Map" component={Map} />
+      <SearchStack.Screen name="Prestataire" component={Prestataire} />
     </SearchStack.Navigator>
   );
 }
@@ -80,6 +81,8 @@ function ReservationStackScreen() {
   return (
     <ReservationStack.Navigator screenOptions={{ headerShown: false }}>
       <ReservationStack.Screen name="Reservation" component={Reservation} />
+      <ReservationStack.Screen name='SignIn' component={Signin} />
+      <ReservationStack.Screen name='SignUp' component={Signup} />
     </ReservationStack.Navigator>
   );
 }
@@ -118,23 +121,6 @@ function ProfilStackScreen() {
   );
 }
 
-const SignupStack = createStackNavigator();
-function SignupStackScreen() {
-  return(
-    <SignupStack.Navigator screenOptions={{ headerShown: false }}>
-      <SignupStack.Screen name="Signup" component={Signup} />
-    </SignupStack.Navigator>
-  )
-}
-const SigninStack = createStackNavigator();
-function SigninStackScreen() {
-  return(
-    <SigninStack.Navigator screenOptions={{ headerShown: false }}>
-      <SigninStack.Screen name="Signin" component={Signin} />
-    </SigninStack.Navigator>
-  )
-}
-
 const Tab = createBottomTabNavigator();
 
 export default function App() {
@@ -150,7 +136,7 @@ export default function App() {
               } else if (route.name === 'Reservation') {
                 iconName = 'calendar'
               } else if (route.name === 'Search') {
-                iconName = 'md-search'
+                iconName = 'map'
               } else if (route.name === 'Profil') {
                 iconName = 'person'
               }
@@ -166,10 +152,10 @@ export default function App() {
             showLabel: false,
           }}
         >
-          <Tab.Screen name="Home" component={HomeStackScreen} />
-          <Tab.Screen name="Search" component={SearchStackStackScreen} />
-          <Tab.Screen name="Reservation" component={ReservationStackScreen} />
-          <Tab.Screen name="Profil" component={ProfilStackScreen} />
+          <Tab.Screen name="Home" component={HomeStackScreen} options={{unmountOnBlur: true}}/>
+          <Tab.Screen name="Search" component={SearchStackStackScreen} options={{unmountOnBlur: true}} />
+          <Tab.Screen name="Reservation" component={ReservationStackScreen} options={{unmountOnBlur: true}} />
+          <Tab.Screen name="Profil" component={ProfilStackScreen} options={{unmountOnBlur: true}} />
         </Tab.Navigator>
       </NavigationContainer>
     </Provider>
