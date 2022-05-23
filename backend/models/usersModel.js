@@ -12,11 +12,12 @@ const creditSchema = mongoose.Schema({
   date: Date,
   CVV: String,
 });
-const reservSchema = mongoose.Schema({
-  date: Date,
-  price: String,
-  prestataires: { type: mongoose.Schema.Types.ObjectId, ref: "prestataires" },
-
+var reservSchema = mongoose.Schema({
+  date: String,
+  horaire: String,
+  prix: String,
+  name: String,
+  status: String,
 });
 const messagesSchema = mongoose.Schema({
   date: Date,

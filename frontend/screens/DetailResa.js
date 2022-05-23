@@ -52,6 +52,7 @@ function DetailResa(props) {
                 </View>
         )});
 
+
     return (
         <View style={{flex:1, backgroundColor:'white'}}>
             <View style={styles.header}>

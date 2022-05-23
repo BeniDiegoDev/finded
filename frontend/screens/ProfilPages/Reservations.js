@@ -597,7 +597,7 @@ function Reservations(props) {
             </View>
             <View style={{display:'flex', alignItems:'center'}}>
               <AntDesign name="calendar" size={150} color="#3DA787" />
-              <Text style={{color: '#7241DB', fontWeight: 'bold',fontStyle: 'italic',textAlign: 'center',fontSize: 20}}>Finded </Text>
+              <Text style={{color: '#7241DB', fontWeight: 'bold',fontStyle: 'italic',textAlign: 'center',fontSize: 20}}>Finded</Text>
               <Text style={{fontSize:20, marginVertical:20}}>Vos réservations apparaîtront ici</Text>
             </View>
         
