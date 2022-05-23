@@ -18,6 +18,7 @@ var reservSchema = mongoose.Schema({
   prix: String,
   name: String,
   status: String,
+  prestations: Array,
 });
 const messagesSchema = mongoose.Schema({
   date: Date,

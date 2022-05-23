@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import { View, useWindowDimensions, Text, StyleSheet, ScrollView, TouchableWithoutFeedback, TextInput, Image} from 'react-native';
 import { TabView, TabBar } from 'react-native-tab-view';
-import { Button, Overlay } from 'react-native-elements';
+import { Button, Overlay,Divider } from 'react-native-elements';
 import { Card } from '@rneui/themed';
 
 import { Ionicons } from '@expo/vector-icons';
@@ -16,7 +16,7 @@ import { connect } from 'react-redux'
 // Config IP pour connexion avec le backend
 const ip = "192.168.10.128"
 
-let meeting = []
+
 
 const FirstRoute = (props) => {
 
@@ -29,56 +29,74 @@ const FirstRoute = (props) => {
 
   let listEnCours = props.EnCours.map((item, i) => {
 
-    let listingFilter = props.prestataires.filter(elem => elem.name === item.prestataires)
-
-
-    return(
-
+    let listingFilter = props.prestataires.filter(elem => elem.name === item.name)
     
-          <View key={i} style={{display:'flex', flexDirection:'column', paddingVertical:20, borderBottomWidth:0.2, borderColor:'grey'}}>
+    var listPresta = item.prestations.map((prestation, index) => {
+      return(
+          <View key={index}>
+                  <View style={{flexDirection:'row', justifyContent:'space-between', marginVertical:5}}>
+                    <View>
+                        <Text>{prestation.name}</Text>
+                    </View>
+                      <View style={{flexDirection:'row', alignItems:'center'}}>
+                        <Text>{prestation.prix}€</Text>
+                      </View>
+                  </View>
+              </View>
+      )});
+
+    if(listingFilter.length != 0){
+      return(
+
+          <View key={i} style={{flexDirection:'column', marginBottom:20}}>
             
-              <View style={{display:'flex', flexDirection:'row', justifyContent:'space-between'}}>
-                <View style={{display:'flex', flexDirection:'row'}}>
-                  <Text style={[styles.infos, {marginHorizontal:5}]}>{item.date}</Text>
-                  <Text style={[styles.infos, {marginHorizontal:5}]}>{item.heure}</Text>
+              <View style={{flexDirection:'row', justifyContent:'space-between'}}>
+                <View style={{flexDirection:'row', margin:15}}>
+                  <Text style={{fontSize:17, fontWeight:'bold'}}>{item.date} à</Text>
+                  <Text style={{fontSize:17, fontWeight:'bold'}}> {item.horaire}</Text>
                 </View>
-                <View>
-                  <Text style={styles.infos}>{item.price} €</Text>
+                <View style={{margin:15}}>
+                  <Text style={{fontSize:17, fontWeight:'bold'}}>{item.prix} €</Text>
                 </View>
               </View>
-            
-            
-
-              <View style={{marginTop:20}}>
+          
+              <View>
                 <Listing navigation={props.navigation} name={listingFilter[0].name} images={listingFilter[0].images} address={listingFilter[0].address} zipcode={listingFilter[0].zipcode} city={listingFilter[0].city} note={listingFilter[0].note} nbeval={listingFilter[0].nbeval} />
               </View>
 
-              <View>
-                <Text style={styles.infos}>Prestation 1</Text>
-                <Text style={styles.infos}>Prestation 2</Text>
+              <View style={{margin:15}}>
+                {listPresta}
               </View>
 
 
             <Overlay isVisible={visible} onBackdropPress={toggleOverlay} overlayStyle={{borderRadius:20}}>
-              <View style={{display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center', padding:20}}>
+              <View style={{flexDirection:'column', alignItems:'center', justifyContent:'center', padding:20}}>
                 <Text style={{fontSize:17}}>Annuler le rendez-vous</Text>
 
-                <View style={{display:'flex', flexDirection:'row', justifyContent:'space-around', marginTop:20}}>
+                <View style={{flexDirection:'row', justifyContent:'space-around', marginTop:20}}>
                   <Button title='Oui' buttonStyle={{width:90, marginHorizontal: 10, backgroundColor:'#7241DB', borderRadius:20}}/>
                   <Button onPress={toggleOverlay} title='Non' buttonStyle={{width:90, marginHorizontal: 10, backgroundColor:'#3DA787', borderRadius:20}} />
                 </View>
 
               </View>
             </Overlay>
-
+            <Divider/>
           </View>
           
-
     )
+    } else {
+
+      return(
+
+        <View>
+          <Text>Pas de réservation</Text>
+        </View>
+         ) 
+    }
   })
 
   return(
-        <View style={{ flex: 1, paddingHorizontal:20}}>
+        <View>
           <ScrollView showsVerticalScrollIndicator={false}>
             {listEnCours}
           </ScrollView>
@@ -96,53 +114,74 @@ const SecondRoute = (props) => {
 
   let listTerminees = props.Terminees.map((item, i) => {
 
-    let listingFilter = props.prestataires.filter(elem => elem.name === item.prestataires)
-
-    return(
-
+    let listingFilter = props.prestataires.filter(elem => elem.name === item.name)
     
-          <View key={i} style={{display:'flex', flexDirection:'column', paddingVertical:20, borderBottomWidth:0.2, borderColor:'grey'}}>
+    var listPresta = item.prestations.map((prestation, index) => {
+      return(
+          <View key={index}>
+                  <View style={{flexDirection:'row', justifyContent:'space-between', marginVertical:5}}>
+                    <View>
+                        <Text>{prestation.name}</Text>
+                    </View>
+                      <View style={{flexDirection:'row', alignItems:'center'}}>
+                        <Text>{prestation.prix}€</Text>
+                      </View>
+                  </View>
+              </View>
+      )});
+
+    if(listingFilter.length != 0){
+      return(
+
+          <View key={i} style={{flexDirection:'column', marginBottom:20}}>
             
-              <View style={{display:'flex', flexDirection:'row', justifyContent:'space-between'}}>
-                <View style={{display:'flex', flexDirection:'row'}}>
-                  <Text style={[styles.infos, {marginHorizontal:5}]}>{item.date}</Text>
-                  <Text style={[styles.infos, {marginHorizontal:5}]}>{item.heure}</Text>
+              <View style={{flexDirection:'row', justifyContent:'space-between'}}>
+                <View style={{flexDirection:'row', margin:15}}>
+                  <Text style={{fontSize:17, fontWeight:'bold'}}>{item.date} à</Text>
+                  <Text style={{fontSize:17, fontWeight:'bold'}}> {item.horaire}</Text>
                 </View>
-                <View>
-                  <Text style={styles.infos}>{item.price} €</Text>
+                <View style={{margin:15}}>
+                  <Text style={{fontSize:17, fontWeight:'bold'}}>{item.prix} €</Text>
                 </View>
               </View>
-            
-              <View style={{marginTop:20}}>
+          
+              <View>
                 <Listing navigation={props.navigation} name={listingFilter[0].name} images={listingFilter[0].images} address={listingFilter[0].address} zipcode={listingFilter[0].zipcode} city={listingFilter[0].city} note={listingFilter[0].note} nbeval={listingFilter[0].nbeval} />
               </View>
 
-              <View>
-                <Text style={styles.infos}>Prestation 1</Text>
-                <Text style={styles.infos}>Prestation 2</Text>
+              <View style={{margin:15}}>
+                {listPresta}
               </View>
 
-
             <Overlay isVisible={visible} onBackdropPress={toggleOverlay} overlayStyle={{borderRadius:20}}>
-              <View style={{display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center', padding:20}}>
+              <View style={{flexDirection:'column', alignItems:'center', justifyContent:'center', padding:20}}>
                 <Text style={{fontSize:17}}>Annuler le rendez-vous</Text>
 
-                <View style={{display:'flex', flexDirection:'row', justifyContent:'space-around', marginTop:20}}>
+                <View style={{flexDirection:'row', justifyContent:'space-around', marginTop:20}}>
                   <Button title='Oui' buttonStyle={{width:90, marginHorizontal: 10, backgroundColor:'#7241DB', borderRadius:20}}/>
                   <Button onPress={toggleOverlay} title='Non' buttonStyle={{width:90, marginHorizontal: 10, backgroundColor:'#3DA787', borderRadius:20}} />
                 </View>
 
               </View>
             </Overlay>
-
+            <Divider/>
           </View>
           
 
     )
+    } else {
+        
+        return(
+  
+          <View>
+          <Text>Pas de réservation</Text>
+        </View>
+          ) 
+      }
   })
 
   return(
-        <View style={{ flex: 1, paddingHorizontal:20}}>
+        <View>
           <ScrollView showsVerticalScrollIndicator={false}>
             {listTerminees}
           </ScrollView>
@@ -155,37 +194,60 @@ const ThirdRoute = (props) => {
 
   let listAnnulees = props.Annulees.map((item, index) => {
 
-    let listingFilter = props.prestataires.filter(elem => elem.name === item.prestataires)
+    let listingFilter = props.prestataires.filter(elem => elem.name === item.name)
+    
+    var listPresta = item.prestations.map((prestation, index) => {
+      return(
+          <View key={index}>
+                  <View style={{flexDirection:'row', justifyContent:'space-between', marginVertical:5}}>
+                    <View>
+                        <Text>{prestation.name}</Text>
+                    </View>
+                      <View style={{flexDirection:'row', alignItems:'center'}}>
+                        <Text>{prestation.prix}€</Text>
+                      </View>
+                  </View>
+              </View>
+      )});
 
-    return(
-      <View key={index} style={{display:'flex', flexDirection:'column', paddingVertical:20, borderBottomWidth:0.2, borderColor:'grey'}}>
+    if(listingFilter.length != 0){
+      return(
+
+          <View key={i} style={{flexDirection:'column', marginBottom:20}}>
             
-              <View style={{display:'flex', flexDirection:'row', justifyContent:'space-between'}}>
-                <View style={{display:'flex', flexDirection:'row'}}>
-                  <Text style={[styles.infos, {marginHorizontal:5}]}>{item.date}</Text>
-                  <Text style={[styles.infos, {marginHorizontal:5}]}>{item.heure}</Text>
+              <View style={{flexDirection:'row', justifyContent:'space-between'}}>
+                <View style={{flexDirection:'row', margin:15}}>
+                  <Text style={{fontSize:17, fontWeight:'bold'}}>{item.date} à</Text>
+                  <Text style={{fontSize:17, fontWeight:'bold'}}> {item.horaire}</Text>
                 </View>
-                <View>
-                  <Text style={styles.infos}>{item.price} €</Text>
+                <View style={{margin:15}}>
+                  <Text style={{fontSize:17, fontWeight:'bold'}}>{item.prix} €</Text>
                 </View>
               </View>
-            
-              <View style={{marginTop:20}}>
+          
+              <View>
                 <Listing navigation={props.navigation} name={listingFilter[0].name} images={listingFilter[0].images} address={listingFilter[0].address} zipcode={listingFilter[0].zipcode} city={listingFilter[0].city} note={listingFilter[0].note} nbeval={listingFilter[0].nbeval} />
               </View>
 
-              <View>
-                <Text style={styles.infos}>Prestation 1</Text>
-                <Text style={styles.infos}>Prestation 2</Text>
+              <View style={{margin:15}}>
+                {listPresta}
               </View>
 
-      </View>
+            <Divider/>
+          </View>
     )
+    } else {
+      return(
+        <View>
+          <Text>Pas de réservation</Text>
+        </View>
+      )
+    }
   })
 
 
   return(
-        <View style={{ flex: 1, paddingHorizontal:20}}>
+        <View>
         <ScrollView showsVerticalScrollIndicator={false}>
           {listAnnulees}
         </ScrollView>
@@ -195,15 +257,16 @@ const ThirdRoute = (props) => {
 
 
 
-
-
 function Reservations(props) {
 
+  const [meeting, setMeeting] = useState([]);
+
   useEffect(() => {
+    console.log('tewt');
     async function loadData() {
       let reservations = await fetch(`http://${ip}:3000/users/get-reservations/${props.user.token}`)
       let responseResa = await reservations.json()
-      meeting = await responseResa.reservations
+      setMeeting(responseResa.reservations)
 
     }
     loadData()
@@ -250,7 +313,7 @@ function Reservations(props) {
   return (
     
       <View style={styles.container}>
-        <View style={{marginVertical:40, display:'flex', flexDirection:'row'}}>
+        <View style={{marginVertical:40, flexDirection:'row'}}>
             <Text style={{fontSize:30, paddingHorizontal:10}}><Ionicons onPress={() => { props.navigation.goBack()}} name="chevron-back" size={30} color="black"/> Mes réservations</Text>
         </View> 
         <TabView
@@ -268,18 +331,18 @@ function Reservations(props) {
   } else {
 
     return (
-      <View style={{paddingTop:40, flex:1, backgroundColor:'#fff', paddingHorizontal:20, display:'flex', flexDirection:'column', justifyContent:'space-between'}}>
+      <View style={{paddingTop:40, flex:1, backgroundColor:'#fff', display:'flex', flexDirection:'column', justifyContent:'space-between'}}>
        
             <View style={{marginVertical:10}}>
               <Text style={{fontSize:30}}>Réservations</Text>
             </View>
-            <View style={{display:'flex', alignItems:'center'}}>
+            <View style={{alignItems:'center'}}>
               <AntDesign name="calendar" size={150} color="#3DA787" />
               <Text style={{color: '#7241DB', fontWeight: 'bold',fontStyle: 'italic',textAlign: 'center',fontSize: 20}}>Finded</Text>
               <Text style={{fontSize:20, marginVertical:20}}>Vos réservations apparaîtront ici</Text>
             </View>
         
-        <View style={{display:'flex', alignItems:'center'}}>
+        <View style={{alignItems:'center'}}>
           <Text onPress={() => props.navigation.navigate('SignIn')} style={{marginBottom:20, color: '#7241DB', fontWeight:'bold', fontSize:15}}>S'identifier</Text>
           <Text onPress={() => props.navigation.navigate('SignUp')}style={{marginBottom:20, color: '#7241DB', fontWeight:'bold', fontSize:15}}>Créer un compte</Text>
         </View> 
@@ -294,7 +357,6 @@ const styles = StyleSheet.create({
       paddingTop:10,
       flex:1,
       backgroundColor:'#fff',
-      display:'flex',
       flexDirection:'column',
       justifyContent:'space-between'
   },

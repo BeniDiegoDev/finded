@@ -35,82 +35,7 @@ router.post("/sign-in", async function (req, res, next) {
 
 router.post("/sign-up", async function (req, res, next) {
 
-  // var fakeTableau = [
-  //   {
-  //     date: '15/04/2022',
-  //     heure: '10h-11h',
-  //     price: 50,
-  //     prestataires: 'CT Montparn',
-  //     status: 'Terminée',
-  //   },
-  //   {
-  //     date: '23/03/2022',
-  //     heure: '16h-17h',
-  //     price: 150,
-  //     prestataires: "Coif'Tignasse",
-  //     status: 'Terminée',
-  //   },
-  //   {
-  //     date: '28/05/2022',
-  //     heure: '16h-17h',
-  //     price: 150,
-  //     prestataires: 'Massage des Beauxjours',
-  //     status: 'Annulée',
-  //   },
-  //   {
-  //     date: '04/08/2022',
-  //     heure: '16h-17h',
-  //     price: 150,
-  //     prestataires: 'Serrurier du sentier',
-  //     status: 'Annulée',
-  //   },
-  //   {
-  //     date: '10/07/2022',
-  //     heure: '16h-17h',
-  //     price: 150,
-  //     prestataires: 'Baby Green',
-  //     status: 'En cours',
-  //   },
-  //   {
-  //     date: '15/07/2022',
-  //     heure: '16h-17h',
-  //     price: 150,
-  //     prestataires: 'Beauty People',
-  //     status: 'En cours',
-  //   },
-  //   {
-  //     date: '21/07/2022',
-  //     heure: '16h-17h',
-  //     price: 150,
-  //     prestataires: 'Deblok Serrurier',
-  //     status: 'En cours',
-  //   },
-  //   {
-  //     date: '26/08/2022',
-  //     heure: '16h-17h',
-  //     price: 150,
-  //     prestataires: "Koif'Tif",
-  //     status: 'En cours',
-  //   },
-  //   {
-  //     date: '03/09/2022',
-  //     heure: '16h-17h',
-  //     price: 150,
-  //     prestataires: 'Estheticienne Beauté',
-  //     status: 'En cours',
-  //   }
-  // ]
 
-  // var newReservation = []
-  // for(let i=0; i<fakeTableau.length; i++){
-  //   newReservation.push( {
-  //                     date: fakeTableau[i].date,
-  //                     heure: fakeTableau[i].heure,
-  //                     price: fakeTableau[i].price,
-  //                     prestataires: fakeTableau[i].prestataires,
-  //                     status: fakeTableau[i].status,
-  //   });
-  // }
 
   hash = bcrypt.hashSync(req.body.password, 10);
 
@@ -142,7 +67,7 @@ router.post("/sign-up", async function (req, res, next) {
       token: uid2(32),
       creditCard: req.body.creditCard,
       address: req.body.address ,
-      reservations: newReservation,
+      reservations: req.body.newReservation,
       messages: req.body.messages ,
       conversations: req.body.conversations ,
       phoneNumber: req.body.phoneNumber ,

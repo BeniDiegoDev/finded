@@ -15,7 +15,7 @@ import { Entypo } from '@expo/vector-icons';
 
 import LottieView from 'lottie-react-native';
 
-const ip = "192.168.10.175";
+const ip = "192.168.10.128";
 
 
 import { Divider, Tab } from 'react-native-elements';
@@ -29,17 +29,17 @@ function Paiement(props) {
 
     const [visible, setVisible] = useState(false);
 
-    var addResa = async (token, horaire, date, name, prix) => {
-      console.log(prix)
+    var addResa = async (token, horaire, date, name, prix, listPresta) => {
+      console.log(listPresta)
         let response = await fetch(`http://${ip}:3000/add-reservation`, {
             method: "POST",
             headers: { "Content-Type": "application/x-www-form-urlencoded" },
-            body: `token=${token}&date=${date}&name=${name}&prix=${prix}&horaire=${horaire}&listPresta=${props.listPrestations}`,
+            body: `token=${token}&date=${date}&name=${name}&prix=${prix}&horaire=${horaire}&listPresta=${JSON.stringify(listPresta)}`,
         });
         let responseJson = await response.json();
         console.log(responseJson)
         if (responseJson == true) {
-            setVisible(!visible); 
+          setVisible(!visible)
           }else{
           }
     };
@@ -48,6 +48,8 @@ function Paiement(props) {
     for(var i = 0; i < props.listPrestations.length; i++){
         sumPrix += props.listPrestations[i].prix;
     }
+
+
 
     return (
         <View style={{flex:1, backgroundColor:'white'}}>
@@ -58,7 +60,7 @@ function Paiement(props) {
             <View style={[styles.container2,{marginTop:'50%'}]}>
                 <View style={{ alignItems:'center', justifyContent:'center'}}>
                     <View style={{width:'50%'}}>
-                    <Button  buttonStyle={{ backgroundColor: '#7241DB'}} radius="20" onPress={() => {addResa(props.user.token, props.selectCreneau[1], props.selectCreneau[0],props.selectPresta, sumPrix)}}>Payer</Button>
+                    <Button  buttonStyle={{ backgroundColor: '#7241DB'}} radius="20" onPress={() => {addResa(props.user.token, props.selectCreneau[1], props.selectCreneau[0],props.selectPresta, sumPrix, props.listPrestations)}}>Payer</Button>
                     </View>
                 </View>
                 <Overlay overlayStyle={[{backgroundColor: 'white', height:'30%', borderRadius:20 , width:'70%'}]} isVisible={visible} onBackdropPress={() => props.navigation.navigate('Home')}>
@@ -81,7 +83,7 @@ function Paiement(props) {
                         <Button
                             radius="20"
                             title="Réservations"
-                            onPress={() => {props.navigation.navigate('Reservation'), toggleOverlay()}}
+                            onPress={() => {props.navigation.navigate('Reservation'), setVisible(!visible)}}
                         />
                         </View>
                         

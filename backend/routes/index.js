@@ -350,25 +350,21 @@ router.post('/importpresta', async function (req, res, next) {
 
 
 router.post('/add-reservation', async function (req, res, next) {
-
+  console.log(JSON.parse(req.body.listPresta))
   var token = req.body.token
   var searchUser = await userModel.findOne({token: token})
   if(searchUser){  
+    
       var reservation = {
               date: req.body.date,
               horaire: req.body.horaire,
               prix: req.body.prix,
               name: req.body.name,
               status: "En cours",
-              prestations: req.body.listPresta,
+              prestations: JSON.parse(req.body.listPresta),
           }
       searchUser.reservations.push(reservation)
       let saveUser = await searchUser.save()
-      var searchPrestataire = await prestatairesModel.findOne({name: token})
-
-
-
-
       res.send('true')
     }else{
       res.send('false')
