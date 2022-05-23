@@ -34,7 +34,7 @@ function Paiement(props) {
         let response = await fetch(`http://${ip}:3000/add-reservation`, {
             method: "POST",
             headers: { "Content-Type": "application/x-www-form-urlencoded" },
-            body: `token=${token}&date=${date}&name=${name}&prix=${prix}&horaire=${horaire}`,
+            body: `token=${token}&date=${date}&name=${name}&prix=${prix}&horaire=${horaire}&listPresta=${props.listPrestations}`,
         });
         let responseJson = await response.json();
         console.log(responseJson)
