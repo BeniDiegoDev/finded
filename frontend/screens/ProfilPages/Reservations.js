@@ -14,7 +14,8 @@ import Listing from '../../components/Listing'
 // Import de la connexion avec Redux
 import { connect } from 'react-redux'
 
-
+// Config IP pour connexion avec le backend
+const ip = "192.168.10.128"
 
 let meeting = [
   { type: 'Terminées', 
@@ -289,6 +290,7 @@ price: '35 €'
 },
 ]
 
+
 const FirstRoute = (props) => {
 
   const [visible, setVisible] = useState(false);
@@ -347,13 +349,13 @@ const FirstRoute = (props) => {
 
           
 
-            <Overlay isVisible={visible} onBackdropPress={toggleOverlay}>
+            <Overlay isVisible={visible} onBackdropPress={toggleOverlay} overlayStyle={{borderRadius:20}}>
               <View style={{display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center', padding:20}}>
                 <Text style={{fontSize:17}}>Annuler le rendez-vous</Text>
 
                 <View style={{display:'flex', flexDirection:'row', justifyContent:'space-around', marginTop:20}}>
-                  <Button title='Oui' buttonStyle={{width:90, marginHorizontal: 10, backgroundColor:'#7241DB'}}/>
-                  <Button onPress={toggleOverlay} title='Non' buttonStyle={{width:90, marginHorizontal: 10, backgroundColor:'#3DA787'}} />
+                  <Button title='Oui' buttonStyle={{width:90, marginHorizontal: 10, backgroundColor:'#7241DB', borderRadius:20}}/>
+                  <Button onPress={toggleOverlay} title='Non' buttonStyle={{width:90, marginHorizontal: 10, backgroundColor:'#3DA787', borderRadius:20}} />
                 </View>
 
               </View>
@@ -375,7 +377,6 @@ const FirstRoute = (props) => {
 );
 
 }
-
 
 const SecondRoute = (props) => {
 
@@ -422,7 +423,7 @@ const SecondRoute = (props) => {
               </Card>
             </View>
 
-            <Overlay isVisible={visible} onBackdropPress={toggleOverlay}>
+            <Overlay isVisible={visible} onBackdropPress={toggleOverlay} overlayStyle={{borderRadius:20}}>
               <View style={{display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center', padding:20}}>
                 <Text style={{fontSize:17}}>Noter la prestation</Text>
                 <View style={{display:'flex', flexDirection:'row', marginVertical:20}}>
@@ -441,7 +442,7 @@ const SecondRoute = (props) => {
                 </TextInput>
 
                 <View style={{display:'flex', flexDirection:'row', justifyContent:'space-around', marginTop:20}}>
-                  <Button onPress={toggleOverlay} title='Valider' buttonStyle={{width:90, marginHorizontal: 10, backgroundColor:'#3DA787'}} />
+                  <Button onPress={toggleOverlay} title='Valider' buttonStyle={{width:90, marginHorizontal: 10, backgroundColor:'#3DA787', borderRadius:20}} />
                 </View>
 
               </View>
@@ -513,10 +514,24 @@ const ThirdRoute = (props) => {
         </View>
   );
 }
- 
+
+// const [meeting, setMeeting] = useState([]);
 
 function Reservations(props) {
- 
+
+  useEffect(() => {
+    async function loadData() {
+      let reservations = await fetch(`http://${ip}:3000/users/get-reservations/${props.user.token}`)
+      let responseResa = await reservations.json()
+
+      console.log(responseResa);
+    
+
+    }
+    loadData()
+  }, []);
+  
+
 
   const renderScene = ({ route }) => {
     switch (route.key) {

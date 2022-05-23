@@ -7,7 +7,7 @@ import { Button } from "@rneui/base";
 
 import { connect } from "react-redux";
 
-const ip = '192.168.0.22'
+const ip = '192.168.10.128'
 
 function Signin(props) {
   const [userEmail, setUserEmail] = useState("");
@@ -41,14 +41,14 @@ function Signin(props) {
   return (
     <View style={styles.container}>
       <View
-        style={{ marginBottom: 40, display: "flex", flexDirection: "row", justifyContent: "center" }}
+        style={{ marginBottom: 40, display: "flex", flexDirection: "row", justifyContent: "center"}}
       >
         <Text style={{ fontSize: 30, marginTop: 40 }}>
           Bienvenue !
         </Text>
       </View>
-      <View style={{marginHorizontal:30, display:'flex', alignItems:'center' }}>
-              <Text style={{fontSize:16, marginBottom:60, textAlign:'center'}}>Connectez-vous pour réserver votre prochaine prestation.</Text>
+      <View style={{marginHorizontal:30, display:'flex', alignItems:'center', maxWidth: 300}}>
+              <Text style={{fontSize:17, marginBottom:60, textAlign:'center'}}>Connectez-vous pour réserver votre prochaine prestation.</Text>
       </View>
       <View
         style={{
@@ -75,7 +75,7 @@ function Signin(props) {
       <Button
         title="Continuer"
         type="solid"
-        buttonStyle={{ backgroundColor: "#7241DB", width: "100%"}}
+        buttonStyle={{ backgroundColor: "#7241DB", paddingHorizontal:60}}
         radius="20"
         onPress={() => {
           signIn(userEmail, password);
@@ -99,6 +99,8 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     flex: 1,
     paddingTop: 40,
+    display:'flex', 
+    alignItems:'center',
   },
   searchbar: {
     width: "100%",

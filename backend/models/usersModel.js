@@ -14,7 +14,7 @@ const creditSchema = mongoose.Schema({
 });
 const reservSchema = mongoose.Schema({
   date: Date,
-  price: Number,
+  price: String,
   prestataires: { type: mongoose.Schema.Types.ObjectId, ref: "prestataires" },
 
 });
@@ -36,7 +36,7 @@ const userSchema = new mongoose.Schema({
   password: String,
   address: addressSchema,
   creditCard: creditSchema,
-  reservations: reservSchema,
+  reservations: [reservSchema],
   messages: messagesSchema,
   conversations: conversSchema,
   phoneNumber: String,

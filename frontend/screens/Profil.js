@@ -66,7 +66,7 @@ function Profil(props) {
               <ListItem.Subtitle onPress={() => {props.navigation.navigate('EditProfil')}} style={{marginVertical:2, color:'grey'}} >Éditer mon profil</ListItem.Subtitle>
             </ListItem.Content>
           </ListItem>
-          <Divider style={{height:2}}/>
+         
   
       
           {categories.map((item, i) => (
@@ -118,9 +118,9 @@ function Profil(props) {
       flexDirection:'row',
     },
     listItem:{
-      height:80,
+      height:'12%',
       display:'flex',
-      backgroundColor:'rgba(114, 65, 219, 0.6)',
+      backgroundColor:'#7241DB',
       flexDirection:'row',
       borderRadius:10,
       alignItems:'center',
