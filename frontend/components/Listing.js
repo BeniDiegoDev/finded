@@ -19,10 +19,10 @@ function Listing(props) {
     return (
         <TouchableWithoutFeedback onPress={() => ( !props.disable && props.navigation.navigate('Prestataire'), props.selectPresta(props.name) )}>
             <Card id={props.id} navigation={props.navigation} name={props.name} number={props.number} images={props.images} address={props.address} zipcode={props.zipcode} city={props.city} note={props.note} nbeval={props.nbeval}
-                containerStyle={{ padding: 0, borderRadius: 10, marginTop: 0, marginBottom: 10 }}>
+                containerStyle={{ padding: 0, borderRadius: 20, marginTop: 0, marginBottom: 10 }}>
                 <View style={{ flexDirection: 'row' }} >
                     <Image
-                        style={{ borderTopLeftRadius: 10, borderBottomLeftRadius: 10, height: 120, width: 120 }}
+                        style={{ borderTopLeftRadius: 20, borderBottomLeftRadius: 20, height: 120, width: 120 }}
                         source={{ uri: props.images }}
                     />
                     <View style={{ marginLeft: 15, justifyContent: 'center', minWidth: '60%', maxWidth:'60%' }}>

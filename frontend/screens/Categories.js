@@ -75,7 +75,7 @@ function Categories(props) {
             containerStyle={{ backgroundColor: 'white', borderTopColor: 'white', borderBottomColor: 'white' }}
             leftIconContainerStyle={{ backgroundColor: 'white' }}
             inputStyle={{ backgroundColor: 'white' }}
-            inputContainerStyle={{ backgroundColor: 'white', borderWidth: 1, borderRadius: 10, borderBottomWidth: 1 }}
+            inputContainerStyle={{ backgroundColor: 'white', borderWidth: 1, borderRadius: 20, borderBottomWidth: 1 }}
           />
         </View>
 
@@ -102,7 +102,7 @@ function Categories(props) {
             containerStyle={{ backgroundColor: 'white', borderTopColor: 'white', borderBottomColor: 'white' }}
             leftIconContainerStyle={{ backgroundColor: 'white' }}
             inputStyle={{ backgroundColor: 'white' }}
-            inputContainerStyle={{ backgroundColor: 'white', borderWidth: 1, borderRadius: 10, borderBottomWidth: 1 }}
+            inputContainerStyle={{ backgroundColor: 'white', borderWidth: 1, borderRadius: 20, borderBottomWidth: 1 }}
           />
         </View>
 

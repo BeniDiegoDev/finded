@@ -52,9 +52,6 @@ function Home(props) {
   const [location, setLocation] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
 
-  const [currrentLatitude, setCurrentLatitude] = useState(0);
-  const [currentLongitude, setCurrentLongitude] = useState(0);
-
   // Affichage selon statut de la Geo Localisation
   let geoloc = 'Recherche...';
 
@@ -168,7 +165,7 @@ function Home(props) {
             containerStyle={{ backgroundColor: 'white', borderTopColor: 'white', borderBottomColor: 'white' }}
             leftIconContainerStyle={{ backgroundColor: 'white' }}
             inputStyle={{ backgroundColor: 'white' }}
-            inputContainerStyle={{ backgroundColor: 'white', borderWidth: 1, borderRadius: 10, borderBottomWidth: 1 }}
+            inputContainerStyle={{ backgroundColor: 'white', borderWidth: 1, borderRadius: 20, borderBottomWidth: 1 }}
           />
         </View>
 
@@ -209,7 +206,7 @@ function Home(props) {
             containerStyle={{ backgroundColor: 'white', borderTopColor: 'white', borderBottomColor: 'white' }}
             leftIconContainerStyle={{ backgroundColor: 'white' }}
             inputStyle={{ backgroundColor: 'white' }}
-            inputContainerStyle={{ backgroundColor: 'white', borderWidth: 1, borderRadius: 10, borderBottomWidth: 1 }}
+            inputContainerStyle={{ backgroundColor: 'white', borderWidth: 1, borderRadius: 20, borderBottomWidth: 1 }}
           />
         </View>
 
