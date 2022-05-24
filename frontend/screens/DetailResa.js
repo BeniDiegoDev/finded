@@ -52,6 +52,11 @@ function DetailResa(props) {
                 </View>
         )});
 
+        var sumPrix = 0;
+        for(var i = 0; i < props.listPrestations.length; i++){
+            sumPrix += props.listPrestations[i].prix;
+        }
+
 
     return (
         <View style={{flex:1, backgroundColor:'white'}}>
@@ -68,6 +73,10 @@ function DetailResa(props) {
                     Prestation(s) selectionnée(s)
                 </Text>
                 {listPresta}
+                <View style={styles.container}>
+                    <View></View>
+                    <Text style={[styles.Text,{marginRight:5,fontWeight:'bold'}]}>Total : {sumPrix}€</Text>
+                </View>
                 <Text style={[styles.title,{marginTop:10}]}>
                     Date
                 </Text>

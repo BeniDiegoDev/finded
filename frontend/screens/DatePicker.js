@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { StyleSheet, View, ScrollView, Image, Text, TouchableOpacity, StatusBar } from 'react-native';
 
 // Import de SafeAreaView pour ne pas etre gené par la barre haute par defaut du telephone
@@ -64,10 +64,13 @@ function DatePicker(props) {
     }
 
  
+    const scrollViewRef = useRef();
 
      useEffect(() => {
              setSlotSelected('')
              setState(-1)
+             var scrollBottom = () => scrollViewRef.current.scrollToEnd({ animated: true })
+             scrollBottom()
             }, [selectedStartDate]);
 
     let listingFilter = props.preStataires.filter(elem => elem.name === props.selectPresta)
@@ -86,12 +89,17 @@ function DatePicker(props) {
                 </View>
         )});
 
+        var sumPrix = 0;
+        for(var i = 0; i < props.listPrestations.length; i++){
+            sumPrix += props.listPrestations[i].prix;
+        }
+
     return (
         <View style={{flex:1, backgroundColor:'white'}}>
             <View style={styles.header}>
                 <Text style={{ paddingRight: 15, fontSize: 30 }}><Ionicons name='chevron-back' size={30} color='black' onPress={() => { props.navigation.goBack(null) }}/> Choix du créneau</Text>
             </View>
-            <ScrollView style={{ width: '100%' }} showsVerticalScrollIndicator={false} >
+            <ScrollView ref={scrollViewRef} onContentSizeChange={() => scrollViewRef.current.scrollToEnd({ animated: true })} style={{ width: '100%' }} showsVerticalScrollIndicator={false} >
             <View style={{marginTop:20}}>
                 <Listing disable='true'  name={listingFilter[0].name} images={listingFilter[0].images} address={listingFilter[0].address} zipcode={listingFilter[0].zipcode} city={listingFilter[0].city} note={listingFilter[0].note} nbeval={listingFilter[0].nbeval} />
             </View>
@@ -101,6 +109,10 @@ function DatePicker(props) {
                     Prestation(s) selectionnée(s)
                 </Text>
                 {listPresta}
+                <View style={styles.container}>
+                    <View></View>
+                    <Text style={[styles.Text,{marginRight:5,fontWeight:'bold'}]}>Total : {sumPrix}€</Text>
+                </View>
                 <Text style={[styles.title,{marginTop:10}]}>
                     Choisir une date
                 </Text>
