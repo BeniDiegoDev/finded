@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Text, TouchableWithoutFeedback, Dimensions } from 'react-native';
+import { StyleSheet, View, Text, TouchableWithoutFeedback, Dimensions, ScrollView } from 'react-native';
 
 // Import de la barre de recherche
-import { Slider } from '@rneui/themed';
+import { Slider, Switch } from '@rneui/themed';
 
 // Import des picker
 // import { Picker } from "@react-native-picker/picker";
@@ -32,7 +32,6 @@ function Map(props) {
     const [value, setValue] = useState(1500)
     const [categorie, setCategorie] = useState("")
 
-    const [valuePicker, setValuePicker] = useState(null)
     const [open, setOpen] = useState(false);
     const [items, setItems] = useState([
         { label: 'Catégorie', value: '' },
@@ -45,7 +44,9 @@ function Map(props) {
         { label: 'Maquillage', value: 'Maquillage' },
         { label: 'Serrurier', value: 'Serrurier' }
     ]);
-
+    
+    const [viewCircle, setViewCircle] = useState(true);
+    
     // Convertir la value en KM
     let valueRad = value / 1000
 
@@ -84,6 +85,12 @@ function Map(props) {
         )
     })
 
+    let listingSwipe = filterList.map((element, i) => {
+        return (
+            <Listing key={i} id={props.id} navigation={props.navigation} name={element.name} number={element.number} images={element.images} address={element.address} zipcode={element.zipcode} city={element.city} note={element.note} nbeval={element.nbeval} />
+        )
+    })
+
     function onTouchMarker(name) {
         setPrestaName(name)
         setViewCard(true)
@@ -106,12 +113,12 @@ function Map(props) {
                     initialRegion={{
                         latitude: props.locaTion.latitude,  // pour centrer la carte
                         longitude: props.locaTion.longitude,
-                        latitudeDelta: 0.0922,  // le rayon à afficher à partir du centre
-                        longitudeDelta: 0.0421,
+                        latitudeDelta: 0.02,  // le rayon à afficher à partir du centre
+                        longitudeDelta: 0.05,
                     }}
                     zoomEnabled={true}
                 >
-                    <Circle
+                    {viewCircle ? <Circle
                         center={{
                             latitude: props.locaTion.latitude,
                             longitude: props.locaTion.longitude,
@@ -121,6 +128,9 @@ function Map(props) {
                         strokeColor="rgba(61,167,135,0.3)"
                         fillColor="rgba(61,167,135,0.15)"
                     />
+                        :
+                        <></>
+                    }
 
                     <Marker coordinate={{ latitude: props.locaTion.latitude, longitude: props.locaTion.longitude }} title="Vous êtes ici" >
                         <Ionicons name='location' size={32} color='#7241DB' />
@@ -155,8 +165,24 @@ function Map(props) {
                     style={{ backgroundColor: 'white' }}
                     itemMini={() => (
                         <View style={{ alignItems: 'center' }}>
-                            <Ionicons name="chevron-up" size={24} color="black" />
-                            <Text style={{ fontSize: 17 }}>Filtrer autour de moi :</Text>
+                            <View style={{ width: '10%', alignItems: 'center', justifyContent: 'center' , height: 30, marginTop: 2}}>
+                                <Ionicons name="chevron-up" size={24} color="black" />
+                            </View>
+                            <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', width: '100%', paddingHorizontal: 15, marginTop: -20}}>
+                                <Text style={{ fontSize: 17 }}>Filtrer autour de moi :</Text>
+                                <View style={{ alignItems: 'center' }}>
+                                <Switch
+                                    value={viewCircle}
+                                    onValueChange={(value) => setViewCircle(value)}
+                                    color='#3DA787'
+                                />
+                                    {!viewCircle ?
+                                        <Text style={{ fontSize: 11, color: '#86939e' }}>VOIR LE RAYON QUI M'ENTOURE</Text>
+                                        :
+                                        <Text style={{ fontSize: 11, color: '#7241DB' }}>VOIR LE RAYON QUI M'ENTOURE</Text>
+                                    }
+                                </View>
+                            </View>
                             <View style={{ width: "90%" }}>
                                 <Slider
                                     value={value}
@@ -174,7 +200,7 @@ function Map(props) {
                                         ),
                                     }}
                                 />
-                                <Text style={{ textAlign: 'right', marginTop: 10 }}>Rechercher {valueRad} km autour de moi</Text>
+                                <Text style={{ textAlign: 'right' }}>Rechercher {valueRad} km autour de moi</Text>
                             </View>
                         </View>
                     )}
@@ -223,10 +249,13 @@ function Map(props) {
                                     }}
                                 />
                             </View>
-                            <Text style={{ fontSize: 17, marginBottom: 10, color: '#7241DB', zIndex: -1, position: 'relative', marginTop: 20 }} onPress={() => { setCategorie(""), setValue(1500) }} >Reinitialiser les filtres</Text>
+                            <ScrollView style={{ width: '100%', height : '57%', marginTop: 10 }} showsVerticalScrollIndicator={false} >
+                                {listingSwipe}
+                            </ScrollView >
+                            <Text style={{ fontSize: 17, marginBottom: 10, color: '#7241DB', zIndex: -1, position: 'relative', marginTop: 10 }} onPress={() => { setCategorie(""), setValue(1500) }} >Reinitialiser les filtres</Text>
                         </View>
                     )}
-                    disablePressToShow={false}
+                    disablePressToShow={true}
                     disableSwipeIcon={true}
                     extraMarginTop={Dimensions.get('window').height - Dimensions.get('window').height / 1.09}
                     swipeHeight={170}
