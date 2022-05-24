@@ -7,7 +7,7 @@ import { FontAwesome } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
 
 
-const ip = "192.168.10.128";
+const ip = "192.168.10.167";
 
 
 function EditProfil(props) {
