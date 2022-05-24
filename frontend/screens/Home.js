@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, ScrollView, Image, Text, TouchableWithoutFeedback } from 'react-native';
 
 // Import de la barre de recherche
-import { SearchBar, Card } from '@rneui/themed';
-import { Button } from '@rneui/base'
+import { SearchBar } from '@rneui/themed';
 
 // Import des icones
 import { Ionicons } from '@expo/vector-icons';
@@ -144,7 +143,7 @@ function Home(props) {
             fontWeight: 'bold',
             fontStyle: 'italic',
             textAlign: 'center',
-            fontSize: 20,
+            fontSize: 20
           }}>Finded</Text>
         </View>
 
@@ -185,7 +184,7 @@ function Home(props) {
             fontWeight: 'bold',
             fontStyle: 'italic',
             textAlign: 'center',
-            fontSize: 20,
+            fontSize: 20
           }}>Finded</Text>
         </View>
 
