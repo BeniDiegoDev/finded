@@ -15,7 +15,7 @@ import { Entypo } from '@expo/vector-icons';
 
 import LottieView from 'lottie-react-native';
 
-const ip = "192.168.1.14";
+const ip = "192.168.10.135";
 
 
 import { Divider, Tab } from 'react-native-elements';
@@ -63,7 +63,7 @@ function Paiement(props) {
                     <Button  buttonStyle={{ backgroundColor: '#7241DB'}} radius="20" onPress={() => {addResa(props.user.token, props.selectCreneau[1], props.selectCreneau[0],props.selectPresta, sumPrix, props.listPrestations)}}>Payer</Button>
                     </View>
                 </View>
-                <Overlay overlayStyle={[{backgroundColor: 'white', height:'30%', borderRadius:20 , width:'70%'}]} isVisible={visible} onBackdropPress={() => props.navigation.navigate('Home')}>
+                <Overlay overlayStyle={[{backgroundColor: 'white', height:'30%', borderRadius:20 , width:'70%'}]} isVisible={visible} onBackdropPress={() => props.navigation.navigate('Home', {screen : 'Home'})}>
                     
                     <View style={{alignItems:'center', justifyContent:'space-between'}}>
 
