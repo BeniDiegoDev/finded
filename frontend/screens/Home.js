@@ -143,7 +143,7 @@ function Home(props) {
             fontWeight: 'bold',
             fontStyle: 'italic',
             textAlign: 'center',
-            fontSize: 20,
+            fontSize: 20
           }}>Finded</Text>
         </View>
 
@@ -184,7 +184,7 @@ function Home(props) {
             fontWeight: 'bold',
             fontStyle: 'italic',
             textAlign: 'center',
-            fontSize: 20,
+            fontSize: 20
           }}>Finded</Text>
         </View>
 
