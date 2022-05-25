@@ -8,7 +8,7 @@ import { Button } from "@rneui/base";
 import { connect } from "react-redux";
 
 
-const ip = '192.168.10.149'
+const ip = '192.168.10.166'
 
 
 function Signin(props) {

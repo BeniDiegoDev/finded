@@ -40,7 +40,7 @@ function Map(props) {
         { label: 'Pédicure', value: 'Pédicure' },
         { label: 'Massage', value: 'Massage' },
         { label: 'Baby-Sitting', value: 'Baby-Sitting' },
-        { label: 'Peinture', value: 'Peinture' },
+        { label: 'Peintre', value: 'Peintre' },
         { label: 'Estheticienne', value: 'Estheticienne' },
         { label: 'Serrurier', value: 'Serrurier' }
     ]);

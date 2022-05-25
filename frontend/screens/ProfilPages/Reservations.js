@@ -14,7 +14,7 @@ import Listing from '../../components/Listing'
 import { connect } from 'react-redux'
 
 // Config IP pour connexion avec le backend
-const ip = "192.168.10.149"
+const ip = "192.168.10.166"
 
 
 const FirstRoute = (props) => {
@@ -22,14 +22,21 @@ const FirstRoute = (props) => {
 
 
   const [visible, setVisible] = useState(false);
-  let showDelete = () => {
+  const [cancelId, setCancelId] = useState('')
+
+  let showDelete = (item) => {
     setVisible(!visible)
+    if (visible) {
+      setCancelId(item)
+    } else { 
+      setCancelId('')
+    }
   }
+
+  // console.log(cancelId)
+  // console.log(visible)
   
   let listEnCours = props.EnCours.filter(e => e.status ==='En cours').map((elem, i) => {
-    
-    
-    
     
     let cancelReservation = async (id) => {
      
@@ -51,7 +58,7 @@ const FirstRoute = (props) => {
     var listPresta = elem.prestations.map((prestation, index) => {
       return(
           <View key={index}>
-                  <View style={{flexDirection:'row', justifyContent:'space-between', marginVertical:5}}>
+                  <View style={{flexDirection:'row', justifyContent:'space-between', marginVertical:2}}>
                     <View>
                         <Text>{prestation.name}</Text>
                     </View>
@@ -80,19 +87,24 @@ const FirstRoute = (props) => {
                 <Listing navigation={props.navigation} name={listingFilter[0].name} images={listingFilter[0].images} address={listingFilter[0].address} number={listingFilter[0].number} zipcode={listingFilter[0].zipcode} city={listingFilter[0].city} note={listingFilter[0].note} nbeval={listingFilter[0].nbeval} />
               </View>
 
-              <View style={{margin:15}}>
+              <View style={{margin:10}}>
                 {listPresta}
               </View>
-              <View style={{alignItems:'center'}}>
-                <Text style={{color:'#7241DB', fontWeight:'bold'}} onPress={()=>showDelete()}  >Annuler la réservation</Text>
+
+          <TouchableWithoutFeedback onPress={() => showDelete(elem._id)} >
+            <View style={{ alignItems: 'center'}}>
+              <View style={{ justifyContent: 'center', alignItems: 'center', width: 200, height: 40 }}>
+                <Text style={{ color: '#7241DB', fontWeight: 'bold' }} >Annuler la réservation</Text>
               </View>
+            </View>
+          </TouchableWithoutFeedback>
 
-              {visible === true ?
+              {cancelId == elem._id ?
 
-              <View style={{flexDirection:'column', alignItems:'center', justifyContent:'center', padding:20}}>
+              <View style={{flexDirection:'column', alignItems:'center', justifyContent:'center', padding: 20}}>
                 <View style={{flexDirection:'row', justifyContent:'space-around'}}>
                   <Button onPress={()=> {cancelReservation(elem._id)}} title='Oui' buttonStyle={{width:90, marginHorizontal: 10, backgroundColor:'#7241DB', borderRadius:20}}/>
-                  <Button title='Non' buttonStyle={{width:90, marginHorizontal: 10, backgroundColor:'#3DA787', borderRadius:20}} onPress={()=>setVisible(false)}/>
+                  <Button title='Non' buttonStyle={{width:90, marginHorizontal: 10, backgroundColor:'#3DA787', borderRadius:20}} onPress={()=>setCancelId('')}/>
                 </View>
               </View>
               

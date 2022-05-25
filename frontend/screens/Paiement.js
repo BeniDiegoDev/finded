@@ -10,7 +10,7 @@ import { Ionicons } from '@expo/vector-icons';
 import LottieView from 'lottie-react-native';
 import { connect } from 'react-redux';
 
-const ip = "192.168.10.149";
+const ip = "192.168.10.166";
 
 
 
@@ -170,14 +170,14 @@ function Paiement(props) {
             <LottieView style={{ width: '30%' }} source={require('../assets/confirmation.json')} autoPlay='true' />
 
             <View style={{ margin: 20, flexDirection: 'row' }}>
-              <Button
+              {/* <Button
                 buttonStyle={{ marginRight: 20, borderRadius: 20, backgroundColor: '#7241DB' }}
                 title="Accueil"
                 onPress={() => props.navigation.navigate('Home')}
-              />
+              /> */}
               <Button
                 buttonStyle={{ borderRadius: 20, backgroundColor: '#7241DB' }}
-                title="Réservations"
+                title="Mes réservations"
                 onPress={() => { props.navigation.navigate('Reservation'), setVisible(!visible) }}
               />
             </View>

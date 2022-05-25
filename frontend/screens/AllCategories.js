@@ -33,7 +33,7 @@ function AllCategories(props) {
     { image: require('../assets/categories/massage-des-pieds.png'), color: '#7241DB', name: 'Pédicure' },
     { image: require('../assets/categories/massage.png'), color: '#3DA787', name: 'Massage' },
     { image: require('../assets/categories/mother.png'), color: '#3DA787', name: 'Baby-Sitting' },
-    { image: require('../assets/categories/peinture.png'), color: '#7241DB', name: 'Peinture' },
+    { image: require('../assets/categories/peinture.png'), color: '#7241DB', name: 'Peintre' },
     { image: require('../assets/categories/relooking.png'), color: '#7241DB', name: 'Estheticienne' },
     { image: require('../assets/categories/trou-de-serrure.png'), color: '#3DA787', name: 'Serrurier' },
   ]

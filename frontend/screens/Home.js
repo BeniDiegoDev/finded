@@ -17,7 +17,7 @@ import { connect } from 'react-redux'
 import Listing from '../components/Listing'
 
 // Config IP pour connexion avec le backend
-const ip = "192.168.10.149"
+const ip = "192.168.10.166"
 
 // Debut de la fonction Home qui gere toute la page HOME
 function Home(props) {
@@ -42,7 +42,7 @@ function Home(props) {
     { image: require('../assets/categories/massage-des-pieds.png'), color: '#3DA787', name: 'Pédicure' },
     { image: require('../assets/categories/massage.png'), color: '#7241DB', name: 'Massage' },
     { image: require('../assets/categories/mother.png'), color: '#3DA787', name: 'Baby-Sitting' },
-    { image: require('../assets/categories/peinture.png'), color: '#7241DB', name: 'Peinture' },
+    { image: require('../assets/categories/peinture.png'), color: '#7241DB', name: 'Peintre' },
     { image: require('../assets/categories/relooking.png'), color: '#3DA787', name: 'Estheticienne' },
     { image: require('../assets/categories/trou-de-serrure.png'), color: '#7241DB', name: 'Serrurier' },
   ]

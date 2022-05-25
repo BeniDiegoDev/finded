@@ -64,7 +64,7 @@ export default function Swipe(props) {
                             <Picker.Item label="Pédicure" value="Pédicure" />
                             <Picker.Item label="Massage" value="Massage" />
                             <Picker.Item label="Baby-Sitting" value="Baby-Sitting" />
-                            <Picker.Item label="Peinture" value="Peinture" />
+                            <Picker.Item label="Peintre" value="Peintre" />
                             <Picker.Item label="Estheticienne" value="Estheticienne" />
                             <Picker.Item label="Serrurier" value="Serrurier" />
                         </Picker>
