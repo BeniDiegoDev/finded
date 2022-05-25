@@ -16,7 +16,7 @@ import Checkbox from "expo-checkbox";
 
 import { connect } from "react-redux";
 
-const ip = "192.168.10.166";
+const ip = "192.168.1.14";
 
 function Signup(props) {
   const [firstName, setFirstName] = useState("");
