@@ -42,25 +42,29 @@ function Signin(props) {
 
   return (
     <View style={styles.container}>
-        <ScrollView showsVerticalScrollIndicator={false}>
+      <ScrollView showsVerticalScrollIndicator={false}>
+
         <View
-          style={{ marginBottom: 40, display: "flex", flexDirection: "row", justifyContent: "center" }}
+          style={{ marginBottom: 40, flexDirection: "row", justifyContent: "center" }}
         >
           <Text style={{ fontSize: 30, marginTop: 40 }}>
             Bienvenue !
           </Text>
         </View>
-        <View style={{ marginHorizontal: 30, display: 'flex', alignItems: 'center', maxWidth: 300 }}>
-          <Text style={{ fontSize: 17, marginBottom: 60, textAlign: 'center' }}>Connectez-vous pour réserver votre prochaine prestation.</Text>
+
+        <View style={{ marginHorizontal: 30, display: 'flex', alignItems: 'center'}}>
+          <Text style={{ fontSize: 17, marginBottom: 60, textAlign: 'center', maxWidth: '80%' }}>Connectez-vous pour réserver votre prochaine prestation.</Text>
         </View>
+
         <View
           style={{
             alignItems: "center",
             width: "100%",
+            minWidth: '100%'
           }}
         >
           <Input
-            containerStyle={{ marginBottom: 25, width: "80%" }}
+            containerStyle={{ marginBottom: 25, width: "65%" }}
             inputStyle={{ marginLeft: 10 }}
             placeholder="Email"
             leftIcon={<Icon name="user" size={24} color="grey" />}
@@ -68,7 +72,7 @@ function Signin(props) {
           />
           <Input
             secureTextEntry={true}
-            containerStyle={{ marginBottom: 25, width: "80%" }}
+            containerStyle={{ marginBottom: 25, width: "65%" }}
             inputStyle={{ marginLeft: 10 }}
             placeholder="Mot de passe"
             leftIcon={<FontAwesome5 name="key" size={24} color="grey" />}
@@ -93,8 +97,9 @@ function Signin(props) {
             S'inscrire
           </Text>
         </View>
-    </ScrollView>
-      </View>
+
+      </ScrollView>
+    </View>
   );
 }
 
@@ -105,6 +110,7 @@ const styles = StyleSheet.create({
     paddingTop: 40,
     display: 'flex',
     alignItems: 'center',
+    justifyContent: "center"
   },
   searchbar: {
     width: "100%",

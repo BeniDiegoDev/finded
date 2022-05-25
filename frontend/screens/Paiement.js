@@ -75,13 +75,12 @@ function Paiement(props) {
                         <LottieView style={{width:'30%'}} source={require('../assets/confirmation.json')} autoPlay='true' />
                         <View style={{margin:20, flexDirection:'row'}}>
                         <Button
-                        buttonStyle={{marginRight:20}}
-                            radius="20"
+                            buttonStyle={{marginRight:20, borderRadius: 20, backgroundColor: '#7241DB' }}
                             title="Accueil"
                             onPress={() => props.navigation.navigate('Home')}
                         />
                         <Button
-                            radius="20"
+                            buttonStyle={{ borderRadius: 20, backgroundColor: '#7241DB' }}
                             title="Réservations"
                             onPress={() => {props.navigation.navigate('Reservation'), setVisible(!visible)}}
                         />

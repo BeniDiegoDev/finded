@@ -53,12 +53,15 @@ function DatePicker(props) {
             return (
                 <View key={i} style={{margin:5, width:'30%'}}>
                     {state == i ? <Button buttonStyle={{ backgroundColor: '#7241DB'}} radius="20" onPress={()=>(slotsPress(i),onClick())}>{slot}</Button>:
-                    <Button radius="20" onPress={()=>(slotsPress(i),onClick())}>{slot}</Button>}
+                    <Button radius="20" buttonStyle={{ backgroundColor: '#3DA787'}} onPress={()=>(slotsPress(i),onClick())}>{slot}</Button>}
                 </View>
             )});
     }
-    const[slotSelected, setSlotSelected] = useState('');
-    var slotsPress = (i) => {
+
+    
+  const[slotSelected, setSlotSelected] = useState('');
+  
+  var slotsPress = (i) => {
         setSlotSelected(slots[i])
   
     }
@@ -82,7 +85,7 @@ function DatePicker(props) {
                     <View style={styles.container}>
                         <Text style={styles.Text}>{item.name}</Text>
                         <View style={{flexDirection:'row', alignItems:'center'}}>
-                        <Text style={[styles.Text,{marginRight:5}]}>{item.prix}€</Text>
+                        <Text style={[styles.Text,{marginRight:5}]}>{item.prix} €</Text>
                         </View>
                     </View>
                     <Divider style={{ backgroundColor: '#7241DB' }} />
@@ -99,21 +102,23 @@ function DatePicker(props) {
             <View style={styles.header}>
                 <Text style={{ paddingRight: 15, fontSize: 30 }}><Ionicons name='chevron-back' size={30} color='black' onPress={() => { props.navigation.goBack(null) }}/> Choix du créneau</Text>
             </View>
-            <ScrollView ref={scrollViewRef} onContentSizeChange={() => scrollViewRef.current.scrollToEnd({ animated: true })} style={{ width: '100%' }} showsVerticalScrollIndicator={false} >
+
+            <ScrollView style={{ width: '100%' }} ref={scrollViewRef} onContentSizeChange={() => scrollViewRef.current.scrollToEnd({ animated: true })} showsVerticalScrollIndicator={false} >
+            
             <View style={{marginTop:20}}>
-                <Listing disable='true'  name={listingFilter[0].name} images={listingFilter[0].images} address={listingFilter[0].address} zipcode={listingFilter[0].zipcode} city={listingFilter[0].city} note={listingFilter[0].note} nbeval={listingFilter[0].nbeval} />
+                <Listing disable='true' name={listingFilter[0].name} images={listingFilter[0].images} number={listingFilter[0].number} address={listingFilter[0].address} zipcode={listingFilter[0].zipcode} city={listingFilter[0].city} note={listingFilter[0].note} nbeval={listingFilter[0].nbeval} />
             </View>
+            
             <View style={styles.container2}>
 
                 <Text style={styles.title}>
                     Prestation(s) selectionnée(s)
                 </Text>
                 {listPresta}
-                <View style={styles.container}>
-                    <View></View>
-                    <Text style={[styles.Text,{marginRight:5,fontWeight:'bold'}]}>Total : {sumPrix}€</Text>
+                <View style={{ alignItems: 'flex-end'}}>
+                    <Text style={[styles.Text,{marginRight:5,fontWeight:'bold'}]}>Total : {sumPrix} €</Text>
                 </View>
-                <Text style={[styles.title,{marginTop:10}]}>
+                <Text style={[styles.title,{marginTop:5}]}>
                     Choisir une date
                 </Text>
 
@@ -172,7 +177,7 @@ function DatePicker(props) {
       title:{
         fontSize:20, 
         fontWeight:'bold',
-        marginBottom:10,
+        marginBottom:5,
       },
       Text:{
         fontSize:15,

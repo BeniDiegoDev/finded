@@ -45,7 +45,7 @@ function DetailResa(props) {
                     <View style={styles.container}>
                         <Text style={styles.Text}>{item.name}</Text>
                         <View style={{flexDirection:'row', alignItems:'center'}}>
-                        <Text style={[styles.Text,{marginRight:5}]}>{item.prix}€</Text>
+                        <Text style={[styles.Text,{marginRight:5}]}>{item.prix} €</Text>
                         </View>
                     </View>
                     <Divider style={{ backgroundColor: '#7241DB' }} />
@@ -73,9 +73,8 @@ function DetailResa(props) {
                     Prestation(s) selectionnée(s)
                 </Text>
                 {listPresta}
-                <View style={styles.container}>
-                    <View></View>
-                    <Text style={[styles.Text,{marginRight:5,fontWeight:'bold'}]}>Total : {sumPrix}€</Text>
+                <View style={{ alignItems: 'flex-end'}}>
+                    <Text style={[styles.Text,{marginRight:5,fontWeight:'bold'}]}>Total : {sumPrix} €</Text>
                 </View>
                 <Text style={[styles.title,{marginTop:10}]}>
                     Date

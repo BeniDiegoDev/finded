@@ -332,10 +332,10 @@ function Reservations(props) {
 
     return (
       <View style={{paddingTop:40, flex:1, backgroundColor:'#fff', display:'flex', flexDirection:'column', justifyContent:'space-between'}}>
-       
-            <View style={{marginVertical:10}}>
-              <Text style={{fontSize:30}}>Réservations</Text>
-            </View>
+
+        <View style={{ paddingLeft: 10, paddingBottom: 10, paddingTop: 10 }}>
+          <Text style={{ paddingRight: 15, fontSize: 30 }}> Mes Réservations</Text>
+        </View>
             <View style={{alignItems:'center'}}>
               <AntDesign name="calendar" size={150} color="#3DA787" />
               <Text style={{color: '#7241DB', fontWeight: 'bold',fontStyle: 'italic',textAlign: 'center',fontSize: 20}}>Finded</Text>

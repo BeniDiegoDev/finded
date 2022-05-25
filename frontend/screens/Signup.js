@@ -93,8 +93,8 @@ function Signup(props) {
   return (
     <View style={styles.container}>
       <View style={{ paddingLeft: 10, paddingBottom: 10, paddingTop: 10 }}>
-          <Text style={{ paddingRight: 15, fontSize: 30 }}><Ionicons onPress={() => { props.navigation.goBack() }} name='chevron-back' size={30} color='black' /> Créer un compte</Text>
-        </View>
+        <Text style={{ paddingRight: 15, fontSize: 30 }}><Ionicons onPress={() => { props.navigation.goBack() }} name='chevron-back' size={30} color='black' /> Créer un compte</Text>
+      </View>
       <ScrollView showsVerticalScrollIndicator={false} >
         <View
           style={{
@@ -104,7 +104,7 @@ function Signup(props) {
           }}
         >
           <Input
-            containerStyle={{ marginBottom: 25, width: "80%" }}
+            containerStyle={{ marginBottom: 25, width: "65%" }}
             leftIcon={<Icon name="user" size={24} color="grey" />}
             inputStyle={{
               marginLeft: 10,
@@ -119,14 +119,14 @@ function Signup(props) {
           />
 
           <Input
-            containerStyle={{ marginBottom: 25, width: "80%" }}
+            containerStyle={{ marginBottom: 25, width: "65%" }}
             leftIcon={<Icon name="user" size={24} color="grey" />}
             inputStyle={{ marginLeft: 10 }}
             placeholder="Nom"
             onChangeText={(val) => setLastName(val)}
           />
           <Input
-            containerStyle={{ marginBottom: 25, width: "80%" }}
+            containerStyle={{ marginBottom: 25, width: "65%" }}
             inputStyle={{ marginLeft: 10 }}
             leftIcon={<Zocial name="email" size={24} color="grey" />}
             // leftIcon={<Icon name="send" size={24} color="grey" />} //AU CHOIX
@@ -134,7 +134,7 @@ function Signup(props) {
             onChangeText={(val) => setUserEmail(val)}
           />
           <Input
-            containerStyle={{ marginBottom: 25, width: "80%" }}
+            containerStyle={{ marginBottom: 25, width: "65%" }}
             inputStyle={{ marginLeft: 10 }}
             leftIcon={<MaterialIcons name="phone-iphone" size={24} color="grey" />}
             placeholder="Numéro de tél"
@@ -142,7 +142,7 @@ function Signup(props) {
           />
           <Input
             secureTextEntry={true}
-            containerStyle={{ marginBottom: 25, width: "80%" }}
+            containerStyle={{ marginBottom: 25, width: "65%" }}
             inputStyle={{ marginLeft: 10 }}
             leftIcon={<FontAwesome5 name="key" size={24} color="grey" />}
             placeholder="Mot de passe"
@@ -150,7 +150,7 @@ function Signup(props) {
           />
           <Input
             secureTextEntry={true}
-            containerStyle={{ width: "80%" }}
+            containerStyle={{ width: "65%" }}
             inputStyle={{ marginLeft: 10 }}
             leftIcon={<FontAwesome5 name="key" size={24} color="grey" />}
             placeholder="Confirmer mot de passe"
