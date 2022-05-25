@@ -107,6 +107,7 @@ function Home(props) {
       element.name.toLowerCase().includes(search.toLowerCase()) ||
       element.address.toLowerCase().includes(search.toLowerCase()) ||
       element.categoryName.toLowerCase().includes(search.toLowerCase()) ||
+      element.description.toLowerCase().includes(search.toLowerCase()) ||
       search.toLowerCase() == element.city.toLowerCase() ||
       search.toLowerCase() == element.zipcode.toLowerCase() ||
       search.toLowerCase() == element.categoryName.toLowerCase() + " " + element.city.toLowerCase() ||
