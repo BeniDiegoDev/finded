@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { StyleSheet, View, ScrollView, Image, Text, TouchableOpacity, StatusBar } from 'react-native';
 
 // Import de SafeAreaView pour ne pas etre gené par la barre haute par defaut du telephone
@@ -53,17 +53,31 @@ function DatePicker(props) {
             return (
                 <View key={i} style={{margin:5, width:'30%'}}>
                     {state == i ? <Button buttonStyle={{ backgroundColor: '#7241DB'}} radius="20" onPress={()=>(slotsPress(i),onClick())}>{slot}</Button>:
-                    <Button radius="20" onPress={()=>(slotsPress(i),onClick())}>{slot}</Button>}
+                    <Button radius="20" buttonStyle={{ backgroundColor: '#3DA787'}} onPress={()=>(slotsPress(i),onClick())}>{slot}</Button>}
                 </View>
             )});
     }
-    const[slotSelected, setSlotSelected] = useState('');
-    var slotsPress = (i) => {
+
+    
+  const[slotSelected, setSlotSelected] = useState('');
+  const[comptSelect, setComptSelect] = useState(0);
+  
+  var slotsPress = (i) => {
         setSlotSelected(slots[i])
   
     }
+  var selectDate = (date) => {
+    setSelectedStartDate(date)
+    setComptSelect(1)
+  }
 
+  var scrollBottom = () => {
+    if(comptSelect===1){
+      scrollViewRef.current.scrollToEnd({ animated: true })
+    }
+  }
  
+    const scrollViewRef = useRef();
 
      useEffect(() => {
              setSlotSelected('')
@@ -79,34 +93,45 @@ function DatePicker(props) {
                     <View style={styles.container}>
                         <Text style={styles.Text}>{item.name}</Text>
                         <View style={{flexDirection:'row', alignItems:'center'}}>
-                        <Text style={[styles.Text,{marginRight:5}]}>{item.prix}€</Text>
+                        <Text style={[styles.Text,{marginRight:5}]}>{item.prix} €</Text>
                         </View>
                     </View>
                     <Divider style={{ backgroundColor: '#7241DB' }} />
                 </View>
         )});
 
+        var sumPrix = 0;
+        for(var i = 0; i < props.listPrestations.length; i++){
+            sumPrix += props.listPrestations[i].prix;
+        }
+
     return (
         <View style={{flex:1, backgroundColor:'white'}}>
             <View style={styles.header}>
                 <Text style={{ paddingRight: 15, fontSize: 30 }}><Ionicons name='chevron-back' size={30} color='black' onPress={() => { props.navigation.goBack(null) }}/> Choix du créneau</Text>
             </View>
-            <ScrollView style={{ width: '100%' }} showsVerticalScrollIndicator={false} >
+      
+             <ScrollView style={{ width: '100%' }} ref={scrollViewRef}  onContentSizeChange={() => scrollBottom()} showsVerticalScrollIndicator={false}> 
+
             <View style={{marginTop:20}}>
-                <Listing disable='true'  name={listingFilter[0].name} images={listingFilter[0].images} address={listingFilter[0].address} zipcode={listingFilter[0].zipcode} city={listingFilter[0].city} note={listingFilter[0].note} nbeval={listingFilter[0].nbeval} />
+                <Listing disable='true' name={listingFilter[0].name} images={listingFilter[0].images} number={listingFilter[0].number} address={listingFilter[0].address} zipcode={listingFilter[0].zipcode} city={listingFilter[0].city} note={listingFilter[0].note} nbeval={listingFilter[0].nbeval} />
             </View>
+            
             <View style={styles.container2}>
 
                 <Text style={styles.title}>
                     Prestation(s) selectionnée(s)
                 </Text>
                 {listPresta}
-                <Text style={[styles.title,{marginTop:10}]}>
+                <View style={{ alignItems: 'flex-end'}}>
+                    <Text style={[styles.Text,{marginRight:5,fontWeight:'bold'}]}>Total : {sumPrix} €</Text>
+                </View>
+                <Text style={[styles.title,{marginTop:5}]}>
                     Choisir une date
                 </Text>
 
                 <CalendarPicker
-                onDateChange={(date) => setSelectedStartDate(date)}
+                onDateChange={(date) => selectDate(date)}
                 showDayStragglers='true'
                 weekdays={['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim']}
                 months={['Janvier', 'Fevrier', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Decembre']}
@@ -160,7 +185,7 @@ function DatePicker(props) {
       title:{
         fontSize:20, 
         fontWeight:'bold',
-        marginBottom:10,
+        marginBottom:5,
       },
       Text:{
         fontSize:15,

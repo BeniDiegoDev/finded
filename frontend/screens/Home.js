@@ -43,7 +43,7 @@ function Home(props) {
     { image: require('../assets/categories/massage.png'), color: '#7241DB', name: 'Massage' },
     { image: require('../assets/categories/mother.png'), color: '#3DA787', name: 'Baby-Sitting' },
     { image: require('../assets/categories/peinture.png'), color: '#7241DB', name: 'Peinture' },
-    { image: require('../assets/categories/relooking.png'), color: '#3DA787', name: 'Maquillage' },
+    { image: require('../assets/categories/relooking.png'), color: '#3DA787', name: 'Estheticienne' },
     { image: require('../assets/categories/trou-de-serrure.png'), color: '#7241DB', name: 'Serrurier' },
   ]
 
@@ -107,8 +107,9 @@ function Home(props) {
       element.name.toLowerCase().includes(search.toLowerCase()) ||
       element.address.toLowerCase().includes(search.toLowerCase()) ||
       element.categoryName.toLowerCase().includes(search.toLowerCase()) ||
-      search.toLowerCase() == element.city.toLowerCase() ||
-      search.toLowerCase() == element.zipcode.toLowerCase() ||
+      element.description.toLowerCase().includes(search.toLowerCase()) ||
+      element.zipcode.toLowerCase().includes(search.toLowerCase()) ||
+      element.city.toLowerCase().includes(search.toLowerCase()) ||
       search.toLowerCase() == element.categoryName.toLowerCase() + " " + element.city.toLowerCase() ||
       search.toLowerCase() == element.categoryName.toLowerCase() + " " + element.zipcode ||
       search.toLowerCase() == element.name.toLowerCase() ||
@@ -143,7 +144,7 @@ function Home(props) {
             fontWeight: 'bold',
             fontStyle: 'italic',
             textAlign: 'center',
-            fontSize: 20,
+            fontSize: 20
           }}>Finded</Text>
         </View>
 
@@ -184,7 +185,7 @@ function Home(props) {
             fontWeight: 'bold',
             fontStyle: 'italic',
             textAlign: 'center',
-            fontSize: 20,
+            fontSize: 20
           }}>Finded</Text>
         </View>
 

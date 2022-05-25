@@ -41,7 +41,7 @@ function Map(props) {
         { label: 'Massage', value: 'Massage' },
         { label: 'Baby-Sitting', value: 'Baby-Sitting' },
         { label: 'Peinture', value: 'Peinture' },
-        { label: 'Maquillage', value: 'Maquillage' },
+        { label: 'Estheticienne', value: 'Estheticienne' },
         { label: 'Serrurier', value: 'Serrurier' }
     ]);
     
@@ -168,7 +168,7 @@ function Map(props) {
                             <View style={{ width: '10%', alignItems: 'center', justifyContent: 'center' , height: 30, marginTop: 2}}>
                                 <Ionicons name="chevron-up" size={24} color="black" />
                             </View>
-                            <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', width: '100%', paddingHorizontal: 15, marginTop: -20}}>
+                            <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', width: '100%', paddingHorizontal: 15, marginTop: -25}}>
                                 <Text style={{ fontSize: 17 }}>Filtrer autour de moi :</Text>
                                 <View style={{ alignItems: 'center' }}>
                                 <Switch
@@ -177,9 +177,9 @@ function Map(props) {
                                     color='#3DA787'
                                 />
                                     {!viewCircle ?
-                                        <Text style={{ fontSize: 11, color: '#86939e' }}>VOIR LE RAYON QUI M'ENTOURE</Text>
+                                        <Text style={{ fontSize: 11, color: '#86939e', marginTop: 5 }}>VOIR LE RAYON QUI M'ENTOURE</Text>
                                         :
-                                        <Text style={{ fontSize: 11, color: '#7241DB' }}>VOIR LE RAYON QUI M'ENTOURE</Text>
+                                        <Text style={{ fontSize: 11, color: '#7241DB', marginTop: 5 }}>VOIR LE RAYON QUI M'ENTOURE</Text>
                                     }
                                 </View>
                             </View>
@@ -249,10 +249,10 @@ function Map(props) {
                                     }}
                                 />
                             </View>
-                            <ScrollView style={{ width: '100%', height : '57%', marginTop: 10 }} showsVerticalScrollIndicator={false} >
+                            <ScrollView style={{ width: '100%', height : 390, marginTop: 10, zIndex: -1, position: 'relative' }} showsVerticalScrollIndicator={false} >
                                 {listingSwipe}
                             </ScrollView >
-                            <Text style={{ fontSize: 17, marginBottom: 10, color: '#7241DB', zIndex: -1, position: 'relative', marginTop: 10 }} onPress={() => { setCategorie(""), setValue(1500) }} >Reinitialiser les filtres</Text>
+                            <Text style={{ fontSize: 17, marginBottom: 10, color: '#7241DB', marginTop: 10 }} onPress={() => { setCategorie(""), setValue(1500) }} >Reinitialiser les filtres</Text>
                         </View>
                     )}
                     disablePressToShow={true}

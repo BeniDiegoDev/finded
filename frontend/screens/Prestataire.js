@@ -98,7 +98,7 @@ function Prestataire(props) {
           <Text style={{ marginLeft: 10 }}>{item.date}</Text>
         </View>
         <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
-          <Text style={[styles.Text, { width: '80%' }]}>{item.avis}</Text>
+          <Text style={[styles.Text, { width: '75%' }]}>{item.avis}</Text>
           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
             <Text style={{ fontWeight: 'bold', marginRight: 5 }}>{item.note}</Text>
             <Ionicons name="ios-star" size={24} color="#F5B642" />
@@ -127,11 +127,11 @@ function Prestataire(props) {
           <Text style={styles.title}>
             {listingFilter[0].name}
           </Text>
-          <Text style={styles.text}>
+          <Text>
             {listingFilter[0].number} {listingFilter[0].address}
           </Text>
           <Text style={styles.text}>
-          {listingFilter[0].zipcode} {listingFilter[0].city}
+            {listingFilter[0].zipcode} {listingFilter[0].city}
           </Text>
         </View>
 

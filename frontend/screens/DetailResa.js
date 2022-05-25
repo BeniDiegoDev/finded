@@ -45,12 +45,17 @@ function DetailResa(props) {
                     <View style={styles.container}>
                         <Text style={styles.Text}>{item.name}</Text>
                         <View style={{flexDirection:'row', alignItems:'center'}}>
-                        <Text style={[styles.Text,{marginRight:5}]}>{item.prix}€</Text>
+                        <Text style={[styles.Text,{marginRight:5}]}>{item.prix} €</Text>
                         </View>
                     </View>
                     <Divider style={{ backgroundColor: '#7241DB' }} />
                 </View>
         )});
+
+        var sumPrix = 0;
+        for(var i = 0; i < props.listPrestations.length; i++){
+            sumPrix += props.listPrestations[i].prix;
+        }
 
 
     return (
@@ -60,7 +65,7 @@ function DetailResa(props) {
             </View>
             <ScrollView style={{ width: '100%' }} showsVerticalScrollIndicator={false} >
             <View style={{marginTop:20}}>
-                <Listing disable='true'  name={listingFilter[0].name} images={listingFilter[0].images} address={listingFilter[0].address} zipcode={listingFilter[0].zipcode} city={listingFilter[0].city} note={listingFilter[0].note} nbeval={listingFilter[0].nbeval} />
+                <Listing disable='true'  name={listingFilter[0].name} images={listingFilter[0].images} number={listingFilter[0].number} address={listingFilter[0].address} zipcode={listingFilter[0].zipcode} city={listingFilter[0].city} note={listingFilter[0].note} nbeval={listingFilter[0].nbeval} />
             </View>
             <View style={styles.container2}>
 
@@ -68,6 +73,9 @@ function DetailResa(props) {
                     Prestation(s) selectionnée(s)
                 </Text>
                 {listPresta}
+                <View style={{ alignItems: 'flex-end'}}>
+                    <Text style={[styles.Text,{marginRight:5,fontWeight:'bold'}]}>Total : {sumPrix} €</Text>
+                </View>
                 <Text style={[styles.title,{marginTop:10}]}>
                     Date
                 </Text>

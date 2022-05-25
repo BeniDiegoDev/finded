@@ -34,7 +34,7 @@ function AllCategories(props) {
     { image: require('../assets/categories/massage.png'), color: '#3DA787', name: 'Massage' },
     { image: require('../assets/categories/mother.png'), color: '#3DA787', name: 'Baby-Sitting' },
     { image: require('../assets/categories/peinture.png'), color: '#7241DB', name: 'Peinture' },
-    { image: require('../assets/categories/relooking.png'), color: '#7241DB', name: 'Maquillage' },
+    { image: require('../assets/categories/relooking.png'), color: '#7241DB', name: 'Estheticienne' },
     { image: require('../assets/categories/trou-de-serrure.png'), color: '#3DA787', name: 'Serrurier' },
   ]
 
@@ -48,6 +48,9 @@ function AllCategories(props) {
         element.name.toLowerCase().includes(search.toLowerCase()) ||
         element.address.toLowerCase().includes(search.toLowerCase()) ||
         element.categoryName.toLowerCase().includes(search.toLowerCase()) ||
+        element.description.toLowerCase().includes(search.toLowerCase()) ||
+        element.zipcode.toLowerCase().includes(search.toLowerCase()) ||
+        element.city.toLowerCase().includes(search.toLowerCase()) ||
         search.toLowerCase() == element.city.toLowerCase() ||
         search.toLowerCase() == element.zipcode.toLowerCase() ||
         search.toLowerCase() == element.categoryName.toLowerCase() + " " + element.city.toLowerCase() ||

@@ -29,7 +29,7 @@ export default function Help(props) {
                 </Text>
                 <Text style={{marginVertical:10, fontWeight:'bold'}}>ARTICLE 2 - L'HEBERGEUR</Text>
                 <Text>
-                L'hébergeur du Site est la société OVH, dont le siège social est situé au PARIS , avec le numéro de téléphone : 0635649327 + adresse mail de contact
+                L'hébergeur du Site est la société OVZ, dont le siège social est situé au PORIS , avec le numéro de téléphone : 0635649327 + adresse mail de contact
                 </Text>
                 <Text style={{marginVertical:10, fontWeight:'bold'}}>ARTICLE 3 - ACCES AU SITE</Text>
                 <Text>
