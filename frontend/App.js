@@ -24,8 +24,9 @@ import listPrestations from './reducers/listPrestations';
 import selectCreneau from './reducers/selectCreneau';
 import infoUser from './reducers/infoUser';
 import location from './reducers/location';
+import listReservations from './reducers/listReservations';
 
-const store = createStore(combineReducers({ prestataires, selectPresta, listPrestations, location, infoUser, selectCreneau }));
+const store = createStore(combineReducers({ prestataires, selectPresta, listPrestations, location, infoUser, selectCreneau, listReservations }));
 
 import Home from './screens/Home';
 import Prestataire from './screens/Prestataire';
@@ -93,6 +94,7 @@ function ReservationStackScreen() {
       <ReservationStack.Screen name="Paiement" component={Paiement} />
       <ReservationStack.Screen name='SignIn' component={Signin} />
       <ReservationStack.Screen name='SignUp' component={Signup} />
+      <ReservationStack.Screen name="Home" component={Home} />
     </ReservationStack.Navigator>
   );
 }
@@ -108,6 +110,7 @@ function PrestationStackScreen() {
       <PrestationStack.Screen name="Paiement" component={Paiement} />
       <PrestationStack.Screen name='SignIn' component={Signin} />
       <PrestationStack.Screen name='SignUp' component={Signup} />
+      <PrestationStack.Screen name="Home" component={Home} />
     </PrestationStack.Navigator>
   );
 }
@@ -141,6 +144,7 @@ export default function App() {
       <NavigationContainer>
         <Tab.Navigator
           screenOptions={({ route }) => ({
+            unmountOnBlur: true,
             tabBarIcon: ({ color }) => {
               let iconName;
               if (route.name === 'Home') {

@@ -14,24 +14,41 @@ import Listing from '../../components/Listing'
 import { connect } from 'react-redux'
 
 // Config IP pour connexion avec le backend
-const ip = "192.168.10.135"
-
+const ip = "192.168.10.149"
 
 
 const FirstRoute = (props) => {
 
-  
+
+
   const [visible, setVisible] = useState(false);
-  const toggleOverlay = () => {
-    setVisible(!visible);
-  };
+  let showDelete = () => {
+    setVisible(!visible)
+  }
   
-
-  let listEnCours = props.EnCours.map((item, i) => {
-
-    let listingFilter = props.prestataires.filter(elem => elem.name === item.name)
+  let listEnCours = props.EnCours.filter(e => e.status ==='En cours').map((elem, i) => {
     
-    var listPresta = item.prestations.map((prestation, index) => {
+    
+    
+    
+    let cancelReservation = async (id) => {
+     
+      let response = await fetch(`http://${ip}:3000/cancel-reservation`, {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: `id=${id}&token=${props.user.token}`,
+      })
+      let responseJson = await response.json();
+    
+      if(responseJson === true) {
+        props.deleteReducer(id)
+        setVisible(!visible)
+      }
+    }
+  
+    let listingFilter = props.prestataires.filter(resa => resa.name === elem.name)
+    
+    var listPresta = elem.prestations.map((prestation, index) => {
       return(
           <View key={index}>
                   <View style={{flexDirection:'row', justifyContent:'space-between', marginVertical:5}}>
@@ -44,7 +61,6 @@ const FirstRoute = (props) => {
                   </View>
               </View>
       )});
-
     if(listingFilter.length != 0){
       return(
 
@@ -52,11 +68,11 @@ const FirstRoute = (props) => {
             
               <View style={{flexDirection:'row', justifyContent:'space-between'}}>
                 <View style={{flexDirection:'row', margin:15}}>
-                  <Text style={{fontSize:17, fontWeight:'bold'}}>{item.date} à</Text>
-                  <Text style={{fontSize:17, fontWeight:'bold'}}> {item.horaire}</Text>
+                  <Text style={{fontSize:17, fontWeight:'bold'}}>{elem.date} à</Text>
+                  <Text style={{fontSize:17, fontWeight:'bold'}}> {elem.horaire}</Text>
                 </View>
                 <View style={{margin:15}}>
-                  <Text style={{fontSize:17, fontWeight:'bold'}}>{item.prix} €</Text>
+                  <Text style={{fontSize:17, fontWeight:'bold'}}>{elem.prix} €</Text>
                 </View>
               </View>
           
@@ -67,31 +83,25 @@ const FirstRoute = (props) => {
               <View style={{margin:15}}>
                 {listPresta}
               </View>
-
-
-            <Overlay isVisible={visible} onBackdropPress={toggleOverlay} overlayStyle={{borderRadius:20}}>
-              <View style={{flexDirection:'column', alignItems:'center', justifyContent:'center', padding:20}}>
-                <Text style={{fontSize:17}}>Annuler le rendez-vous</Text>
-
-                <View style={{flexDirection:'row', justifyContent:'space-around', marginTop:20}}>
-                  <Button title='Oui' buttonStyle={{width:90, marginHorizontal: 10, backgroundColor:'#7241DB', borderRadius:20}}/>
-                  <Button onPress={toggleOverlay} title='Non' buttonStyle={{width:90, marginHorizontal: 10, backgroundColor:'#3DA787', borderRadius:20}} />
-                </View>
-
+              <View style={{alignItems:'center'}}>
+                <Text style={{color:'#7241DB', fontWeight:'bold'}} onPress={()=>showDelete()}  >Annuler la réservation</Text>
               </View>
-            </Overlay>
-            <Divider/>
+
+              {visible === true ?
+
+              <View style={{flexDirection:'column', alignItems:'center', justifyContent:'center', padding:20}}>
+                <View style={{flexDirection:'row', justifyContent:'space-around'}}>
+                  <Button onPress={()=> {cancelReservation(elem._id)}} title='Oui' buttonStyle={{width:90, marginHorizontal: 10, backgroundColor:'#7241DB', borderRadius:20}}/>
+                  <Button title='Non' buttonStyle={{width:90, marginHorizontal: 10, backgroundColor:'#3DA787', borderRadius:20}} onPress={()=>setVisible(false)}/>
+                </View>
+              </View>
+              
+              : null}
+
+            <Divider style={{marginTop:20}}/>
           </View>
           
     )
-    } else {
-
-      return(
-
-        <View>
-          <Text>Pas de réservation</Text>
-        </View>
-         ) 
     }
   })
 
@@ -192,7 +202,8 @@ const SecondRoute = (props) => {
 
 const ThirdRoute = (props) => {
 
-  let listAnnulees = props.Annulees.map((item, index) => {
+
+  let listAnnulees = props.Annulees.filter(e => e.status ==='Annulée').map((item, index) => {
 
     let listingFilter = props.prestataires.filter(elem => elem.name === item.name)
     
@@ -213,7 +224,7 @@ const ThirdRoute = (props) => {
     if(listingFilter.length != 0){
       return(
 
-          <View key={i} style={{flexDirection:'column', marginBottom:20}}>
+          <View key={index} style={{flexDirection:'column', marginBottom:20}}>
             
               <View style={{flexDirection:'row', justifyContent:'space-between'}}>
                 <View style={{flexDirection:'row', margin:15}}>
@@ -259,29 +270,16 @@ const ThirdRoute = (props) => {
 
 function Reservations(props) {
 
-  const [meeting, setMeeting] = useState([]);
-
-  useEffect(() => {
-    console.log('tewt');
-    async function loadData() {
-      let reservations = await fetch(`http://${ip}:3000/users/get-reservations/${props.user.token}`)
-      let responseResa = await reservations.json()
-      setMeeting(responseResa.reservations)
-
-    }
-    loadData()
-  }, []);
-  
 
 
   const renderScene = ({ route }) => {
     switch (route.key) {
       case 'first':
-        return <FirstRoute navigation= {props.navigation} prestataires = {props.preStataires} EnCours = {meeting.filter(e => e.status ==='En cours')} />;
+        return <FirstRoute deleteReducer={props.onDeleteReservation} user={props.user} navigation= {props.navigation} prestataires = {props.preStataires} EnCours = {props.meeting} />;
       case 'second':
-        return <SecondRoute navigation= {props.navigation} prestataires = {props.preStataires} Terminees = {meeting.filter(e => e.status ==='Terminée')} />;
+        return <SecondRoute user={props.user} navigation= {props.navigation} prestataires = {props.preStataires} Terminees = {props.meeting.filter(e => e.status ==='Terminée')} />;
       case 'third':
-        return <ThirdRoute navigation= {props.navigation} prestataires = {props.preStataires} Annulees = {meeting.filter(e => e.status ==='Annulée')} />;
+        return <ThirdRoute user={props.user} navigation= {props.navigation} prestataires = {props.preStataires} Annulees = {props.meeting} />;
     }
   };
 
@@ -309,6 +307,7 @@ function Reservations(props) {
 
 
   if (props.user.token) {
+    
 
   return (
     
@@ -333,7 +332,7 @@ function Reservations(props) {
     return (
       <View style={{paddingTop:40, flex:1, backgroundColor:'#fff', display:'flex', flexDirection:'column', justifyContent:'space-between'}}>
        
-            <View style={{marginVertical:10}}>
+            <View style={{marginVertical:10, alignItems:'center'}}>
               <Text style={{fontSize:30}}>Réservations</Text>
             </View>
             <View style={{alignItems:'center'}}>
@@ -374,10 +373,22 @@ function mapStateToProps(state) {
     listPrestations: state.listPrestations,
     selectPresta: state.selectPresta,
     selectCreneau: state.selectCreneau,
+    meeting: state.listReservations,
   }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    ShowListReservations: function (reservations) {
+      dispatch({ type: "ShowListReservations", reservations });
+    },
+    onDeleteReservation: function (id) {
+      dispatch({ type: "onDeleteReservation", id });
+    }
+  };
 }
 
 export default connect(
   mapStateToProps,
-  null
+  mapDispatchToProps
 )(Reservations);

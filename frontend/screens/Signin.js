@@ -8,7 +8,7 @@ import { Button } from "@rneui/base";
 import { connect } from "react-redux";
 
 
-const ip = '192.168.10.135'
+const ip = '192.168.10.149'
 
 
 function Signin(props) {
@@ -29,9 +29,12 @@ function Signin(props) {
 
     let responseJson = await response.json();
       if (responseJson.result === true) {
-      
-        props.navigation.goBack();
         props.onSubmitConnectAccount(responseJson.user);
+        let reservations = await fetch(`http://${ip}:3000/users/get-reservations/${responseJson.user.token}`)
+        let responseResa = await reservations.json()
+  
+        props.ShowListReservations(responseResa.reservations);
+        props.navigation.goBack();
       } else {
         Alert.alert("Erreur", "Email ou mot de passe incorrect")
       }
@@ -121,6 +124,9 @@ function mapDispatchToProps(dispatch) {
     onSubmitConnectAccount: function (user) {
       dispatch({ type: "connectUser", user });
     },
+    ShowListReservations: function (reservations) {
+      dispatch({ type: "ShowListReservations", reservations });
+    }
   };
 }
 

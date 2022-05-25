@@ -15,7 +15,7 @@ import { Entypo } from '@expo/vector-icons';
 
 import LottieView from 'lottie-react-native';
 
-const ip = "192.168.10.135";
+const ip = "192.168.10.149";
 
 
 import { Divider, Tab } from 'react-native-elements';
@@ -30,15 +30,17 @@ function Paiement(props) {
     const [visible, setVisible] = useState(false);
 
     var addResa = async (token, horaire, date, name, prix, listPresta) => {
-      console.log(listPresta)
+     
         let response = await fetch(`http://${ip}:3000/add-reservation`, {
             method: "POST",
             headers: { "Content-Type": "application/x-www-form-urlencoded" },
             body: `token=${token}&date=${date}&name=${name}&prix=${prix}&horaire=${horaire}&listPresta=${JSON.stringify(listPresta)}`,
         });
         let responseJson = await response.json();
-        console.log(responseJson)
-        if (responseJson == true) {
+    
+        if (responseJson.result == true) {
+     
+          props.onAddReservation(responseJson.reservation)
           setVisible(!visible)
           }else{
           }
@@ -63,7 +65,7 @@ function Paiement(props) {
                     <Button  buttonStyle={{ backgroundColor: '#7241DB'}} radius="20" onPress={() => {addResa(props.user.token, props.selectCreneau[1], props.selectCreneau[0],props.selectPresta, sumPrix, props.listPrestations)}}>Payer</Button>
                     </View>
                 </View>
-                <Overlay overlayStyle={[{backgroundColor: 'white', height:'30%', borderRadius:20 , width:'70%'}]} isVisible={visible} onBackdropPress={() => props.navigation.navigate('Home', {screen : 'Home'})}>
+                <Overlay overlayStyle={[{backgroundColor: 'white', height:'30%', borderRadius:20 , width:'70%'}]} isVisible={visible} onBackdropPress={() => props.navigation.navigate('Home')}>
                     
                     <View style={{alignItems:'center', justifyContent:'space-between'}}>
 
@@ -78,7 +80,7 @@ function Paiement(props) {
                         buttonStyle={{marginRight:20}}
                             radius="20"
                             title="Accueil"
-                            onPress={() => props.navigation.navigate('Home')}
+                            onPress={() => {props.navigation.navigate('Home'), setVisible(!visible)}}
                         />
                         <Button
                             radius="20"
@@ -149,8 +151,13 @@ function Paiement(props) {
               }
   }
  
+  function mapDispatchToProps(dispatch) {
+    return {
+        onAddReservation: (reservation) => dispatch({ type: 'onAddReservation',  reservation })
+    }
+  }
 
   export default connect(
     mapStateToProps,
-    null
+    mapDispatchToProps
   )(Paiement);

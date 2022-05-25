@@ -17,7 +17,7 @@ import { connect } from 'react-redux'
 import Listing from '../components/Listing'
 
 // Config IP pour connexion avec le backend
-const ip = "192.168.10.135"
+const ip = "192.168.10.149"
 
 // Debut de la fonction Home qui gere toute la page HOME
 function Home(props) {
@@ -93,7 +93,7 @@ function Home(props) {
 
       let response = await cityName.json()
 
-      // console.log(response)
+    
       setLocation(response.name)
 
     })();
