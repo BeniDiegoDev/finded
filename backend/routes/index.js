@@ -361,14 +361,13 @@ router.post('/importpresta', async function (req, res, next) {
     var prestatairesSave = await newPrestataire.save();
   }
 
-  // console.log(newPrestataire)
 
   res.json({ prestatairesSave });
 });
 
 
 router.post('/add-reservation', async function (req, res, next) {
-  console.log(JSON.parse(req.body.listPresta))
+ 
   var token = req.body.token
   var searchUser = await userModel.findOne({token: token})
   if(searchUser){  
@@ -383,9 +382,11 @@ router.post('/add-reservation', async function (req, res, next) {
           }
       searchUser.reservations.push(reservation)
       let saveUser = await searchUser.save()
-      res.send('true')
+      // console.log(searchUser.reservations[searchUser.reservations.length - 1])
+      // console.log(reservation)
+      res.json({result: true, reservation : searchUser.reservations[searchUser.reservations.length - 1]})
     }else{
-      res.send('false')
+      res.json({result: false})
     }
   }
   )
@@ -399,6 +400,39 @@ router.get('/recuppresta', async function (req, res, next) {
 });
 
 
+// route POST pour mettre à jour une réservation
+router.post('/cancel-reservation', async function (req, res, next) {
+  
+
+  var token = req.body.token
+  var searchUser = await userModel.findOne({token: token})
+  let result = false
+
+  if(searchUser){
+
+    for ( let i = 0; i < searchUser.reservations.length; i++ ) {
+
+      if ( searchUser.reservations[i].id == req.body.id) {
+        console.log('reservation trouvée')
+        searchUser.reservations[i].status = "Annulée"
+        result = true
+
+      }
+    }
+    await searchUser.save()
+  }
+  
+  res.json(result)
+});
+
+
+
+
+
+ 
+
+
+    
 
 
 module.exports = router;

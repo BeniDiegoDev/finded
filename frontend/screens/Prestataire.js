@@ -130,8 +130,8 @@ function Prestataire(props) {
           <Text>
             {listingFilter[0].number} {listingFilter[0].address}
           </Text>
-          <Text>
-           {listingFilter[0].zipcode} {listingFilter[0].city}
+          <Text style={styles.text}>
+            {listingFilter[0].zipcode} {listingFilter[0].city}
           </Text>
         </View>
 
@@ -224,7 +224,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     marginBottom: 10,
-    maxWidth: '90%'
+    maxWidth: '85%'
   },
   Text: {
     fontSize: 15,

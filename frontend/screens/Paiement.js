@@ -8,11 +8,11 @@ import { FontAwesome } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
 
 import LottieView from 'lottie-react-native';
-
 import { connect } from 'react-redux';
 
+const ip = "192.168.10.149";
 
-const ip = "192.168.10.166";
+
 
 function Paiement(props) {
 
@@ -86,15 +86,17 @@ function Paiement(props) {
   const [visible, setVisible] = useState(false);
 
   var addResa = async (token, horaire, date, name, prix, listPresta) => {
-    console.log(listPresta)
+
     let response = await fetch(`http://${ip}:3000/add-reservation`, {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
       body: `token=${token}&date=${date}&name=${name}&prix=${prix}&horaire=${horaire}&listPresta=${JSON.stringify(listPresta)}`,
     });
     let responseJson = await response.json();
-    console.log(responseJson)
-    if (responseJson == true) {
+
+    if (responseJson.result == true) {
+
+      props.onAddReservation(responseJson.reservation)
       setVisible(!visible)
     } else {
     }
@@ -103,6 +105,7 @@ function Paiement(props) {
   var sumPrix = 0;
   for (var i = 0; i < props.listPrestations.length; i++) {
     sumPrix += props.listPrestations[i].prix;
+
   }
 
 
@@ -247,6 +250,14 @@ const styles = StyleSheet.create({
   }
 });
 
+function mapDispatchToProps(dispatch) {
+  return {
+    onAddReservation: (reservation) => dispatch({ type: 'onAddReservation', reservation })
+  }
+}
+
+
+
 function mapStateToProps(state) {
   return {
     preStataires: state.prestataires,
@@ -260,5 +271,5 @@ function mapStateToProps(state) {
 
 export default connect(
   mapStateToProps,
-  null
+  mapDispatchToProps
 )(Paiement);

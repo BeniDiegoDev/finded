@@ -16,7 +16,7 @@ import Checkbox from "expo-checkbox";
 
 import { connect } from "react-redux";
 
-const ip = "192.168.10.166";
+const ip = "192.168.10.149";
 
 function Signup(props) {
   const [firstName, setFirstName] = useState("");
@@ -165,7 +165,7 @@ function Signup(props) {
                 style={styles.checkbox}
               />
               <Text style={styles.label}>
-                J'accepte les <Text style={{ color: "#7241DB"}} onPress={() => {props.navigation.navigate('MentionsLegales')}}>mentions légales</Text>
+                J'accepte les <Text style={{ color: "#7241DB" }} onPress={() => { props.navigation.navigate('MentionsLegales') }}>mentions légales</Text>
               </Text>
             </View>
             {acceptCondition ? (
