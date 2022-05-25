@@ -64,7 +64,7 @@ function Signin(props) {
           }}
         >
           <Input
-            containerStyle={{ marginBottom: 25, width: "65%" }}
+            containerStyle={{ marginBottom: 25, width: "75%" }}
             inputStyle={{ marginLeft: 10 }}
             placeholder="Email"
             leftIcon={<Icon name="user" size={24} color="grey" />}
@@ -72,7 +72,7 @@ function Signin(props) {
           />
           <Input
             secureTextEntry={true}
-            containerStyle={{ marginBottom: 25, width: "65%" }}
+            containerStyle={{ marginBottom: 25, width: "75%" }}
             inputStyle={{ marginLeft: 10 }}
             placeholder="Mot de passe"
             leftIcon={<FontAwesome5 name="key" size={24} color="grey" />}

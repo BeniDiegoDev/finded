@@ -41,7 +41,7 @@ function Map(props) {
         { label: 'Massage', value: 'Massage' },
         { label: 'Baby-Sitting', value: 'Baby-Sitting' },
         { label: 'Peinture', value: 'Peinture' },
-        { label: 'Maquillage', value: 'Maquillage' },
+        { label: 'Estheticienne', value: 'Estheticienne' },
         { label: 'Serrurier', value: 'Serrurier' }
     ]);
     
