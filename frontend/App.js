@@ -32,7 +32,6 @@ import Home from './screens/Home';
 import Prestataire from './screens/Prestataire';
 import AllCategories from './screens/AllCategories';
 import Categories from './screens/Categories';
-import Search from './screens/Search';
 import Map from './screens/Map';
 import Reservation from './screens/ProfilPages/Reservations';
 import Profil from './screens/Profil';

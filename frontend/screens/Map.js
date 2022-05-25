@@ -19,7 +19,6 @@ import MapView, { Circle, Marker } from 'react-native-maps';
 
 // Import components
 import Listing from '../components/Listing'
-// import Swipe from '../components/Swipe'
 
 // Import du Swipe Up & Down
 import SwipeUpDown from 'react-native-swipe-up-down';
