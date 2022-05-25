@@ -60,20 +60,28 @@ function DatePicker(props) {
 
     
   const[slotSelected, setSlotSelected] = useState('');
+  const[comptSelect, setComptSelect] = useState(0);
   
   var slotsPress = (i) => {
         setSlotSelected(slots[i])
   
     }
+  var selectDate = (date) => {
+    setSelectedStartDate(date)
+    setComptSelect(1)
+  }
 
+  var scrollBottom = () => {
+    if(comptSelect===1){
+      scrollViewRef.current.scrollToEnd({ animated: true })
+    }
+  }
  
     const scrollViewRef = useRef();
 
      useEffect(() => {
              setSlotSelected('')
              setState(-1)
-             var scrollBottom = () => scrollViewRef.current.scrollToEnd({ animated: true })
-             scrollBottom()
             }, [selectedStartDate]);
 
     let listingFilter = props.preStataires.filter(elem => elem.name === props.selectPresta)
@@ -102,9 +110,9 @@ function DatePicker(props) {
             <View style={styles.header}>
                 <Text style={{ paddingRight: 15, fontSize: 30 }}><Ionicons name='chevron-back' size={30} color='black' onPress={() => { props.navigation.goBack(null) }}/> Choix du créneau</Text>
             </View>
+      
+             <ScrollView style={{ width: '100%' }} ref={scrollViewRef}  onContentSizeChange={() => scrollBottom()} showsVerticalScrollIndicator={false}> 
 
-            <ScrollView style={{ width: '100%' }} ref={scrollViewRef} onContentSizeChange={() => scrollViewRef.current.scrollToEnd({ animated: true })} showsVerticalScrollIndicator={false} >
-            
             <View style={{marginTop:20}}>
                 <Listing disable='true' name={listingFilter[0].name} images={listingFilter[0].images} number={listingFilter[0].number} address={listingFilter[0].address} zipcode={listingFilter[0].zipcode} city={listingFilter[0].city} note={listingFilter[0].note} nbeval={listingFilter[0].nbeval} />
             </View>
@@ -123,7 +131,7 @@ function DatePicker(props) {
                 </Text>
 
                 <CalendarPicker
-                onDateChange={(date) => setSelectedStartDate(date)}
+                onDateChange={(date) => selectDate(date)}
                 showDayStragglers='true'
                 weekdays={['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim']}
                 months={['Janvier', 'Fevrier', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Decembre']}
