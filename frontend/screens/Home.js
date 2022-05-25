@@ -43,7 +43,7 @@ function Home(props) {
     { image: require('../assets/categories/massage.png'), color: '#7241DB', name: 'Massage' },
     { image: require('../assets/categories/mother.png'), color: '#3DA787', name: 'Baby-Sitting' },
     { image: require('../assets/categories/peinture.png'), color: '#7241DB', name: 'Peinture' },
-    { image: require('../assets/categories/relooking.png'), color: '#3DA787', name: 'Maquillage' },
+    { image: require('../assets/categories/relooking.png'), color: '#3DA787', name: 'Estheticienne' },
     { image: require('../assets/categories/trou-de-serrure.png'), color: '#7241DB', name: 'Serrurier' },
   ]
 

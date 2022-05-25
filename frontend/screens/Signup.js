@@ -104,7 +104,7 @@ function Signup(props) {
           }}
         >
           <Input
-            containerStyle={{ marginBottom: 25, width: "65%" }}
+            containerStyle={{ marginBottom: 25, width: "75%" }}
             leftIcon={<Icon name="user" size={24} color="grey" />}
             inputStyle={{
               marginLeft: 10,
@@ -119,14 +119,14 @@ function Signup(props) {
           />
 
           <Input
-            containerStyle={{ marginBottom: 25, width: "65%" }}
+            containerStyle={{ marginBottom: 25, width: "75%" }}
             leftIcon={<Icon name="user" size={24} color="grey" />}
             inputStyle={{ marginLeft: 10 }}
             placeholder="Nom"
             onChangeText={(val) => setLastName(val)}
           />
           <Input
-            containerStyle={{ marginBottom: 25, width: "65%" }}
+            containerStyle={{ marginBottom: 25, width: "75%" }}
             inputStyle={{ marginLeft: 10 }}
             leftIcon={<Zocial name="email" size={24} color="grey" />}
             // leftIcon={<Icon name="send" size={24} color="grey" />} //AU CHOIX
@@ -134,7 +134,7 @@ function Signup(props) {
             onChangeText={(val) => setUserEmail(val)}
           />
           <Input
-            containerStyle={{ marginBottom: 25, width: "65%" }}
+            containerStyle={{ marginBottom: 25, width: "75%" }}
             inputStyle={{ marginLeft: 10 }}
             leftIcon={<MaterialIcons name="phone-iphone" size={24} color="grey" />}
             placeholder="Numéro de tél"
@@ -142,7 +142,7 @@ function Signup(props) {
           />
           <Input
             secureTextEntry={true}
-            containerStyle={{ marginBottom: 25, width: "65%" }}
+            containerStyle={{ marginBottom: 25, width: "75%" }}
             inputStyle={{ marginLeft: 10 }}
             leftIcon={<FontAwesome5 name="key" size={24} color="grey" />}
             placeholder="Mot de passe"
@@ -150,7 +150,7 @@ function Signup(props) {
           />
           <Input
             secureTextEntry={true}
-            containerStyle={{ width: "65%" }}
+            containerStyle={{ width: "75%" }}
             inputStyle={{ marginLeft: 10 }}
             leftIcon={<FontAwesome5 name="key" size={24} color="grey" />}
             placeholder="Confirmer mot de passe"
@@ -170,7 +170,7 @@ function Signup(props) {
             </View>
             {acceptCondition ? (
               <Button
-                buttonStyle={{ backgroundColor: "#7241DB", width: "100%", marginBottom: 30 }}
+                buttonStyle={{ backgroundColor: "#7241DB", marginBottom: 30 }}
                 radius="20"
                 onPress={() => {
                   addUser(
@@ -183,11 +183,12 @@ function Signup(props) {
                   );
                 }}
               >
-                <Text style={{ color: "#fff", fontSize: 17 }}>Continuer</Text>
+                Continuer
               </Button>
             ) : (
               <Button
-                buttonStyle={{ backgroundColor: "#BBB5B3", width: "100%", marginBottom: 30 }}
+                buttonStyle={{ borderColor: '#7241DB', backgroundColor: 'white', borderWidth: 1, marginBottom: 30 }}
+                titleStyle={{ color: "#7241DB" }}
                 radius="20"
                 onPress={() => {
                   Alert.alert(
@@ -196,7 +197,7 @@ function Signup(props) {
                   );
                 }}
               >
-                <Text style={{ color: "#000", fontSize: 17 }}>Continuer</Text>
+                Continuer
               </Button>
             )}
           </View>
