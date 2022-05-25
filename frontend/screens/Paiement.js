@@ -15,7 +15,7 @@ import { Entypo } from '@expo/vector-icons';
 
 import LottieView from 'lottie-react-native';
 
-const ip = "192.168.0.25";
+const ip = "192.168.10.166";
 
 
 import { Divider, Tab } from 'react-native-elements';

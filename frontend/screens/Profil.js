@@ -86,7 +86,7 @@ function Profil(props) {
               <ListItem.Title onPress={toggleOverlay} style={{fontSize:15, color:'red'}}>Déconnexion</ListItem.Title>
             </ListItem.Content>
           </ListItem>
-          <Overlay isVisible={visible} onBackdropPress={toggleOverlay}>
+          <Overlay isVisible={visible} onBackdropPress={toggleOverlay} overlayStyle={{ borderRadius: 20 }}>
               <View style={{display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center', padding:20}}>
                 <View style={{display:'flex', flexDirection:'row', marginVertical:20}}>
                   <Text>Êtes-vous sur de vouloir vous déconnecter ?</Text>
@@ -95,8 +95,8 @@ function Profil(props) {
       
 
                 <View style={{display:'flex', flexDirection:'row', justifyContent:'space-around', marginTop:20}}>
-                  <Button onPress={() => logout()} title='Oui' buttonStyle={{width:90, marginHorizontal: 10, backgroundColor:'#7241DB'}} />
-                  <Button onPress={toggleOverlay} title='Non' buttonStyle={{width:90, marginHorizontal: 10, backgroundColor:'#3DA787'}} />
+                  <Button onPress={toggleOverlay} title='Non' buttonStyle={{width:90, marginHorizontal: 10, backgroundColor:'#3DA787', borderRadius: 20}} />
+                  <Button onPress={() => logout()} title='Oui' buttonStyle={{width:90, marginHorizontal: 10, backgroundColor:'#7241DB', borderRadius: 20}} />
                 </View>
 
               </View>

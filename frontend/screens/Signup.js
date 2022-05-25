@@ -16,7 +16,7 @@ import Checkbox from "expo-checkbox";
 
 import { connect } from "react-redux";
 
-const ip = "192.168.0.25";
+const ip = "192.168.10.166";
 
 function Signup(props) {
   const [firstName, setFirstName] = useState("");
@@ -92,24 +92,15 @@ function Signup(props) {
 
   return (
     <View style={styles.container}>
-      <View style={{ marginBottom: 40, display: "flex", flexDirection: "row" }}>
-        <Text style={{ fontSize: 30, paddingHorizontal: 20 }}>
-          <Ionicons
-            onPress={() => {
-              props.navigation.goBack(null);
-            }}
-            name="chevron-back"
-            size={30}
-            color="black"
-          />{" "}
-          Créer un compte
-        </Text>
-      </View>
-      <ScrollView>
+      <View style={{ paddingLeft: 10, paddingBottom: 10, paddingTop: 10 }}>
+          <Text style={{ paddingRight: 15, fontSize: 30 }}><Ionicons onPress={() => { props.navigation.goBack() }} name='chevron-back' size={30} color='black' /> Créer un compte</Text>
+        </View>
+      <ScrollView showsVerticalScrollIndicator={false} >
         <View
           style={{
             alignItems: "center",
             width: "100%",
+            marginTop: 30
           }}
         >
           <Input
@@ -174,12 +165,12 @@ function Signup(props) {
                 style={styles.checkbox}
               />
               <Text style={styles.label}>
-                J'accepte les conditions d'utilisations
+                J'accepte les <Text style={{ color: "#7241DB"}} onPress={() => {props.navigation.navigate('MentionsLegales')}}>mentions légales</Text>
               </Text>
             </View>
             {acceptCondition ? (
               <Button
-                buttonStyle={{ backgroundColor: "#7241DB", width: "100%" }}
+                buttonStyle={{ backgroundColor: "#7241DB", width: "100%", marginBottom: 30 }}
                 radius="20"
                 onPress={() => {
                   addUser(
@@ -196,7 +187,7 @@ function Signup(props) {
               </Button>
             ) : (
               <Button
-                buttonStyle={{ backgroundColor: "#BBB5B3", width: "100%" }}
+                buttonStyle={{ backgroundColor: "#BBB5B3", width: "100%", marginBottom: 30 }}
                 radius="20"
                 onPress={() => {
                   Alert.alert(
@@ -223,6 +214,7 @@ const styles = StyleSheet.create({
   },
   checkboxContainer: {
     flexDirection: "row",
+    justifyContent: 'center',
     marginBottom: 20,
   },
   checkbox: {
