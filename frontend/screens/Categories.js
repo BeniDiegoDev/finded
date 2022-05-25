@@ -37,7 +37,7 @@ function Categories(props) {
         props.route.params.name == element.categoryName && element.city.toLowerCase().includes(search.toLowerCase()) ||
         props.route.params.name == element.categoryName && element.description.toLowerCase().includes(search.toLowerCase()) ||
         props.route.params.name == element.categoryName && element.name.toLowerCase().includes(search.toLowerCase()) ||
-        props.route.params.name == element.categoryName && search.toLowerCase() == element.zipcode ||
+        props.route.params.name == element.categoryName && element.zipcode.toLowerCase().includes(search.toLowerCase()) ||
         props.route.params.name == element.categoryName && element.address.toLowerCase().includes(search.toLowerCase()) ||
         props.route.params.name == element.categoryName && search.toLowerCase() == element.number + " " + element.address.toLowerCase() ||
         search === "") {

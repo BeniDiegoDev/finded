@@ -65,7 +65,7 @@ function DetailResa(props) {
             </View>
             <ScrollView style={{ width: '100%' }} showsVerticalScrollIndicator={false} >
             <View style={{marginTop:20}}>
-                <Listing disable='true'  name={listingFilter[0].name} images={listingFilter[0].images} address={listingFilter[0].address} zipcode={listingFilter[0].zipcode} city={listingFilter[0].city} note={listingFilter[0].note} nbeval={listingFilter[0].nbeval} />
+                <Listing disable='true'  name={listingFilter[0].name} images={listingFilter[0].images} number={listingFilter[0].number} address={listingFilter[0].address} zipcode={listingFilter[0].zipcode} city={listingFilter[0].city} note={listingFilter[0].note} nbeval={listingFilter[0].nbeval} />
             </View>
             <View style={styles.container2}>
 
