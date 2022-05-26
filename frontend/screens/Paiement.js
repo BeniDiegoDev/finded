@@ -10,7 +10,7 @@ import { Ionicons } from '@expo/vector-icons';
 import LottieView from 'lottie-react-native';
 import { connect } from 'react-redux';
 
-const ip = "192.168.1.14";
+const ip = "192.168.10.152";
 
 
 

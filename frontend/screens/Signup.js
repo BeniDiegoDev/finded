@@ -9,14 +9,19 @@ import {
   TextInput,
 } from "react-native";
 import { Input } from "react-native-elements";
-import { Ionicons, Zocial, MaterialIcons, FontAwesome5 } from "@expo/vector-icons";
+import {
+  Ionicons,
+  Zocial,
+  MaterialIcons,
+  FontAwesome5,
+} from "@expo/vector-icons";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { Button } from "@rneui/base";
 import Checkbox from "expo-checkbox";
 
 import { connect } from "react-redux";
 
-const ip = "192.168.1.14";
+const ip = "192.168.10.152";
 
 function Signup(props) {
   const [firstName, setFirstName] = useState("");
@@ -26,6 +31,7 @@ function Signup(props) {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [acceptCondition, setAcceptCondition] = useState(false);
+  const [allInputsCompleted, setAllInputsCompleted] = useState(false);
 
   let addUser = async (
     firstName,
@@ -93,14 +99,24 @@ function Signup(props) {
   return (
     <View style={styles.container}>
       <View style={{ paddingLeft: 10, paddingBottom: 10, paddingTop: 10 }}>
-        <Text style={{ paddingRight: 15, fontSize: 30 }}><Ionicons onPress={() => { props.navigation.goBack() }} name='chevron-back' size={30} color='black' /> Créer un compte</Text>
+        <Text style={{ paddingRight: 15, fontSize: 30 }}>
+          <Ionicons
+            onPress={() => {
+              props.navigation.goBack();
+            }}
+            name="chevron-back"
+            size={30}
+            color="black"
+          />{" "}
+          Créer un compte
+        </Text>
       </View>
-      <ScrollView showsVerticalScrollIndicator={false} >
+      <ScrollView showsVerticalScrollIndicator={false}>
         <View
           style={{
             alignItems: "center",
             width: "100%",
-            marginTop: 30
+            marginTop: 30,
           }}
         >
           <Input
@@ -136,7 +152,9 @@ function Signup(props) {
           <Input
             containerStyle={{ marginBottom: 25, width: "75%" }}
             inputStyle={{ marginLeft: 10 }}
-            leftIcon={<MaterialIcons name="phone-iphone" size={24} color="grey" />}
+            leftIcon={
+              <MaterialIcons name="phone-iphone" size={24} color="grey" />
+            }
             placeholder="Numéro de tél"
             onChangeText={(val) => setPhoneNumber(val)}
           />
@@ -165,10 +183,27 @@ function Signup(props) {
                 style={styles.checkbox}
               />
               <Text style={styles.label}>
-                J'accepte les <Text style={{ color: "#7241DB" }} onPress={() => { props.navigation.navigate('MentionsLegales') }}>mentions légales</Text>
+                J'accepte les{" "}
+                <Text
+                  style={{ color: "#7241DB" }}
+                  onPress={() => {
+                    props.navigation.navigate("MentionsLegales");
+                  }}
+                >
+                  mentions légales
+                </Text>
               </Text>
             </View>
-            {acceptCondition ? (
+            {acceptCondition //&&
+            // firstName &&
+            // lastName &&
+            // userEmail &&
+            // password &&
+            // confirmPassword &&
+            // phoneNumber &&
+            // password.length >= 8 &&
+            // confirmPassword.length >= 8
+             ? (
               <Button
                 buttonStyle={{ backgroundColor: "#7241DB", marginBottom: 30 }}
                 radius="20"
@@ -187,13 +222,18 @@ function Signup(props) {
               </Button>
             ) : (
               <Button
-                buttonStyle={{ borderColor: '#7241DB', backgroundColor: 'white', borderWidth: 1, marginBottom: 30 }}
+                buttonStyle={{
+                  borderColor: "#7241DB",
+                  backgroundColor: "white",
+                  borderWidth: 1,
+                  marginBottom: 30,
+                }}
                 titleStyle={{ color: "#7241DB" }}
                 radius="20"
                 onPress={() => {
                   Alert.alert(
                     "Attention",
-                    "Veuillez accepter les conditions d'utilisations"
+                    "Veuillez accepter les mentions légales"
                   );
                 }}
               >
@@ -215,7 +255,7 @@ const styles = StyleSheet.create({
   },
   checkboxContainer: {
     flexDirection: "row",
-    justifyContent: 'center',
+    justifyContent: "center",
     marginBottom: 20,
   },
   checkbox: {

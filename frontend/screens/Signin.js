@@ -2,68 +2,80 @@ import React, { useState } from "react";
 import { View, StyleSheet, Alert, ScrollView } from "react-native";
 import { Input, Text } from "react-native-elements";
 import Icon from "react-native-vector-icons/FontAwesome";
-import { FontAwesome5 } from '@expo/vector-icons';
+import { FontAwesome5 } from "@expo/vector-icons";
 import { Button } from "@rneui/base";
 
 import { connect } from "react-redux";
 
-
-const ip = '192.168.1.14'
-
+const ip = "192.168.10.152";
 
 function Signin(props) {
   const [userEmail, setUserEmail] = useState("");
   const [password, setPassword] = useState("");
 
-
-
   let signIn = async (userEmail, password) => {
-
     if (userEmail && password) {
-
       let response = await fetch(`http://${ip}:3000/users/sign-in`, {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: `userEmail=${userEmail}&password=${password}`
+        body: `userEmail=${userEmail}&password=${password}`,
       });
 
       let responseJson = await response.json();
       if (responseJson.result === true) {
         props.onSubmitConnectAccount(responseJson.user);
-        let reservations = await fetch(`http://${ip}:3000/users/get-reservations/${responseJson.user.token}`)
-        let responseResa = await reservations.json()
+        let reservations = await fetch(
+          `http://${ip}:3000/users/get-reservations/${responseJson.user.token}`
+        );
+        let responseResa = await reservations.json();
 
         props.ShowListReservations(responseResa.reservations);
         props.navigation.goBack();
       } else {
-        Alert.alert("Erreur", "Email ou mot de passe incorrect")
+        Alert.alert("Erreur", "Email ou mot de passe incorrect");
       }
     } else {
-      Alert.alert("Attention", "Veuillez remplir tous les champs")
+      Alert.alert("Attention", "Veuillez remplir tous les champs");
     }
-  }
+  };
 
   return (
     <View style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
-
         <View
-          style={{ marginBottom: 40, flexDirection: "row", justifyContent: "center" }}
+          style={{
+            marginBottom: 40,
+            flexDirection: "row",
+            justifyContent: "center",
+          }}
         >
-          <Text style={{ fontSize: 30, marginTop: 40 }}>
-            Bienvenue !
-          </Text>
+          <Text style={{ fontSize: 30, marginTop: 40 }}>Bienvenue !</Text>
         </View>
 
-        <View style={{ marginHorizontal: 30, display: 'flex', alignItems: 'center' }}>
-          <Text style={{ fontSize: 17, marginBottom: 60, textAlign: 'center', maxWidth: '80%' }}>Connectez-vous pour réserver votre prochaine prestation.</Text>
+        <View
+          style={{
+            marginHorizontal: 30,
+            display: "flex",
+            alignItems: "center",
+          }}
+        >
+          <Text
+            style={{
+              fontSize: 17,
+              marginBottom: 60,
+              textAlign: "center",
+              maxWidth: "80%",
+            }}
+          >
+            Connectez-vous pour réserver votre prochaine prestation.
+          </Text>
         </View>
 
         <View
           style={{
             alignItems: "center",
             width: "100%",
-            minWidth: '100%'
+            minWidth: "100%",
           }}
         >
           <Input
@@ -82,25 +94,54 @@ function Signin(props) {
             onChangeText={(val) => setPassword(val)}
           />
 
-          <Button
-            title="Continuer"
-            type="solid"
-            buttonStyle={{ backgroundColor: "#7241DB", paddingHorizontal: 60 }}
-            radius="20"
-            onPress={() => {
-              signIn(userEmail, password);
-            }}
-          />
+          {userEmail && password && password.length >= 8 ? (
+            <Button
+              title="Continuer"
+              type="solid"
+              buttonStyle={{
+                backgroundColor: "#7241DB",
+                paddingHorizontal: 60,
+              }}
+              radius="20"
+              onPress={() => {
+                signIn(userEmail, password);
+              }}
+            >
+              Continuer
+            </Button>
+          ) : (
+            <Button
+              title="Continuer"
+              type="solid"
+              buttonStyle={{
+                borderColor: "#7241DB",
+                backgroundColor: "white",
+                borderWidth: 1,
+                paddingHorizontal: 60,
+              }}
+              titleStyle={{ color: "#7241DB" }}
+              radius="20"
+              onPress={() => {
+                Alert.alert("Attention", "Veuillez remplir tous les champs");
+              }}
+            >
+              Continuer
+            </Button>
+          )}
 
           <Text style={{ marginTop: 60 }}>Pas encore membre ?</Text>
           <Text
             onPress={() => props.navigation.navigate("SignUp")}
-            style={{ marginTop: 15, color: "#7241DB", fontWeight: "bold", marginBottom: 30 }}
+            style={{
+              marginTop: 15,
+              color: "#7241DB",
+              fontWeight: "bold",
+              marginBottom: 30,
+            }}
           >
             S'inscrire
           </Text>
         </View>
-
       </ScrollView>
     </View>
   );
@@ -111,9 +152,9 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     flex: 1,
     paddingTop: 40,
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: "center"
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
   },
   searchbar: {
     width: "100%",
@@ -123,8 +164,8 @@ const styles = StyleSheet.create({
 
 function mapStateToProps(state) {
   return {
-    user: state.infoUser
-  }
+    user: state.infoUser,
+  };
 }
 
 function mapDispatchToProps(dispatch) {
@@ -134,11 +175,8 @@ function mapDispatchToProps(dispatch) {
     },
     ShowListReservations: function (reservations) {
       dispatch({ type: "ShowListReservations", reservations });
-    }
+    },
   };
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Signin);
+export default connect(mapStateToProps, mapDispatchToProps)(Signin);
