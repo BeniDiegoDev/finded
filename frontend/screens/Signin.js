@@ -8,7 +8,7 @@ import { Button } from "@rneui/base";
 import { connect } from "react-redux";
 
 
-const ip = '192.168.10.173'
+const ip = '192.168.10.157'
 
 
 function Signin(props) {
@@ -29,9 +29,12 @@ function Signin(props) {
 
       let responseJson = await response.json();
       if (responseJson.result === true) {
-
-        props.navigation.goBack();
         props.onSubmitConnectAccount(responseJson.user);
+        let reservations = await fetch(`http://${ip}:3000/users/get-reservations/${responseJson.user.token}`)
+        let responseResa = await reservations.json()
+
+        props.ShowListReservations(responseResa.reservations);
+        props.navigation.goBack();
       } else {
         Alert.alert("Erreur", "Email ou mot de passe incorrect")
       }
@@ -52,7 +55,7 @@ function Signin(props) {
           </Text>
         </View>
 
-        <View style={{ marginHorizontal: 30, display: 'flex', alignItems: 'center'}}>
+        <View style={{ marginHorizontal: 30, display: 'flex', alignItems: 'center' }}>
           <Text style={{ fontSize: 17, marginBottom: 60, textAlign: 'center', maxWidth: '80%' }}>Connectez-vous pour réserver votre prochaine prestation.</Text>
         </View>
 
@@ -129,6 +132,9 @@ function mapDispatchToProps(dispatch) {
     onSubmitConnectAccount: function (user) {
       dispatch({ type: "connectUser", user });
     },
+    ShowListReservations: function (reservations) {
+      dispatch({ type: "ShowListReservations", reservations });
+    }
   };
 }
 
