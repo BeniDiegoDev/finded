@@ -6,10 +6,6 @@ import { connect } from 'react-redux';
 import { FontAwesome } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
 
-
-const ip = "192.168.10.160";
-
-
 function EditProfil(props) {
 
   const [visible, setVisible] = useState(false);
@@ -20,7 +16,7 @@ function EditProfil(props) {
 
   let modifyPhoneNumber = async (phoneNumber) => {
     if (phoneNumber.length === 10) {
-      let response = await fetch(`http://${ip}:3000/users/update-phoneNumber`, {
+      let response = await fetch(`https://findedbackend.herokuapp.com/users/update-phoneNumber`, {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
         body: `token=${props.user.token}&phoneNumber=${phoneNumber}`,

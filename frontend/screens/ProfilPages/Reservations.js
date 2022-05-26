@@ -15,10 +15,6 @@ import Listing from '../../components/Listing'
 // Import de la connexion avec Redux
 import { connect } from 'react-redux'
 
-// Config IP pour connexion avec le backend
-const ip = "192.168.10.160"
-
-
 const FirstRoute = (props) => {
 
 
@@ -39,7 +35,7 @@ const FirstRoute = (props) => {
 
     let cancelReservation = async (id) => {
 
-      let response = await fetch(`http://${ip}:3000/cancel-reservation`, {
+      let response = await fetch(`https://findedbackend.herokuapp.com/cancel-reservation`, {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
         body: `id=${id}&token=${props.user.token}`,
