@@ -17,7 +17,7 @@ import { connect } from 'react-redux'
 import Listing from '../components/Listing'
 
 // Config IP pour connexion avec le backend
-const ip = "192.168.1.14"
+const ip = "192.168.10.160"
 
 // Debut de la fonction Home qui gere toute la page HOME
 function Home(props) {
@@ -93,7 +93,7 @@ function Home(props) {
 
       let response = await cityName.json()
 
-    
+
       setLocation(response.name)
 
     })();
@@ -153,7 +153,7 @@ function Home(props) {
             <Ionicons name='location' size={32} color='#3DA787' />
             <Text style={{ fontWeight: 'bold', marginLeft: 10, fontSize: 17 }}>{geoloc}</Text>
           </View>
-          
+
         </View>
 
         <View style={styles.searchbar}>
@@ -194,7 +194,7 @@ function Home(props) {
             <Ionicons name='location' size={32} color='#3DA787' />
             <Text style={{ fontWeight: 'bold', marginLeft: 10, fontSize: 17 }}>{geoloc}</Text>
           </View>
-          
+
         </View>
 
         <View style={styles.searchbar}>
@@ -227,7 +227,7 @@ function Home(props) {
                       backgroundColor={element.color}
                       style={{ borderRadius: 50, height: 70, width: 70, marginBottom: 10, borderColor: 'black', borderWidth: 3, }}
                       source={element.image}
-                      
+
                     />
                     <Text style={{ textAlign: 'center' }}>{element.name}</Text>
                   </View>
@@ -260,7 +260,7 @@ const styles = StyleSheet.create({
   },
   finded: {
     width: '100%',
-    marginVertical:10
+    marginVertical: 10
   },
   topsearchbar: {
     width: '100%',

@@ -10,7 +10,7 @@ import { Ionicons } from '@expo/vector-icons';
 import LottieView from 'lottie-react-native';
 import { connect } from 'react-redux';
 
-const ip = "192.168.1.14";
+const ip = "192.168.10.160";
 
 
 
@@ -157,7 +157,7 @@ function Paiement(props) {
 
         </View>
 
-        <Overlay overlayStyle={[{ backgroundColor: 'white', height: '30%', borderRadius: 20, width: '70%' }]} isVisible={visible} onBackdropPress={() => props.navigation.navigate('Home')}>
+        <Overlay overlayStyle={[{ backgroundColor: 'white', height: '30%', borderRadius: 20, width: '70%' }]} isVisible={visible}>
 
           <View style={{ alignItems: 'center', justifyContent: 'space-between' }}>
 

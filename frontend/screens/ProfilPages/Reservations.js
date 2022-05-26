@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
-import { View, useWindowDimensions, Text, StyleSheet, ScrollView, TouchableWithoutFeedback, TextInput, Image } from 'react-native';
+import { View, useWindowDimensions, Text, StyleSheet, ScrollView, TouchableWithoutFeedback, TextInput } from 'react-native';
 import { TabView, TabBar } from 'react-native-tab-view';
 import { Button, Overlay, Divider } from 'react-native-elements';
 
 import { Ionicons } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
+import { FontAwesome } from '@expo/vector-icons';
+
+
 
 // Import components
 import Listing from '../../components/Listing'
@@ -13,7 +16,7 @@ import Listing from '../../components/Listing'
 import { connect } from 'react-redux'
 
 // Config IP pour connexion avec le backend
-const ip = "192.168.1.14"
+const ip = "192.168.10.160"
 
 
 const FirstRoute = (props) => {
@@ -47,7 +50,7 @@ const FirstRoute = (props) => {
         props.deleteReducer(id)
         setVisible(!visible)
       }
-      
+
     }
 
     let listingFilter = props.prestataires.filter(resa => resa.name === elem.name)
@@ -143,83 +146,142 @@ const FirstRoute = (props) => {
 
 const SecondRoute = (props) => {
 
+  const [prestaRating, setPrestaRating] = useState(3)
+
+  var tabPrestaRating = []
+  for (var i = 0; i < 5; i++) {
+    var starColor = "star-o"
+    if (i < prestaRating) {
+      starColor = 'star'
+    }
+    let count = i + 1
+    tabPrestaRating.push(<FontAwesome onPress={() => setPrestaRating(count)} name={starColor} size={24} color='#f1c40f' style={{ marginHorizontal: 5 }} />)
+  }
+
   const [visible, setVisible] = useState(false);
-  const toggleOverlay = () => {
-    setVisible(!visible);
-  };
+  const [cancelId, setCancelId] = useState('');
 
-  // let listTerminees = props.Terminees.map((item, i) => {
+  const [tableauVoted, setTableauVoted] = useState([])
 
-  //   let listingFilter = props.prestataires.filter(elem => elem.name === item.name)
+  let showNotation = (item) => {
+    setVisible(!visible)
+    if (visible) {
+      setCancelId(item)
+    } else {
+      setCancelId('')
+    }
+  }
 
-  //   var listPresta = item.prestations.map((prestation, index) => {
-  //     return (
-  //       <View key={index}>
-  //         <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginVertical: 5 }}>
-  //           <View>
-  //             <Text>{prestation.name}</Text>
-  //           </View>
-  //           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-  //             <Text>{prestation.prix}€</Text>
-  //           </View>
-  //         </View>
-  //       </View>
-  //     )
-  //   });
+  const [isNoted, setIsNoted] = useState(false)
 
-  //   if (listingFilter.length != 0) {
-  //     return (
+  let listTerminee = props.Terminees.filter(e => e.status === 'Terminée').map((elem, i) => {
 
-  //       <View key={i} style={{ flexDirection: 'column', marginBottom: 20 }}>
+    let listingFilter = props.prestataires.filter(resa => resa.name === elem.name)
 
-  //         <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-  //           <View style={{ flexDirection: 'row', margin: 15 }}>
-  //             <Text style={{ fontSize: 17, fontWeight: 'bold' }}>{item.date} à</Text>
-  //             <Text style={{ fontSize: 17, fontWeight: 'bold' }}> {item.horaire}</Text>
-  //           </View>
-  //           <View style={{ margin: 15 }}>
-  //             <Text style={{ fontSize: 17, fontWeight: 'bold' }}>{item.prix} €</Text>
-  //           </View>
-  //         </View>
+    var listPresta = elem.prestations.map((prestation, index) => {
+      return (
+        <View key={index}>
+          <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginVertical: 2 }}>
+            <View>
+              <Text>{prestation.name}</Text>
+            </View>
+            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              <Text>{prestation.prix}€</Text>
+            </View>
+          </View>
+        </View>
+      )
+    });
 
-  //         <View>
-  //           <Listing navigation={props.navigation} name={listingFilter[0].name} images={listingFilter[0].images} address={listingFilter[0].address} number={listingFilter[0].number} zipcode={listingFilter[0].zipcode} city={listingFilter[0].city} note={listingFilter[0].note} nbeval={listingFilter[0].nbeval} />
-  //         </View>
+    if (listingFilter.length != 0) {
+      return (
 
-  //         <View style={{ margin: 15 }}>
-  //           {listPresta}
-  //         </View>
+        <View key={i} style={{ flexDirection: 'column', marginBottom: 20 }}>
 
-  //         <Overlay isVisible={visible} onBackdropPress={toggleOverlay} overlayStyle={{ borderRadius: 20 }}>
-  //           <View style={{ flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: 20 }}>
-  //             <Text style={{ fontSize: 17 }}>Annuler le rendez-vous</Text>
+          <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+            <View style={{ flexDirection: 'row', margin: 15 }}>
+              <Text style={{ fontSize: 17, fontWeight: 'bold' }}>{elem.date} à</Text>
+              <Text style={{ fontSize: 17, fontWeight: 'bold' }}> {elem.horaire}</Text>
+            </View>
+            <View style={{ margin: 15 }}>
+              <Text style={{ fontSize: 17, fontWeight: 'bold' }}>{elem.prix} €</Text>
+            </View>
+          </View>
 
-  //             <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginTop: 20 }}>
-  //               <Button title='Oui' buttonStyle={{ width: 90, marginHorizontal: 10, backgroundColor: '#7241DB', borderRadius: 20 }} />
-  //               <Button onPress={toggleOverlay} title='Non' buttonStyle={{ width: 90, marginHorizontal: 10, backgroundColor: '#3DA787', borderRadius: 20 }} />
-  //             </View>
+          <View>
+            <Listing navigation={props.navigation} name={listingFilter[0].name} images={listingFilter[0].images} address={listingFilter[0].address} number={listingFilter[0].number} zipcode={listingFilter[0].zipcode} city={listingFilter[0].city} note={listingFilter[0].note} nbeval={listingFilter[0].nbeval} />
+          </View>
 
-  //           </View>
-  //         </Overlay>
-  //         <Divider />
-  //       </View>
-  //     )
-  //   }
-  // }
-  // )
+          <View style={{ margin: 10 }}>
+            {listPresta}
+          </View>
 
-  return (
-    // <View>
-    //   <ScrollView showsVerticalScrollIndicator={false}>
-    //     {listTerminees}
-    //   </ScrollView>
-    // </View>
-    <View style={{ flexDirection: 'column', alignItems: 'center', justifyContent: 'center', paddingTop: 150 }}>
-      <AntDesign name="calendar" size={150} color="#c2c2c2" />
-      <Text style={{ color: '#c2c2c2', fontWeight: 'bold', fontStyle: 'italic', textAlign: 'center', fontSize: 20 }}>Finded</Text>
-      <Text style={{ color: '#c2c2c2', fontSize: 20, marginVertical: 20 }}>Pas de réservation terminées</Text>
-    </View>
-  );
+          {tableauVoted != elem._id ?
+            <TouchableWithoutFeedback onPress={() => showNotation(elem._id)} >
+              <View style={{ alignItems: 'center' }}>
+                <View style={{ justifyContent: 'center', alignItems: 'center', width: 200, height: 40 }}>
+                  <Text style={{ color: '#7241DB', fontWeight: 'bold' }} >Noter la prestation</Text>
+                </View>
+              </View>
+            </TouchableWithoutFeedback>
+            :
+            <View style={{ alignItems: 'center' }}>
+              <View style={{ justifyContent: 'center', alignItems: 'center', width: 200, height: 40 }}>
+                <Text style={{ color: '#7241DB', fontWeight: 'bold' }} >Merci pour votre avis !</Text>
+              </View>
+            </View>
+          }
+
+
+
+          {cancelId == elem._id ?
+
+            <View style={{ padding: 20 }}>
+              <View style={{ width: '100%' }}>
+                <View style={{ flexDirection: 'row', justifyContent: 'center', marginBottom: 20 }}>
+                  {tabPrestaRating}
+                </View>
+                <TextInput style={{ borderWidth: 1, height: 100, borderColor: '#7241DB', borderRadius: 20, paddingHorizontal: 10, paddingTop: 10, marginBottom: 30, textAlignVertical: 'top' }}
+                  placeholder="Ajouter un commentaire..."
+                  multiline={true}
+                />
+                <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
+                  <Button title='Annuler' buttonStyle={{ width: 120, marginHorizontal: 10, backgroundColor: '#3DA787', borderRadius: 20 }} onPress={() => setCancelId('')} />
+                  <Button onPress={() => { showNotation(elem._id), setIsNoted(true), setTableauVoted([...tableauVoted, elem._id]) }} title='Valider' buttonStyle={{ width: 120, marginHorizontal: 10, backgroundColor: '#7241DB', borderRadius: 20 }} />
+                </View>
+              </View>
+            </View>
+
+            : null}
+
+          <Divider style={{ marginTop: 20 }} />
+        </View>
+
+      )
+    }
+  }
+  )
+
+  let finished = props.Terminees.filter(resa => resa.status == 'Terminée')
+
+  if (finished.length <= 0) {
+    return (
+      <View style={{ flexDirection: 'column', alignItems: 'center', justifyContent: 'center', paddingTop: 150 }}>
+        <AntDesign name="calendar" size={150} color="#c2c2c2" />
+        <Text style={{ color: '#c2c2c2', fontWeight: 'bold', fontStyle: 'italic', textAlign: 'center', fontSize: 20 }}>Finded</Text>
+        <Text style={{ color: '#c2c2c2', fontSize: 20, marginVertical: 20 }}>Pas de réservation terminée</Text>
+      </View>
+    )
+  } else {
+    return (
+      <View>
+        <ScrollView showsVerticalScrollIndicator={false}>
+          {listTerminee}
+        </ScrollView>
+      </View>
+    );
+  }
+
 
 }
 
@@ -282,7 +344,7 @@ const ThirdRoute = (props) => {
       <View style={{ flexDirection: 'column', alignItems: 'center', justifyContent: 'center', paddingTop: 150 }}>
         <AntDesign name="calendar" size={150} color="#c2c2c2" />
         <Text style={{ color: '#c2c2c2', fontWeight: 'bold', fontStyle: 'italic', textAlign: 'center', fontSize: 20 }}>Finded</Text>
-        <Text style={{ color: '#c2c2c2', fontSize: 20, marginVertical: 20 }}>Pas de réservation annulées</Text>
+        <Text style={{ color: '#c2c2c2', fontSize: 20, marginVertical: 20 }}>Pas de réservation annulée</Text>
       </View>
     )
   } else {
@@ -305,7 +367,7 @@ function Reservations(props) {
       case 'first':
         return <FirstRoute deleteReducer={props.onDeleteReservation} user={props.user} navigation={props.navigation} prestataires={props.preStataires} EnCours={props.meeting} />;
       case 'second':
-        return <SecondRoute user={props.user} navigation={props.navigation} prestataires={props.preStataires} Terminees={props.meeting.filter(e => e.status === 'Terminée')} />;
+        return <SecondRoute user={props.user} navigation={props.navigation} prestataires={props.preStataires} Terminees={props.meeting} />;
       case 'third':
         return <ThirdRoute user={props.user} navigation={props.navigation} prestataires={props.preStataires} Annulees={props.meeting} />;
     }
