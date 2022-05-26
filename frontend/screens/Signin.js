@@ -8,7 +8,7 @@ import { Button } from "@rneui/base";
 import { connect } from "react-redux";
 
 
-const ip = '192.168.1.14'
+const ip = '192.168.10.159'
 
 
 function Signin(props) {
@@ -21,7 +21,7 @@ function Signin(props) {
 
     if (userEmail && password) {
 
-      let response = await fetch(`http://${ip}:3000/users/sign-in`, {
+      let response = await fetch(`https://findedbackend.herokuapp.com/users/sign-in`, {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
         body: `userEmail=${userEmail}&password=${password}`
@@ -30,7 +30,7 @@ function Signin(props) {
       let responseJson = await response.json();
       if (responseJson.result === true) {
         props.onSubmitConnectAccount(responseJson.user);
-        let reservations = await fetch(`http://${ip}:3000/users/get-reservations/${responseJson.user.token}`)
+        let reservations = await fetch(`https://findedbackend.herokuapp.com/users/get-reservations/${responseJson.user.token}`)
         let responseResa = await reservations.json()
 
         props.ShowListReservations(responseResa.reservations);

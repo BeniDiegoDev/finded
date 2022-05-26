@@ -16,7 +16,7 @@ import Checkbox from "expo-checkbox";
 
 import { connect } from "react-redux";
 
-const ip = "192.168.1.14";
+const ip = "192.168.10.159";
 
 function Signup(props) {
   const [firstName, setFirstName] = useState("");
@@ -47,7 +47,7 @@ function Signup(props) {
         if (phoneNumber.length === 10) {
           if (password.length >= 8) {
             if (password === confirmPassword) {
-              let response = await fetch(`http://${ip}:3000/users/sign-up`, {
+              let response = await fetch(`https://findedbackend.herokuapp.com/users/sign-up`, {
                 method: "POST",
                 headers: {
                   "Content-Type": "application/x-www-form-urlencoded",

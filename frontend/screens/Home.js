@@ -16,9 +16,6 @@ import { connect } from 'react-redux'
 // Import components
 import Listing from '../components/Listing'
 
-// Config IP pour connexion avec le backend
-const ip = "192.168.1.14"
-
 // Debut de la fonction Home qui gere toute la page HOME
 function Home(props) {
 
@@ -63,7 +60,7 @@ function Home(props) {
   // Recuperation des informations Prestataires en BDD
   useEffect(() => {
     async function loadData() {
-      let prestataireInBdd = await fetch(`http://${ip}:3000/recuppresta`)
+      let prestataireInBdd = await fetch(`https://findedbackend.herokuapp.com/recuppresta`)
       let responsePresta = await prestataireInBdd.json()
 
       props.addPrestataire(responsePresta.prestataires)
