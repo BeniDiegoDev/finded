@@ -19,7 +19,6 @@ import MapView, { Circle, Marker } from 'react-native-maps';
 
 // Import components
 import Listing from '../components/Listing'
-// import Swipe from '../components/Swipe'
 
 // Import du Swipe Up & Down
 import SwipeUpDown from 'react-native-swipe-up-down';
@@ -40,7 +39,7 @@ function Map(props) {
         { label: 'Pédicure', value: 'Pédicure' },
         { label: 'Massage', value: 'Massage' },
         { label: 'Baby-Sitting', value: 'Baby-Sitting' },
-        { label: 'Peinture', value: 'Peinture' },
+        { label: 'Peintre', value: 'Peintre' },
         { label: 'Estheticienne', value: 'Estheticienne' },
         { label: 'Serrurier', value: 'Serrurier' }
     ]);
@@ -271,8 +270,7 @@ function Map(props) {
 const styles = StyleSheet.create({
     container: {
         backgroundColor: 'white',
-        flex: 1,
-        paddingTop: 40,
+        flex: 1
     },
     searchbar: {
         width: '100%',

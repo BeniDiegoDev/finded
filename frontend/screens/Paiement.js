@@ -10,8 +10,6 @@ import { Ionicons } from '@expo/vector-icons';
 import LottieView from 'lottie-react-native';
 import { connect } from 'react-redux';
 
-const ip = "192.168.10.157";
-
 function Paiement(props) {
 
   const [card, setCard] = useState({})
@@ -85,7 +83,7 @@ function Paiement(props) {
 
   var addResa = async (token, horaire, date, name, prix, listPresta) => {
 
-    let response = await fetch(`http://${ip}:3000/add-reservation`, {
+    let response = await fetch(`https://findedbackend.herokuapp.com/add-reservation`, {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
       body: `token=${token}&date=${date}&name=${name}&prix=${prix}&horaire=${horaire}&listPresta=${JSON.stringify(listPresta)}`,
@@ -155,7 +153,7 @@ function Paiement(props) {
 
         </View>
 
-        <Overlay overlayStyle={[{ backgroundColor: 'white', height: '30%', borderRadius: 20, width: '70%' }]} isVisible={visible} onBackdropPress={() => props.navigation.navigate('Home')}>
+        <Overlay overlayStyle={[{ backgroundColor: 'white', height: '30%', borderRadius: 20, width: '70%' }]} isVisible={visible}>
 
           <View style={{ alignItems: 'center', justifyContent: 'space-between' }}>
 
@@ -168,14 +166,14 @@ function Paiement(props) {
             <LottieView style={{ width: '30%' }} source={require('../assets/confirmation.json')} autoPlay='true' />
 
             <View style={{ margin: 20, flexDirection: 'row' }}>
-              <Button
+              {/* <Button
                 buttonStyle={{ marginRight: 20, borderRadius: 20, backgroundColor: '#7241DB' }}
                 title="Accueil"
                 onPress={() => props.navigation.navigate('Home')}
-              />
+              /> */}
               <Button
                 buttonStyle={{ borderRadius: 20, backgroundColor: '#7241DB' }}
-                title="Réservations"
+                title="Mes réservations"
                 onPress={() => { props.navigation.navigate('Reservation'), setVisible(!visible) }}
               />
             </View>

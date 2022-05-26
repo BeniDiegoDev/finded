@@ -32,7 +32,6 @@ import Home from './screens/Home';
 import Prestataire from './screens/Prestataire';
 import AllCategories from './screens/AllCategories';
 import Categories from './screens/Categories';
-import Search from './screens/Search';
 import Map from './screens/Map';
 import Reservation from './screens/ProfilPages/Reservations';
 import Profil from './screens/Profil';
@@ -78,6 +77,7 @@ function SearchStackStackScreen() {
       <SearchStack.Screen name="Paiement" component={Paiement} />
       <SearchStack.Screen name='SignIn' component={Signin} />
       <SearchStack.Screen name='SignUp' component={Signup} />
+      <SearchStack.Screen name='MentionsLegales' component={MentionsLegales} />
     </SearchStack.Navigator>
   );
 }
@@ -95,6 +95,7 @@ function ReservationStackScreen() {
       <ReservationStack.Screen name='SignIn' component={Signin} />
       <ReservationStack.Screen name='SignUp' component={Signup} />
       <ReservationStack.Screen name="Home" component={Home} />
+      <ReservationStack.Screen name='MentionsLegales' component={MentionsLegales} />
     </ReservationStack.Navigator>
   );
 }
@@ -111,6 +112,7 @@ function PrestationStackScreen() {
       <PrestationStack.Screen name='SignIn' component={Signin} />
       <PrestationStack.Screen name='SignUp' component={Signup} />
       <PrestationStack.Screen name="Home" component={Home} />
+      <PrestationStack.Screen name='MentionsLegales' component={MentionsLegales} />
     </PrestationStack.Navigator>
   );
 }
