@@ -10,10 +10,6 @@ import { Ionicons } from '@expo/vector-icons';
 import LottieView from 'lottie-react-native';
 import { connect } from 'react-redux';
 
-const ip = "192.168.10.152";
-
-
-
 function Paiement(props) {
 
   const [card, setCard] = useState({})
@@ -87,7 +83,7 @@ function Paiement(props) {
 
   var addResa = async (token, horaire, date, name, prix, listPresta) => {
 
-    let response = await fetch(`http://${ip}:3000/add-reservation`, {
+    let response = await fetch(`https://findedbackend.herokuapp.com/add-reservation`, {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
       body: `token=${token}&date=${date}&name=${name}&prix=${prix}&horaire=${horaire}&listPresta=${JSON.stringify(listPresta)}`,
@@ -157,7 +153,7 @@ function Paiement(props) {
 
         </View>
 
-        <Overlay overlayStyle={[{ backgroundColor: 'white', height: '30%', borderRadius: 20, width: '70%' }]} isVisible={visible} onBackdropPress={() => props.navigation.navigate('Home')}>
+        <Overlay overlayStyle={[{ backgroundColor: 'white', height: '30%', borderRadius: 20, width: '70%' }]} isVisible={visible}>
 
           <View style={{ alignItems: 'center', justifyContent: 'space-between' }}>
 

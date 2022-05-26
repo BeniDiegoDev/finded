@@ -270,8 +270,7 @@ function Map(props) {
 const styles = StyleSheet.create({
     container: {
         backgroundColor: 'white',
-        flex: 1,
-        paddingTop: 40,
+        flex: 1
     },
     searchbar: {
         width: '100%',
