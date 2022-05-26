@@ -1,13 +1,19 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { StyleSheet, View, ScrollView, Text } from 'react-native';
+import { StyleSheet, View, ScrollView, Image, Text, TouchableOpacity, StatusBar } from 'react-native';
+
+// Import de SafeAreaView pour ne pas etre gené par la barre haute par defaut du telephone
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 // Import de la barre de recherche
+import { SearchBar, Avatar, Card } from '@rneui/themed';
 import { Button } from '@rneui/base'
 
 // Import des icones 
 import { Ionicons } from '@expo/vector-icons';
+import { Feather } from '@expo/vector-icons';
+import { Entypo } from '@expo/vector-icons';
 
-import { Divider } from 'react-native-elements';
+import { Divider, Tab } from 'react-native-elements';
 
 import CalendarPicker from 'react-native-calendar-picker';
 

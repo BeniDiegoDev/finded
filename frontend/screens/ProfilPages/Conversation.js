@@ -4,7 +4,7 @@ import { Pressable, StyleSheet, Text, View} from 'react-native';
 
 // mise en place du webSocket
 import socketIOClient from "socket.io-client";
-var socket = socketIOClient("http://192.168.10.148:3000");
+var socket = socketIOClient("https://findedbackend.herokuapp.com");
 
 import { Ionicons } from '@expo/vector-icons';
 
